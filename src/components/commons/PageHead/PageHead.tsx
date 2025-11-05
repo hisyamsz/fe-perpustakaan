@@ -5,13 +5,17 @@ interface PropTypes {
 }
 
 const PageHead = (props: PropTypes) => {
-  const { title = "Home" } = props;
+  const { title = "Perpustakaan" } = props;
 
   return (
     <Head>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="icon" href="/images/general/Tixin-icon.png" type="image/x-icon" />
+      <link
+        rel="icon"
+        href="/images/general/logo-smkn-6.png"
+        type="image/x-icon"
+      />
       <title>{title}</title>
     </Head>
   );
