@@ -1,0 +1,85 @@
+import { FC, JSX } from "react";
+import { signOut } from "next-auth/react";
+import { CiLogout } from "react-icons/ci";
+import { useRouter } from "next/router";
+import { cn } from "@/utils/cn";
+import Link from "next/link";
+import { Button, Listbox, ListboxItem } from "@heroui/react";
+import { FiUser } from "react-icons/fi";
+
+interface SidebarItems {
+  key: string;
+  label: string;
+  href: string;
+  icon: JSX.Element;
+}
+
+interface DashboardLayoutSidebarProps {
+  sidebarItems: SidebarItems[];
+  isOpen: boolean;
+}
+
+const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
+  sidebarItems,
+  isOpen,
+}) => {
+  const router = useRouter();
+
+  return (
+    <div
+      className={cn(
+        "border-default-200 fixed z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col justify-between border-r-1 bg-gray-700 px-4 py-6 text-white transition-all lg:relative lg:translate-x-0",
+        { "translate-x-0": isOpen },
+      )}
+    >
+      <div>
+        <div className="flex justify-center">
+          <div className="mb-6 flex w-full items-center justify-start gap-4">
+            <FiUser className="h-12 w-12" />
+            <div className="flex flex-col gap-2">
+              <p className="text-lg">Admin</p>
+              <p className="text-default-400 text-sm">Staf</p>
+            </div>
+          </div>
+        </div>
+        <Listbox
+          items={sidebarItems}
+          variant="solid"
+          aria-label="Dashboard Menu"
+        >
+          {(item) => (
+            <ListboxItem
+              key={item.key}
+              className={cn("my-1 h-12 text-2xl transition-all duration-300", {
+                "bg-primary text-white": router.pathname.startsWith(item.href),
+              })}
+              startContent={item.icon}
+              textValue={item.label}
+              aria-labelledby={item.label}
+              aria-describedby={item.label}
+              as={Link}
+              href={item.href}
+            >
+              <p className="text-small">{item.label}</p>
+            </ListboxItem>
+          )}
+        </Listbox>
+      </div>
+      <div className="flex items-center p-1">
+        <Button
+          fullWidth
+          variant="solid"
+          size="lg"
+          color="danger"
+          className="flex justify-start rounded-lg px-2 py-1.5 text-white"
+          onPress={() => signOut()}
+        >
+          <CiLogout />
+          Logout
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardLayoutSidebar;
