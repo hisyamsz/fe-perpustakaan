@@ -1,9 +1,9 @@
-import { Button } from "@heroui/react";
+import LandingPageLayout from "@/components/layouts/LandingPageLayout";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between bg-white px-16 py-32 sm:items-start dark:bg-black">
-      <Button color="primary">Click</Button>
-    </main>
+    <LandingPageLayout title="Perpustakaan SMKN 6 Tangsel">
+      <div>Halo</div>
+    </LandingPageLayout>
   );
 }
