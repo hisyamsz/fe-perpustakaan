@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
-interface LoginProps {
+interface RegisterProps {
   propName?: string;
 }
 
-const Login: React.FC<LoginProps> = () => {
+const Register: React.FC<RegisterProps> = () => {
   return (
     <Card className="shadow-2xl">
       <CardBody className="p-8 text-black">
@@ -21,11 +21,17 @@ const Login: React.FC<LoginProps> = () => {
             className="h-12 w-12"
           />
           <h2 className="text-primary text-center text-2xl font-semibold">
-            Login
+            Register
           </h2>
         </div>
 
         <form className="flex w-80 flex-col gap-4">
+          <Input
+            label="Username"
+            variant="bordered"
+            className="text-black"
+            placeholder="Masukkan Username Anda"
+          />
           <Input
             label="Email"
             type="email"
@@ -47,12 +53,12 @@ const Login: React.FC<LoginProps> = () => {
         </form>
 
         <p className="mt-4 text-center text-sm text-gray-700">
-          Don&apos;t have any account?{" "}
+          Have an account?{" "}
           <Link
-            href={"/auth/register"}
+            href={"/auth/login"}
             className="text-primary-400 font-semibold hover:underline"
           >
-            Register here
+            Login here
           </Link>
         </p>
       </CardBody>
@@ -60,4 +66,4 @@ const Login: React.FC<LoginProps> = () => {
   );
 };
 
-export default Login;
+export default Register;
