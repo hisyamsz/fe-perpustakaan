@@ -15,11 +15,7 @@ import { NAVBAR_ITEMS } from "../LandingPageLayout.constant";
 import { useRouter } from "next/router";
 import { cn } from "@/utils/cn";
 
-interface LandingPageLayoutNavbarProps {
-  propName?: string;
-}
-
-const LandingPageLayoutNavbar: React.FC<LandingPageLayoutNavbarProps> = () => {
+const LandingPageLayoutNavbar: React.FC = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
 
@@ -29,9 +25,9 @@ const LandingPageLayoutNavbar: React.FC<LandingPageLayoutNavbarProps> = () => {
       position="static"
       isBordered
       isBlurred
-      shouldHideOnScroll
+      disableAnimation
       onMenuOpenChange={setIsMenuOpen}
-      className="bg-linear-to-r from-sky-900 to-sky-700 py-4 text-white lg:px-8 lg:py-6"
+      className="bg-linear-to-r from-sky-900 to-sky-700 py-2 text-white lg:px-8 lg:py-6"
     >
       <div className="flex items-center gap-4">
         <NavbarBrand as={Link} href="/">
@@ -40,10 +36,10 @@ const LandingPageLayoutNavbar: React.FC<LandingPageLayoutNavbarProps> = () => {
             alt="logo"
             width={100}
             height={100}
-            className="hidden h-12 w-12 cursor-pointer md:block"
+            className="h-12 w-12 cursor-pointer"
           />
         </NavbarBrand>
-        <div className="">
+        <div className="hidden md:block">
           <h2 className="text-sm font-bold lg:text-xl">
             Perpustakaan SMKN 6 Kota Tangerang Selatan
           </h2>

@@ -1,9 +1,7 @@
 import {
   CiBookmark,
   CiGrid41,
-  CiShoppingTag,
   CiUser,
-  CiViewList,
   CiWallet,
 } from "react-icons/ci";
 import { LuBookOpen } from "react-icons/lu";
