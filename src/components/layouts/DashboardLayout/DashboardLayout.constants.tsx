@@ -1,13 +1,8 @@
-import {
-  CiBookmark,
-  CiGrid41,
-  CiUser,
-  CiWallet,
-} from "react-icons/ci";
+import { CiBookmark, CiGrid41, CiUser } from "react-icons/ci";
 import { LuBookOpen } from "react-icons/lu";
 import { TbReportAnalytics } from "react-icons/tb";
 
-const SIDEBAR_ADMIN = [
+export const SIDEBAR_ADMIN = [
   {
     key: "dashboard",
     label: "Dashboard",
@@ -40,19 +35,35 @@ const SIDEBAR_ADMIN = [
   },
 ];
 
-const SIDEBAR_MEMBER = [
+export const SIDEBAR_USER = [
   {
-    key: "transaction",
-    label: "Transaction",
-    href: "/member/transaction",
-    icon: <CiWallet />,
+    key: "dashboard",
+    label: "Dashboard",
+    href: "/admin/dashboard",
+    icon: <CiGrid41 />,
+  },
+  {
+    key: "books",
+    label: "Data Buku",
+    href: "/admin/books",
+    icon: <LuBookOpen />,
+  },
+  {
+    key: "peminjaman",
+    label: "Peminjaman",
+    href: "/admin/peminjaman",
+    icon: <CiBookmark />,
+  },
+  {
+    key: "laporan",
+    label: "Laporan Buku",
+    href: "/admin/laporan",
+    icon: <TbReportAnalytics />,
   },
   {
     key: "profile",
     label: "Profile",
-    href: "/member/profile",
+    href: "/admin/profile",
     icon: <CiUser />,
   },
 ];
-
-export { SIDEBAR_ADMIN, SIDEBAR_MEMBER };

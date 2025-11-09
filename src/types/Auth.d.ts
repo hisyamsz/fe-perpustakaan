@@ -21,6 +21,7 @@ export interface UserExtended extends User {
   accessToken?: string;
   refreshToken?: string;
   role?: string;
+  status?: string;
 }
 
 export interface SessionExtended extends Session {

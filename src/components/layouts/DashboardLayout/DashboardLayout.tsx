@@ -1,7 +1,7 @@
 import PageHead from "@/components/commons/PageHead";
 import { FC, Fragment, ReactNode, useState } from "react";
 import DashboardLayoutSidebar from "./DashboardLayoutSidebar";
-import { SIDEBAR_ADMIN, SIDEBAR_MEMBER } from "./DashboardLayout.constants";
+import { SIDEBAR_ADMIN, SIDEBAR_USER } from "./DashboardLayout.constants";
 import { Navbar, NavbarMenuToggle } from "@heroui/react";
 import DashboardLayoutNavbar from "./DashboardLayoutNavbar";
 
@@ -9,7 +9,7 @@ interface DashboardLayoutProps {
   children: ReactNode;
   description?: string;
   title?: string;
-  type?: "member" | "admin";
+  type?: "user" | "admin";
 }
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({
@@ -26,7 +26,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
       <DashboardLayoutNavbar />
       <div className="mx-auto flex max-w-screen-2xl 2xl:container">
         <DashboardLayoutSidebar
-          sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER}
+          sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_USER}
           isOpen={open}
         />
         <div className="h-screen w-full overflow-y-auto p-8">
