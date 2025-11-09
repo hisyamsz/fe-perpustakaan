@@ -44,7 +44,7 @@ const Login: React.FC<LoginProps> = () => {
           />
           <Input
             label="Password"
-            type="password"
+            type={isVisible ? "text" : "password"}
             variant="bordered"
             className="text-black"
             placeholder="Masukkan password"
