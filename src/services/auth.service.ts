@@ -8,7 +8,7 @@ const authServices = {
   login: (payload: ILogin) => instance.post(`${endpoint.AUTH}/login`, payload),
   getProfileWithToken: (token: string) =>
     instance.get(`${endpoint.AUTH}/current`, {
-      headers: { Authorization: `${token}` },
+      headers: { Authorization: `Bearer ${token}` },
     }),
 };
 

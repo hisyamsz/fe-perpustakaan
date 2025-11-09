@@ -27,7 +27,7 @@ export default NextAuth({
         };
 
         const resultToken = await authServices.login({ email, password });
-        const accessToken = resultToken.data.data;
+        const accessToken = resultToken.data.data.token_access;
         const me = await authServices.getProfileWithToken(accessToken);
         const user = me.data.data;
 

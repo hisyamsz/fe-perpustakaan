@@ -1,16 +1,33 @@
-import { Button, Card, CardBody, Checkbox, Input } from "@heroui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Checkbox,
+  Form,
+  Input,
+  Spinner,
+} from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import useLogin from "./useLogin";
 import { cn } from "@/utils/cn";
+import { Controller } from "react-hook-form";
 
 interface LoginProps {
   propName?: string;
 }
 
 const Login: React.FC<LoginProps> = () => {
-  const { isVisible, toggleVisible } = useLogin();
+  const {
+    isVisible,
+    toggleVisible,
+    control,
+    handleSubmit,
+    errors,
+    handleLogin,
+    isPendingLogin,
+  } = useLogin();
 
   return (
     <Card className="shadow-2xl">
@@ -29,25 +46,44 @@ const Login: React.FC<LoginProps> = () => {
           </h2>
         </div>
 
-        <form
+        <Form
+          onSubmit={handleSubmit(handleLogin)}
           className={cn(
             "flex w-80 flex-col",
-            Object.keys({}).length > 0 ? "gap-2" : "gap-4",
+            Object.keys(errors).length > 0 ? "gap-2" : "gap-4",
           )}
         >
-          <Input
-            label="Email"
-            type="email"
-            variant="bordered"
-            className="text-black"
-            placeholder="Masukkan Email Anda"
+          <Controller
+            control={control}
+            name="email"
+            render={({ field }) => (
+              <Input
+                {...field}
+                label="Email"
+                type="email"
+                variant="bordered"
+                placeholder="Masukkan email anda"
+                isRequired
+                isInvalid={errors.email !== undefined}
+                errorMessage={errors.email?.message}
+              />
+            )}
           />
-          <Input
-            label="Password"
-            type={isVisible ? "text" : "password"}
-            variant="bordered"
-            className="text-black"
-            placeholder="Masukkan password"
+          <Controller
+            control={control}
+            name="password"
+            render={({ field }) => (
+              <Input
+                {...field}
+                label="Password"
+                type={isVisible ? "text" : "password"}
+                variant="bordered"
+                placeholder="Masukkan password anda"
+                isRequired
+                isInvalid={errors.password !== undefined}
+                errorMessage={errors.password?.message}
+              />
+            )}
           />
 
           <div className="flex w-full items-center justify-between text-sm">
@@ -67,18 +103,24 @@ const Login: React.FC<LoginProps> = () => {
             </Link>
           </div>
 
-          <Button color="primary" fullWidth>
-            Masuk
+          <Button
+            type="submit"
+            color="primary"
+            fullWidth
+            isLoading={isPendingLogin}
+            spinner={<Spinner size="sm" color="white" />}
+          >
+            {!isPendingLogin && "Login"}
           </Button>
-        </form>
+        </Form>
 
         <p className="mt-4 text-center text-sm text-gray-700">
-          Don&apos;t have any account?{" "}
+          Belum punya akun?{" "}
           <Link
             href={"/auth/register"}
             className="text-primary-400 font-semibold hover:underline"
           >
-            Register here
+            Daftar di sini
           </Link>
         </p>
       </CardBody>
