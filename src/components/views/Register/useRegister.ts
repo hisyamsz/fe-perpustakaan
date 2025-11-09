@@ -1,0 +1,72 @@
+import authServices from "@/services/auth.service";
+import { IRegister } from "@/types/Auth";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+
+const registerSchema = yup.object().shape({
+  nama: yup.string().required("Masukkan nama anda"),
+  email: yup
+    .string()
+    .email("Format email tidak valid")
+    .required("Masukkan email anda"),
+  password: yup
+    .string()
+    .min(8, "Password minimal 8 karakter")
+    .required("Masukkan password anda"),
+  role: yup.string().default("user"),
+});
+
+const useRegister = () => {
+  const router = useRouter();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const toggleVisible = () => setIsVisible(!isVisible);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setError,
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
+
+  const registerService = async (payload: IRegister) => {
+    const result = await authServices.register(payload);
+    return result;
+  };
+
+  const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
+    mutationFn: registerService,
+    onError: (error) => {
+      setError("root", {
+        message: error.message,
+      });
+      console.log(error);
+    },
+    onSuccess: () => {
+      reset();
+      router.push("/auth/login");
+      console.log("Success");
+    },
+  });
+
+  const handleRegister = (data: IRegister) => mutateRegister(data);
+
+  return {
+    isVisible,
+    toggleVisible,
+    control,
+    handleSubmit,
+    errors,
+    reset,
+    handleRegister,
+    isPendingRegister,
+  };
+};
+
+export default useRegister;

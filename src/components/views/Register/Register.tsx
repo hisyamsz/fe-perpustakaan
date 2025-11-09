@@ -1,13 +1,30 @@
-import { Button, Card, CardBody, Input } from "@heroui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Checkbox,
+  Form,
+  Input,
+  Spinner,
+} from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
+import { Controller } from "react-hook-form";
+import useRegister from "./useRegister";
+import { cn } from "@/utils/cn";
 
-interface RegisterProps {
-  propName?: string;
-}
+const Register: React.FC = () => {
+  const {
+    isVisible,
+    toggleVisible,
+    control,
+    handleSubmit,
+    handleRegister,
+    isPendingRegister,
+    errors,
+  } = useRegister();
 
-const Register: React.FC<RegisterProps> = () => {
   return (
     <Card className="shadow-2xl">
       <CardBody className="p-8 text-black">
@@ -15,8 +32,8 @@ const Register: React.FC<RegisterProps> = () => {
           <Image
             src="/images/general/logo-smkn-6.png"
             alt="logo png"
-            width={300}
-            height={300}
+            width={48}
+            height={48}
             loading="lazy"
             className="h-12 w-12"
           />
@@ -25,40 +42,91 @@ const Register: React.FC<RegisterProps> = () => {
           </h2>
         </div>
 
-        <form className="flex w-80 flex-col gap-4">
-          <Input
-            label="Username"
-            variant="bordered"
-            className="text-black"
-            placeholder="Masukkan Username Anda"
+        <Form
+          onSubmit={handleSubmit(handleRegister)}
+          className={cn(
+            "flex w-80 flex-col",
+            Object.keys(errors).length > 0 ? "gap-2" : "gap-4",
+          )}
+        >
+          <Controller
+            name="nama"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                type="text"
+                label="Nama"
+                placeholder="Masukkan nama anda"
+                variant="bordered"
+                autoComplete="off"
+                isRequired
+                isInvalid={errors.nama !== undefined}
+                errorMessage={errors.nama?.message}
+              />
+            )}
           />
-          <Input
-            label="Email"
-            type="email"
-            variant="bordered"
-            className="text-black"
-            placeholder="Masukkan Email Anda"
+          <Controller
+            control={control}
+            name="email"
+            render={({ field }) => (
+              <Input
+                {...field}
+                label="Email"
+                type="email"
+                variant="bordered"
+                className="text-black"
+                placeholder="Masukkan email anda"
+                isRequired
+                isInvalid={errors.email !== undefined}
+                errorMessage={errors.email?.message}
+              />
+            )}
           />
-          <Input
-            label="Password"
-            type="password"
-            variant="bordered"
-            className="text-black"
-            placeholder="Masukkan password"
+          <Controller
+            control={control}
+            name="password"
+            render={({ field }) => (
+              <Input
+                {...field}
+                label="Password"
+                type={isVisible ? "text" : "password"}
+                variant="bordered"
+                className="text-black"
+                placeholder="Masukkan password anda"
+                isRequired
+                isInvalid={errors.password !== undefined}
+                errorMessage={errors.password?.message}
+              />
+            )}
           />
+          <Checkbox
+            isSelected={isVisible}
+            onValueChange={toggleVisible}
+            size="sm"
+            disableAnimation
+          >
+            Show Password
+          </Checkbox>
 
-          <Button color="primary" fullWidth>
-            Masuk
+          <Button
+            type="submit"
+            color="primary"
+            fullWidth
+            isLoading={isPendingRegister}
+            spinner={<Spinner size="sm" color="white" />}
+          >
+            {!isPendingRegister && "Daftar"}
           </Button>
-        </form>
+        </Form>
 
         <p className="mt-4 text-center text-sm text-gray-700">
-          Have an account?{" "}
+          Sudah punya akun?{" "}
           <Link
             href={"/auth/login"}
             className="text-primary-400 font-semibold hover:underline"
           >
-            Login here
+            Login di sini
           </Link>
         </p>
       </CardBody>

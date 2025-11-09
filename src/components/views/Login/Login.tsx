@@ -1,13 +1,17 @@
-import { Button, Card, CardBody, Input } from "@heroui/react";
+import { Button, Card, CardBody, Checkbox, Input } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
+import useLogin from "./useLogin";
+import { cn } from "@/utils/cn";
 
 interface LoginProps {
   propName?: string;
 }
 
 const Login: React.FC<LoginProps> = () => {
+  const { isVisible, toggleVisible } = useLogin();
+
   return (
     <Card className="shadow-2xl">
       <CardBody className="p-8 text-black">
@@ -15,8 +19,8 @@ const Login: React.FC<LoginProps> = () => {
           <Image
             src="/images/general/logo-smkn-6.png"
             alt="logo png"
-            width={300}
-            height={300}
+            width={48}
+            height={48}
             loading="lazy"
             className="h-12 w-12"
           />
@@ -25,7 +29,12 @@ const Login: React.FC<LoginProps> = () => {
           </h2>
         </div>
 
-        <form className="flex w-80 flex-col gap-4">
+        <form
+          className={cn(
+            "flex w-80 flex-col",
+            Object.keys({}).length > 0 ? "gap-2" : "gap-4",
+          )}
+        >
           <Input
             label="Email"
             type="email"
@@ -40,6 +49,23 @@ const Login: React.FC<LoginProps> = () => {
             className="text-black"
             placeholder="Masukkan password"
           />
+
+          <div className="flex w-full items-center justify-between text-sm">
+            <Checkbox
+              isSelected={isVisible}
+              onValueChange={toggleVisible}
+              size="sm"
+              disableAnimation
+            >
+              Show Password
+            </Checkbox>
+            <Link
+              href="/auth/forget-password"
+              className="text-danger-400 hover:text-danger-500 inline-block hover:underline"
+            >
+              Lupa password?
+            </Link>
+          </div>
 
           <Button color="primary" fullWidth>
             Masuk
