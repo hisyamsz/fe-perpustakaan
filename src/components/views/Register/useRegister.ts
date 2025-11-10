@@ -8,15 +8,15 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 const registerSchema = yup.object().shape({
-  nama: yup.string().required("Masukkan nama anda"),
+  nama: yup.string().required("Nama tidak boleh kosong"),
   email: yup
     .string()
     .email("Format email tidak valid")
-    .required("Masukkan email anda"),
+    .required("Email tidak boleh kosong"),
   password: yup
     .string()
     .min(8, "Password minimal 8 karakter")
-    .required("Masukkan password anda"),
+    .required("Password tidak boleh kosong"),
   role: yup.string().default("user"),
 });
 

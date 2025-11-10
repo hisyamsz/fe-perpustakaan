@@ -1,4 +1,5 @@
 import { ILogin } from "@/types/Auth";
+import { addToast } from "@heroui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
@@ -11,8 +12,8 @@ const loginSchema = yup.object().shape({
   email: yup
     .string()
     .email("Format email tidak valid")
-    .required("Masukkan email anda"),
-  password: yup.string().required("Masukkan password anda"),
+    .required("Email tidak boleh kosong"),
+  password: yup.string().required("Password tidak boleh kosong"),
 });
 const useLogin = () => {
   const router = useRouter();
@@ -26,7 +27,6 @@ const useLogin = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
@@ -39,7 +39,7 @@ const useLogin = () => {
     });
 
     if (result?.error && result?.status === 401) {
-      throw new Error("Email tidak cocok dengan password anda");
+      throw new Error("Email atau password salah");
     }
 
     return result;
@@ -48,11 +48,20 @@ const useLogin = () => {
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginService,
     onError: (error) => {
-      setError("root", {
-        message: error.message,
+      addToast({
+        title: "Login gagal",
+        description: error.message,
+        color: "danger",
+        variant: "solid",
       });
     },
     onSuccess: () => {
+      addToast({
+        title: "Login berhasil",
+        description: "Selamat datang kembali!",
+        color: "success",
+        variant: "solid",
+      });
       reset();
       router.push(callbackUrl);
     },

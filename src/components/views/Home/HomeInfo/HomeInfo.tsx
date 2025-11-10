@@ -13,7 +13,7 @@ const HomeInfo: React.FC<HomeInfoProps> = () => {
         {HOME_INFO.map((info, index) => (
           <Card
             key={index}
-            className="transition-all duration-300 hover:shadow-lg"
+            className="transition-all duration-300 hover:shadow-lg hover:shadow-blue-200"
           >
             <CardBody className="p-6">
               <div className="mb-4 flex items-center gap-3">

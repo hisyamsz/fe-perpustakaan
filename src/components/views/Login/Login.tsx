@@ -3,7 +3,6 @@ import {
   Card,
   CardBody,
   Checkbox,
-  Form,
   Input,
   Spinner,
 } from "@heroui/react";
@@ -46,7 +45,8 @@ const Login: React.FC<LoginProps> = () => {
           </h2>
         </div>
 
-        <Form
+        <form
+          noValidate
           onSubmit={handleSubmit(handleLogin)}
           className={cn(
             "flex w-80 flex-col",
@@ -112,7 +112,7 @@ const Login: React.FC<LoginProps> = () => {
           >
             {!isPendingLogin && "Login"}
           </Button>
-        </Form>
+        </form>
 
         <p className="mt-4 text-center text-sm text-gray-700">
           Belum punya akun?{" "}

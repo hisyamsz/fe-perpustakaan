@@ -34,7 +34,7 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
     >
       <div>
         <div className="flex justify-center">
-          <div className="mb-6 flex w-full items-center justify-start gap-4">
+          <div className="mb-6 flex w-full items-center justify-start gap-4 px-4">
             <FiUser className="h-12 w-12" />
             <div className="flex flex-col gap-2">
               <p className="text-lg">Admin</p>
@@ -46,6 +46,7 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
           items={sidebarItems}
           variant="solid"
           aria-label="Dashboard Menu"
+          className="px-0"
         >
           {(item) => (
             <ListboxItem
