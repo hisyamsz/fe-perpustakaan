@@ -17,6 +17,12 @@ export interface IActivation {
   otp: string;
 }
 
+export type TypeProfile = {
+  nama: string;
+  email: string;
+  role: string;
+};
+
 export interface UserExtended extends User {
   accessToken?: string;
   refreshToken?: string;

@@ -3,8 +3,9 @@ import { signOut } from "next-auth/react";
 import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { cn } from "@/utils/cn";
-import { Button, Listbox, ListboxItem } from "@heroui/react";
+import { Button, Listbox, ListboxItem, Skeleton } from "@heroui/react";
 import { FiUser } from "react-icons/fi";
+import { TypeProfile } from "@/types/Auth";
 
 interface SidebarItems {
   key: string;
@@ -16,11 +17,13 @@ interface SidebarItems {
 interface DashboardLayoutSidebarProps {
   sidebarItems: SidebarItems[];
   isOpen: boolean;
+  dataProfile?: TypeProfile;
 }
 
 const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
   sidebarItems,
   isOpen,
+  dataProfile,
 }) => {
   const router = useRouter();
 
@@ -36,8 +39,20 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
           <div className="mb-6 flex w-full items-center justify-start gap-4 px-4">
             <FiUser className="h-12 w-12" />
             <div className="flex flex-col gap-2">
-              <p className="text-lg">Admin</p>
-              <p className="text-default-400 text-sm">Staf</p>
+              <Skeleton isLoaded={!!dataProfile?.nama} className="rounded-md">
+                <p className="font-medium">
+                  {dataProfile?.nama || "Memuat..."}
+                </p>
+              </Skeleton>
+
+              <Skeleton
+                isLoaded={!!dataProfile?.role}
+                className="w-24 rounded-md"
+              >
+                <p className="text-default-400 text-sm capitalize">
+                  {dataProfile?.role || "-"}
+                </p>
+              </Skeleton>
             </div>
           </div>
         </div>

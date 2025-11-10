@@ -1,9 +1,11 @@
 import PageHead from "@/components/commons/PageHead";
-import { FC, Fragment, ReactNode, useState } from "react";
+import { FC, Fragment, ReactNode, useEffect, useState } from "react";
 import DashboardLayoutSidebar from "./DashboardLayoutSidebar";
 import { SIDEBAR_ADMIN, SIDEBAR_USER } from "./DashboardLayout.constants";
 import { Navbar, NavbarMenuToggle } from "@heroui/react";
 import DashboardLayoutNavbar from "./DashboardLayoutNavbar";
+import useDashboardLayout from "./useDashboardLayout";
+import { useRouter } from "next/router";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -18,7 +20,15 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
   title,
   type = "admin",
 }) => {
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const { dataProfile, refetchProfile } = useDashboardLayout();
+
+  useEffect(() => {
+    if (router.isReady) {
+      refetchProfile();
+    }
+  }, [router.isReady, refetchProfile]);
 
   return (
     <Fragment>
@@ -28,6 +38,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
         <DashboardLayoutSidebar
           sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_USER}
           isOpen={open}
+          dataProfile={dataProfile}
         />
         <div className="h-screen w-full overflow-y-auto p-8">
           <Navbar
