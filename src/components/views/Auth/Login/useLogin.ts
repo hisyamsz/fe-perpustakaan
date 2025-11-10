@@ -53,6 +53,7 @@ const useLogin = () => {
         description: error.message,
         color: "danger",
         variant: "solid",
+        timeout: 3000,
       });
     },
     onSuccess: () => {
@@ -61,6 +62,7 @@ const useLogin = () => {
         description: "Selamat datang kembali!",
         color: "success",
         variant: "solid",
+        timeout: 3000,
       });
       reset();
       router.push(callbackUrl);

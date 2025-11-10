@@ -13,8 +13,8 @@ export interface ILogin {
   password: string;
 }
 
-export interface IActivation {
-  otp: string;
+export interface IActivate {
+  code: string;
 }
 
 export type TypeProfile = {

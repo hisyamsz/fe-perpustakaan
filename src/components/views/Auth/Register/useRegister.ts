@@ -42,26 +42,26 @@ const useRegister = () => {
 
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
-    onError: (error) => {
+    onError: () => {
       addToast({
         title: "Register gagal",
-        description:
-          error?.message ||
-          "Terjadi kesalahan saat mendaftar. Silakan coba lagi.",
+        description: "Email sudah terdaftar. Silakan coba lagi.",
         color: "danger",
         variant: "solid",
+        timeout: 3000,
       });
     },
     onSuccess: () => {
       addToast({
-        title: "Register berhasil 🎉",
+        title: "Register berhasil",
         description:
-          "Akun Anda berhasil dibuat. Silakan login untuk melanjutkan.",
+          "Akun Anda berhasil dibuat. Silakan aktivasi untuk melanjutkan.",
         color: "success",
         variant: "solid",
+        timeout: 3000,
       });
       reset();
-      router.push("/auth/login");
+      router.push("/auth/register/success");
     },
   });
 
