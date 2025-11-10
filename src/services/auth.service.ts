@@ -10,6 +10,7 @@ const authServices = {
     instance.get(`${endpoint.AUTH}/current`, {
       headers: { Authorization: `Bearer ${token}` },
     }),
+  getProfile: () => instance.get(`${endpoint.AUTH}/current`),
 };
 
 export default authServices;

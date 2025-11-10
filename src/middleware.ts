@@ -12,6 +12,12 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  if (token?.user?.role === "admin") {
+    if (pathname.startsWith("/member")) {
+      return NextResponse.redirect(new URL("/admin", req.url));
+    }
+  }
+
   if (pathname.startsWith("/admin")) {
     if (!token) {
       const url = new URL("/auth/login", req.url);
@@ -36,7 +42,7 @@ export async function middleware(req: NextRequest) {
       url.searchParams.set("callbackUrl", encodeURI(req.url));
       return NextResponse.redirect(url);
     }
-    if (pathname === "user") {
+    if (pathname === "/member") {
       return NextResponse.redirect(new URL("/member/dashboard", req.url));
     }
   }

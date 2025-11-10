@@ -8,16 +8,40 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  Dropdown,
+  DropdownTrigger,
+  Avatar,
+  DropdownMenu,
+  DropdownItem,
+  Divider,
 } from "@heroui/react";
 import Image from "next/image";
 import * as React from "react";
 import { NAVBAR_ITEMS } from "../LandingPageLayout.constant";
 import { useRouter } from "next/router";
 import { cn } from "@/utils/cn";
+import { signOut, useSession } from "next-auth/react";
+import useLandingPageLayoutNavbar from "./useLandingPageLayoutNavbar";
 
 const LandingPageLayoutNavbar: React.FC = () => {
   const router = useRouter();
+  const { status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+
+  const { dataProfile, refetchProfile } = useLandingPageLayoutNavbar();
+
+  const isAuthenticated = status === "authenticated";
+  const isUnauthenticated = status === "unauthenticated";
+  const dashboardHref =
+    dataProfile && dataProfile.role === "admin"
+      ? "/admin/dashboard"
+      : "/member/dashboard";
+
+  React.useEffect(() => {
+    if (router.isReady) {
+      refetchProfile();
+    }
+  }, [router.isReady, refetchProfile]);
 
   return (
     <Navbar
@@ -34,8 +58,8 @@ const LandingPageLayoutNavbar: React.FC = () => {
           <Image
             src={"/images/general/logo-smkn-6.png"}
             alt="logo"
-            width={100}
-            height={100}
+            width={50}
+            height={50}
             className="h-12 w-12 cursor-pointer"
           />
         </NavbarBrand>
@@ -61,26 +85,55 @@ const LandingPageLayoutNavbar: React.FC = () => {
             {item.label}
           </NavbarItem>
         ))}
-        <Button
-          size="sm"
-          className="bg-white text-sky-800"
-          as={Link}
-          href="/auth/login"
-        >
-          Login
-        </Button>
+        {isUnauthenticated && (
+          <Button
+            size="sm"
+            className="bg-white font-medium text-sky-800"
+            as={Link}
+            href="/auth/login"
+          >
+            Login
+          </Button>
+        )}
+        {isAuthenticated && (
+          <NavbarItem className="hidden lg:flex">
+            <Dropdown>
+              <DropdownTrigger>
+                <Avatar
+                  isBordered
+                  showFallback
+                  title={dataProfile?.email}
+                  className="cursor-pointer transition-transform"
+                />
+              </DropdownTrigger>
+              <DropdownMenu>
+                <DropdownItem key="dashboard" href={dashboardHref}>
+                  Dashboard
+                </DropdownItem>
+                <DropdownItem
+                  key="signOut"
+                  onPress={() => signOut()}
+                  color="danger"
+                  className="text-danger"
+                >
+                  Log Out
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarItem>
+        )}
       </NavbarContent>
       <NavbarContent className="relative lg:hidden" justify="end">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         />
-        <NavbarMenu className="absolute top-0 z-50 w-3/4 max-w-[280px] gap-4 pt-8">
+        <NavbarMenu className="absolute top-0 z-50 h-screen w-3/4 max-w-[280px] gap-4 pt-8">
           <div className="flex items-center gap-4">
             <Image
               src={"/images/general/logo-smkn-6.png"}
               alt="logo"
-              width={100}
-              height={100}
+              width={48}
+              height={48}
               className="h-12 w-12 cursor-pointer"
             />
             <h2 className="text-primary-700 text-xl font-bold">Perpustakaan</h2>
@@ -100,9 +153,30 @@ const LandingPageLayoutNavbar: React.FC = () => {
               </Link>
             </NavbarMenuItem>
           ))}
-          <Button fullWidth color="primary" as={Link} href="/auth/login">
-            Login
-          </Button>
+          {isUnauthenticated && (
+            <Button fullWidth color="primary" as={Link} href="/auth/login">
+              Login
+            </Button>
+          )}
+
+          {isAuthenticated && (
+            <>
+              <Divider />
+              <NavbarMenuItem>
+                <Link
+                  href={dashboardHref}
+                  className="text-default-700 hover:text-primary font-medium"
+                >
+                  Dashboard
+                </Link>
+              </NavbarMenuItem>
+              <NavbarMenuItem>
+                <Button onPress={() => signOut()} color="danger" fullWidth>
+                  Log out
+                </Button>
+              </NavbarMenuItem>
+            </>
+          )}
         </NavbarMenu>
       </NavbarContent>
     </Navbar>

@@ -4,14 +4,12 @@ import Link from "next/link";
 import * as React from "react";
 
 interface DashboardLayoutNavbarProps {
-  open: boolean;
+  open?: boolean;
 }
 
-const DashboardLayoutNavbar: React.FC<DashboardLayoutNavbarProps> = ({
-  open,
-}) => {
+const DashboardLayoutNavbar: React.FC<DashboardLayoutNavbarProps> = () => {
   return (
-    <header className={cn("bg-primary px-6 py-2", open ? "hidden" : "flex")}>
+    <header className={cn("bg-primary flex px-6 py-2")}>
       <Link
         href="/"
         className="flex items-center gap-4 text-white hover:text-white/70"

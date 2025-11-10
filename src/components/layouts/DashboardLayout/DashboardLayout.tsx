@@ -23,7 +23,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
   return (
     <Fragment>
       <PageHead title={title} />
-      <DashboardLayoutNavbar open={open} />
+      <DashboardLayoutNavbar />
       <div className="mx-auto flex max-w-screen-2xl 2xl:container">
         <DashboardLayoutSidebar
           sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_USER}

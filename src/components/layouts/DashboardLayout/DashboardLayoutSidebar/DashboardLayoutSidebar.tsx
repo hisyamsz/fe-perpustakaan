@@ -3,7 +3,6 @@ import { signOut } from "next-auth/react";
 import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { cn } from "@/utils/cn";
-import Link from "next/link";
 import { Button, Listbox, ListboxItem } from "@heroui/react";
 import { FiUser } from "react-icons/fi";
 
@@ -28,7 +27,7 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
   return (
     <div
       className={cn(
-        "border-default-200 fixed z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col justify-between border-r-1 bg-gray-700 px-4 py-6 text-white transition-all lg:relative lg:translate-x-0",
+        "fixed top-0 bottom-0 z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col justify-between bg-gray-700 px-4 py-6 text-white transition-all lg:relative lg:translate-x-0",
         { "translate-x-0": isOpen },
       )}
     >
@@ -51,17 +50,14 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
           {(item) => (
             <ListboxItem
               key={item.key}
+              textValue={item.label}
+              startContent={item.icon}
+              onPress={() => router.push(item.href)}
               className={cn("my-1 h-12 text-2xl transition-all duration-300", {
                 "bg-primary text-white": router.pathname.startsWith(item.href),
               })}
-              startContent={item.icon}
-              textValue={item.label}
-              aria-labelledby={item.label}
-              aria-describedby={item.label}
-              as={Link}
-              href={item.href}
             >
-              <p className="text-small">{item.label}</p>
+              {item.label}
             </ListboxItem>
           )}
         </Listbox>

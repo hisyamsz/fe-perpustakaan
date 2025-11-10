@@ -1,5 +1,6 @@
 import authServices from "@/services/auth.service";
 import { IRegister } from "@/types/Auth";
+import { addToast } from "@heroui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
@@ -30,7 +31,6 @@ const useRegister = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
@@ -43,15 +43,25 @@ const useRegister = () => {
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
     onError: (error) => {
-      setError("root", {
-        message: error.message,
+      addToast({
+        title: "Register gagal",
+        description:
+          error?.message ||
+          "Terjadi kesalahan saat mendaftar. Silakan coba lagi.",
+        color: "danger",
+        variant: "solid",
       });
-      console.log(error);
     },
     onSuccess: () => {
+      addToast({
+        title: "Register berhasil 🎉",
+        description:
+          "Akun Anda berhasil dibuat. Silakan login untuk melanjutkan.",
+        color: "success",
+        variant: "solid",
+      });
       reset();
       router.push("/auth/login");
-      console.log("Success");
     },
   });
 
