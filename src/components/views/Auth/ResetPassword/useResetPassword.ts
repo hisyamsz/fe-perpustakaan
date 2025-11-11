@@ -21,7 +21,7 @@ const forgotPasswordSchema = yup.object().shape({
 
 const useResetPassword = () => {
   const router = useRouter();
-  const token = router.query.token as string;
+  const token = router.query.code as string;
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const toggleVisible = () => setIsVisible(!isVisible);
 
