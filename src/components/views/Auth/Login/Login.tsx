@@ -64,6 +64,7 @@ const Login: React.FC<LoginProps> = () => {
                 variant="bordered"
                 placeholder="Masukkan email anda"
                 isRequired
+                isReadOnly={isPendingLogin}
                 isInvalid={errors.email !== undefined}
                 errorMessage={errors.email?.message}
               />
@@ -80,6 +81,7 @@ const Login: React.FC<LoginProps> = () => {
                 variant="bordered"
                 placeholder="Masukkan password anda"
                 isRequired
+                isReadOnly={isPendingLogin}
                 isInvalid={errors.password !== undefined}
                 errorMessage={errors.password?.message}
               />

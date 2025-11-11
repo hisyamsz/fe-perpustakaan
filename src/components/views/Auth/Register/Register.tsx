@@ -61,6 +61,7 @@ const Register: React.FC = () => {
                 variant="bordered"
                 autoComplete="off"
                 isRequired
+                isReadOnly={isPendingRegister}
                 isInvalid={errors.nama !== undefined}
                 errorMessage={errors.nama?.message}
               />
@@ -78,6 +79,7 @@ const Register: React.FC = () => {
                 className="text-black"
                 placeholder="Masukkan email anda"
                 isRequired
+                isReadOnly={isPendingRegister}
                 isInvalid={errors.email !== undefined}
                 errorMessage={errors.email?.message}
               />

@@ -59,6 +59,7 @@ const ResetPassword: React.FC = () => {
                 variant="bordered"
                 placeholder="Masukkan Password Baru Anda"
                 isRequired
+                isReadOnly={isPendingResetPassword}
                 isInvalid={!!errors.password}
                 errorMessage={errors.password?.message}
               />
@@ -75,6 +76,7 @@ const ResetPassword: React.FC = () => {
                 variant="bordered"
                 placeholder="Masukkan Konfirmasi Password Anda"
                 isRequired
+                isReadOnly={isPendingResetPassword}
                 isInvalid={!!errors.confirmPassword}
                 errorMessage={errors.confirmPassword?.message}
               />

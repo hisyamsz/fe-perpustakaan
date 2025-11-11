@@ -15,7 +15,7 @@ const useDashboardLayout = () => {
   };
 
   const { data: dataProfile, refetch: refetchProfile } = useQuery({
-    queryKey: ["Profile-Dashboard"],
+    queryKey: ["Profile"],
     queryFn: getProfile,
     enabled: router.isReady,
   });

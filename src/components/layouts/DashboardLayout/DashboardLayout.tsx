@@ -33,29 +33,31 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
   return (
     <Fragment>
       <PageHead title={title} />
-      <DashboardLayoutNavbar />
-      <div className="mx-auto flex max-w-screen-2xl 2xl:container">
-        <DashboardLayoutSidebar
-          sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_USER}
-          isOpen={open}
-          dataProfile={dataProfile}
-        />
-        <div className="h-screen w-full overflow-y-auto p-8">
-          <Navbar
-            className="flex justify-between bg-transparent px-0"
-            isBlurred={false}
-            position="static"
-            classNames={{ wrapper: "p-0" }}
-            onMenuOpenChange={setOpen}
-          >
-            <h1 className="text-3xl font-bold">{title}</h1>
-            <NavbarMenuToggle
-              aria-label={open ? "Close menu" : "Open menu"}
-              className="lg:hidden"
-            />
-          </Navbar>
-          <p className="text-small mb-4">{description}</p>
-          {children}
+      <div className="mx-auto max-w-screen-2xl 2xl:container">
+        <DashboardLayoutNavbar />
+        <div className="flex">
+          <DashboardLayoutSidebar
+            sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_USER}
+            isOpen={open}
+            dataProfile={dataProfile}
+          />
+          <div className="h-screen w-full overflow-y-auto p-8">
+            <Navbar
+              className="flex justify-between bg-transparent px-0"
+              isBlurred={false}
+              position="static"
+              classNames={{ wrapper: "p-0" }}
+              onMenuOpenChange={setOpen}
+            >
+              <h1 className="text-3xl font-bold">{title}</h1>
+              <NavbarMenuToggle
+                aria-label={open ? "Close menu" : "Open menu"}
+                className="lg:hidden"
+              />
+            </Navbar>
+            <p className="text-small mb-4">{description}</p>
+            {children}
+          </div>
         </div>
       </div>
     </Fragment>

@@ -54,6 +54,7 @@ const ForgotPassword: React.FC = () => {
                 variant="bordered"
                 placeholder="Masukkan email Anda"
                 isRequired
+                isReadOnly={isPendingForgotPassword}
                 isInvalid={!!errors.email}
                 errorMessage={errors.email?.message}
               />

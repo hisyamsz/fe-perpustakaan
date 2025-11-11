@@ -25,11 +25,12 @@ export interface IResetPassword {
   password: string;
 }
 
-export type TypeProfile = {
-  nama: string;
-  email: string;
-  role: string;
-};
+export interface IProfile {
+  id?: string;
+  nama?: string;
+  email?: string;
+  role?: string;
+}
 
 export interface UserExtended extends User {
   accessToken?: string;

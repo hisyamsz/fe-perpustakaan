@@ -30,18 +30,18 @@ const LandingPageLayoutNavbar: React.FC = () => {
 
   const { dataProfile, refetchProfile } = useLandingPageLayoutNavbar();
 
+  React.useEffect(() => {
+    if (router.isReady || dataProfile) {
+      refetchProfile();
+    }
+  }, [router.isReady, dataProfile, refetchProfile]);
+
   const isAuthenticated = status === "authenticated";
   const isUnauthenticated = status === "unauthenticated";
   const dashboardHref =
-    dataProfile && dataProfile.role === "admin"
-      ? "/admin/dashboard"
-      : "/member/dashboard";
-
-  React.useEffect(() => {
-    if (router.isReady) {
-      refetchProfile();
-    }
-  }, [router.isReady, refetchProfile]);
+    dataProfile && dataProfile.role === "user"
+      ? "/member/dashboard"
+      : "/admin/dashboard";
 
   return (
     <Navbar
@@ -110,6 +110,9 @@ const LandingPageLayoutNavbar: React.FC = () => {
                 <DropdownItem key="dashboard" href={dashboardHref}>
                   Dashboard
                 </DropdownItem>
+                <DropdownItem key="profile" href="/member/profile">
+                  Profile
+                </DropdownItem>
                 <DropdownItem
                   key="signOut"
                   onPress={() => signOut()}
@@ -168,6 +171,14 @@ const LandingPageLayoutNavbar: React.FC = () => {
                   className="text-default-700 hover:text-primary font-medium"
                 >
                   Dashboard
+                </Link>
+              </NavbarMenuItem>
+              <NavbarMenuItem>
+                <Link
+                  href="/member/profile"
+                  className="text-default-700 hover:text-primary font-medium"
+                >
+                  Profile
                 </Link>
               </NavbarMenuItem>
               <NavbarMenuItem>

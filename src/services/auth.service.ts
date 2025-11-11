@@ -3,6 +3,7 @@ import {
   IActivate,
   IForgotPasswordEmail,
   ILogin,
+  IProfile,
   IRegister,
   IResetPassword,
 } from "@/types/Auth";
@@ -19,6 +20,8 @@ const authServices = {
   getProfile: () => instance.get(`${endpoint.AUTH}/current`),
   activate: (payload: IActivate) =>
     instance.post(`${endpoint.AUTH}/activate`, payload),
+  updateProfile: (payload: IProfile) =>
+    instance.patch(`${endpoint.AUTH}/update`, payload),
   forgotPasswordEmail: (payload: IForgotPasswordEmail) =>
     instance.post(`${endpoint.AUTH}/forgotPasswordRequest`, payload),
   resetPassword: (token: string, payload: IResetPassword) =>

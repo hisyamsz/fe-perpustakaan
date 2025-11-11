@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { cn } from "@/utils/cn";
 import { Button, Listbox, ListboxItem, Skeleton } from "@heroui/react";
 import { FiUser } from "react-icons/fi";
-import { TypeProfile } from "@/types/Auth";
+import { IProfile } from "@/types/Auth";
 
 interface SidebarItems {
   key: string;
@@ -17,7 +17,7 @@ interface SidebarItems {
 interface DashboardLayoutSidebarProps {
   sidebarItems: SidebarItems[];
   isOpen: boolean;
-  dataProfile?: TypeProfile;
+  dataProfile?: IProfile;
 }
 
 const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({

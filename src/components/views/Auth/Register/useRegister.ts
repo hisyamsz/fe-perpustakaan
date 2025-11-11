@@ -36,7 +36,13 @@ const useRegister = () => {
   });
 
   const registerService = async (payload: IRegister) => {
-    const result = await authServices.register(payload);
+    const cleanedPayload = {
+      ...payload,
+      nama: payload.nama.trim(),
+      email: payload.email.trim(),
+    };
+
+    const result = await authServices.register(cleanedPayload);
     return result;
   };
 

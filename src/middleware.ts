@@ -12,12 +12,6 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  if (token?.user?.role === "admin") {
-    if (pathname.startsWith("/member")) {
-      return NextResponse.redirect(new URL("/admin", req.url));
-    }
-  }
-
   if (pathname.startsWith("/admin")) {
     if (!token) {
       const url = new URL("/auth/login", req.url);
@@ -30,10 +24,6 @@ export async function middleware(req: NextRequest) {
     if (token?.user?.role !== "admin") {
       return NextResponse.redirect(new URL("/", req.url));
     }
-
-    // if (token.user.status === "not_verified") {
-    //   return NextResponse.redirect(new URL("/verify", req.url));
-    // }
   }
 
   if (pathname.startsWith("/member")) {

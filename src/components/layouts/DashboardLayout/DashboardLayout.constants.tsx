@@ -27,43 +27,37 @@ export const SIDEBAR_ADMIN = [
     href: "/admin/laporan",
     icon: <TbReportAnalytics />,
   },
-  {
-    key: "profile",
-    label: "Profile",
-    href: "/admin/profile",
-    icon: <CiUser />,
-  },
 ];
 
 export const SIDEBAR_USER = [
   {
     key: "dashboard",
     label: "Dashboard",
-    href: "/admin/dashboard",
+    href: "/member/dashboard",
     icon: <CiGrid41 />,
   },
   {
     key: "books",
     label: "Data Buku",
-    href: "/admin/books",
+    href: "/member/books",
     icon: <LuBookOpen />,
   },
   {
     key: "peminjaman",
     label: "Peminjaman",
-    href: "/admin/peminjaman",
+    href: "/member/peminjaman",
     icon: <CiBookmark />,
   },
   {
     key: "laporan",
     label: "Laporan Buku",
-    href: "/admin/laporan",
+    href: "/member/laporan",
     icon: <TbReportAnalytics />,
   },
   {
     key: "profile",
     label: "Profile",
-    href: "/admin/profile",
+    href: "/member/profile",
     icon: <CiUser />,
   },
 ];
