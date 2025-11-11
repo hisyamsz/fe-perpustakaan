@@ -15,6 +15,7 @@ const loginSchema = yup.object().shape({
     .required("Email tidak boleh kosong"),
   password: yup.string().required("Password tidak boleh kosong"),
 });
+
 const useLogin = () => {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState<boolean>(false);

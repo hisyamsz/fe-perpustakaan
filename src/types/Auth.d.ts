@@ -17,6 +17,14 @@ export interface IActivate {
   code: string;
 }
 
+export interface IForgotPasswordEmail {
+  email: string;
+}
+
+export interface IResetPassword {
+  password: string;
+}
+
 export type TypeProfile = {
   nama: string;
   email: string;

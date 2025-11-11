@@ -96,7 +96,7 @@ const Login: React.FC<LoginProps> = () => {
               Show Password
             </Checkbox>
             <Link
-              href="/auth/forget-password"
+              href="/auth/forgotPassword"
               className="text-danger-400 hover:text-danger-500 inline-block hover:underline"
             >
               Lupa password?
