@@ -24,8 +24,8 @@ const authServices = {
     instance.patch(`${endpoint.AUTH}/update`, payload),
   forgotPasswordEmail: (payload: IForgotPasswordEmail) =>
     instance.post(`${endpoint.AUTH}/forgotPasswordRequest`, payload),
-  resetPassword: (token: string, payload: IResetPassword) =>
-    instance.patch(`${endpoint.AUTH}/changePassword/${token}`, payload),
+  resetPassword: (code: string, payload: IResetPassword) =>
+    instance.patch(`${endpoint.AUTH}/changePassword/${code}`, payload),
 };
 
 export default authServices;

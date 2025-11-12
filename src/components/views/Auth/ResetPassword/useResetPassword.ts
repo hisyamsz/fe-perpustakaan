@@ -21,7 +21,7 @@ const forgotPasswordSchema = yup.object().shape({
 
 const useResetPassword = () => {
   const router = useRouter();
-  const token = router.query.code as string;
+  const code = router.query.code as string;
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const toggleVisible = () => setIsVisible(!isVisible);
 
@@ -35,16 +35,16 @@ const useResetPassword = () => {
   });
 
   const resetPasswordService = async (
-    token: string,
+    code: string,
     payload: IResetPassword,
   ) => {
-    const result = await authServices.resetPassword(token, payload);
+    const result = await authServices.resetPassword(code, payload);
     return result;
   };
 
   const { mutate: mutateResetPassword, isPending: isPendingResetPassword } =
     useMutation({
-      mutationFn: (data: IResetPassword) => resetPasswordService(token, data),
+      mutationFn: (data: IResetPassword) => resetPasswordService(code, data),
       onError: () => {
         addToast({
           title: "Gagal ubah password",

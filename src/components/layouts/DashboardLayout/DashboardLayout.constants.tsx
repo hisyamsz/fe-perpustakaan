@@ -12,7 +12,7 @@ export const SIDEBAR_ADMIN = [
   {
     key: "books",
     label: "Data Buku",
-    href: "/admin/books",
+    href: "/admin/dataBuku",
     icon: <LuBookOpen />,
   },
   {
@@ -39,7 +39,7 @@ export const SIDEBAR_USER = [
   {
     key: "books",
     label: "Data Buku",
-    href: "/member/books",
+    href: "/member/dataBuku",
     icon: <LuBookOpen />,
   },
   {

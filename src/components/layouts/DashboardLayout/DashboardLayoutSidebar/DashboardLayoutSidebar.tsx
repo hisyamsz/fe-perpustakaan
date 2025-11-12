@@ -30,37 +30,33 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
   return (
     <div
       className={cn(
-        "fixed top-0 bottom-0 z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col justify-between bg-gray-700 px-4 py-6 text-white transition-all lg:relative lg:translate-x-0",
+        "fixed inset-0 z-50 flex w-full max-w-[300px] -translate-x-full flex-col bg-gray-700 text-white transition-all duration-300 lg:relative lg:translate-x-0",
         { "translate-x-0": isOpen },
       )}
     >
-      <div>
-        <div className="flex justify-center">
-          <div className="mb-6 flex w-full items-center justify-start gap-4 px-4">
-            <FiUser className="h-12 w-12" />
-            <div className="flex flex-col gap-2">
-              <Skeleton isLoaded={!!dataProfile?.nama} className="rounded-md">
-                <p className="font-medium">
-                  {dataProfile?.nama || "Memuat..."}
-                </p>
-              </Skeleton>
-
-              <Skeleton
-                isLoaded={!!dataProfile?.role}
-                className="w-24 rounded-md"
-              >
-                <p className="text-default-400 text-sm capitalize">
-                  {dataProfile?.role || "-"}
-                </p>
-              </Skeleton>
-            </div>
+      <div className="flex flex-1 flex-col overflow-y-auto pb-[90px]">
+        <div className="flex items-center gap-4 px-4 py-6">
+          <FiUser className="h-12 w-12" />
+          <div className="flex flex-col gap-2">
+            <Skeleton isLoaded={!!dataProfile?.nama} className="rounded-md">
+              <p className="font-medium">{dataProfile?.nama || "Memuat..."}</p>
+            </Skeleton>
+            <Skeleton
+              isLoaded={!!dataProfile?.role}
+              className="w-24 rounded-md"
+            >
+              <p className="text-default-400 text-sm capitalize">
+                {dataProfile?.role || "-"}
+              </p>
+            </Skeleton>
           </div>
         </div>
+
         <Listbox
           items={sidebarItems}
           variant="solid"
           aria-label="Dashboard Menu"
-          className="px-0"
+          className="px-2"
         >
           {(item) => (
             <ListboxItem
@@ -77,7 +73,8 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
           )}
         </Listbox>
       </div>
-      <div className="flex items-center p-1">
+
+      <div className="fixed bottom-0 left-0 w-[300px] border-t border-gray-600 bg-gray-700 p-4">
         <Button
           fullWidth
           variant="solid"
