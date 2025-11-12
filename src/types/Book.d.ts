@@ -1,9 +1,15 @@
 export interface IBook {
-  id?: number;
-  judul: string;
-  pengarang: string;
-  penerbit: string;
-  tahun_terbit: number;
-  kategori: string;
-  stok: number;
+  id?: number | string;
+  judul?: string;
+  penulis?: string;
+  penerbit?: string;
+  tahun_terbit?: number | string;
+  kategori?: string;
+  // isFeatured?: string | boolean;
+  stok?: number | string;
+}
+
+export interface IBookCategory {
+  id: string;
+  name: string;
 }

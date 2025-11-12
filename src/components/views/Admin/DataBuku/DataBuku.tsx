@@ -6,16 +6,18 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  useDisclosure,
 } from "@heroui/react";
 import { CiMenuKebab } from "react-icons/ci";
 import { useCallback, Key, ReactNode } from "react";
 import { COLUMN_LIST_DATABUKU } from "./DataBuku.constants";
+import AddDataBukuModal from "./AddDataBukuModal";
 
 const dummyData = [
   {
     id: 1,
     judul: "Algoritma Pemrograman",
-    pengarang: "Ahmad Fauzi",
+    penulis: "Ahmad Fauzi",
     kategori: "Teknologi",
     penerbit: "Informatika Press",
     tahun_terbit: 2020,
@@ -24,7 +26,7 @@ const dummyData = [
   {
     id: 2,
     judul: "Belajar Database MySQL",
-    pengarang: "Siti Rahma",
+    penulis: "Siti Rahma",
     kategori: "Basis Data",
     penerbit: "Andi Publisher",
     tahun_terbit: 2019,
@@ -33,7 +35,7 @@ const dummyData = [
   {
     id: 3,
     judul: "Dasar Pemrograman Web",
-    pengarang: "Hisyam Santoso",
+    penulis: "Hisyam Santoso",
     kategori: "Web",
     penerbit: "Tekno Media",
     tahun_terbit: 2022,
@@ -42,6 +44,8 @@ const dummyData = [
 ];
 
 const DataBuku = () => {
+  const disclosureAddDataBukuModal = useDisclosure();
+
   const renderCell = useCallback(
     (buku: Record<string, unknown>, columnKey: Key) => {
       const cellValue = buku[columnKey as keyof typeof buku];
@@ -84,11 +88,16 @@ const DataBuku = () => {
     <section>
       <DataTable
         buttonTopContentLabel="Tambah Buku"
+        onPressButtonTopContent={disclosureAddDataBukuModal.onOpen}
         columns={COLUMN_LIST_DATABUKU}
         data={dummyData}
         renderCell={renderCell}
         searchFields={["judul", "kategori"]} // 🔍 Bisa cari di dua kolom
         searchPlaceholder="Cari berdasarkan judul atau kategori..."
+      />
+      <AddDataBukuModal
+        {...disclosureAddDataBukuModal}
+        refetchBook={() => {}}
       />
     </section>
   );
