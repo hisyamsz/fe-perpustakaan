@@ -18,6 +18,7 @@ const ActivatePage: FC<ActivatePageProps> = ({ status }) => {
 export async function getServerSideProps(context: { query: { code: string } }) {
   try {
     const result = await authServices.activate({ code: context.query.code });
+    console.log(result.data.status);
 
     if (result.data.status === "success") {
       return {
@@ -32,7 +33,8 @@ export async function getServerSideProps(context: { query: { code: string } }) {
         },
       };
     }
-  } catch {
+  } catch (error) {
+    console.log("Error Message:", error);
     return {
       props: {
         status: "failed",
