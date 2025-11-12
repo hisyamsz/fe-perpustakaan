@@ -1,9 +1,9 @@
 export const COLUMN_LIST_DATABUKU = [
-  { name: "JUDUL", uid: "judul" },
-  { name: "PENULIS", uid: "pengarang" },
-  { name: "KATEGORI", uid: "kategori" },
-  { name: "PENERBIT", uid: "penerbit" },
-  { name: "TAHUN", uid: "tahun_terbit" },
-  { name: "STOK", uid: "stok" },
-  { name: "ACTIONS", uid: "actions" },
+  { name: "JUDUL", uid: "judul", sortable: true },
+  { name: "PENULIS", uid: "pengarang", sortable: true },
+  { name: "KATEGORI", uid: "kategori", sortable: true },
+  { name: "PENERBIT", uid: "penerbit", sortable: true },
+  { name: "TAHUN", uid: "tahun_terbit", sortable: true },
+  { name: "STOK", uid: "stok", sortable: true },
+  { name: "AKSI", uid: "aksi" },
 ];

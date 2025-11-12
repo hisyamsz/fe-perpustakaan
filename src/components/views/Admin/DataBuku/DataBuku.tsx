@@ -7,45 +7,66 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
-import { useRouter } from "next/router";
-import { FC, Key, ReactNode, useCallback } from "react";
 import { CiMenuKebab } from "react-icons/ci";
+import { useCallback, Key, ReactNode } from "react";
 import { COLUMN_LIST_DATABUKU } from "./DataBuku.constants";
 
-interface DataBukuProps {
-  propName?: string;
-}
+const dummyData = [
+  {
+    id: 1,
+    judul: "Algoritma Pemrograman",
+    pengarang: "Ahmad Fauzi",
+    kategori: "Teknologi",
+    penerbit: "Informatika Press",
+    tahun_terbit: 2020,
+    stok: 5,
+  },
+  {
+    id: 2,
+    judul: "Belajar Database MySQL",
+    pengarang: "Siti Rahma",
+    kategori: "Basis Data",
+    penerbit: "Andi Publisher",
+    tahun_terbit: 2019,
+    stok: 3,
+  },
+  {
+    id: 3,
+    judul: "Dasar Pemrograman Web",
+    pengarang: "Hisyam Santoso",
+    kategori: "Web",
+    penerbit: "Tekno Media",
+    tahun_terbit: 2022,
+    stok: 10,
+  },
+];
 
-const DataBuku: FC<DataBukuProps> = () => {
-  const router = useRouter();
-
+const DataBuku = () => {
   const renderCell = useCallback(
-    (dataBuku: Record<string, unknown>, columnKey: Key) => {
-      const cellValue = dataBuku[columnKey as keyof typeof dataBuku];
+    (buku: Record<string, unknown>, columnKey: Key) => {
+      const cellValue = buku[columnKey as keyof typeof buku];
 
       switch (columnKey) {
         case "kategori":
           return (
-            <Chip className="uppercase" variant="flat">
-              {dataBuku.kategori as string}
+            <Chip color="primary" variant="flat" className="capitalize">
+              {cellValue as string}
             </Chip>
           );
-        case "actions":
+        case "aksi":
           return (
             <Dropdown>
               <DropdownTrigger>
                 <Button isIconOnly size="sm" variant="flat">
-                  <CiMenuKebab className="text-text" />
+                  <CiMenuKebab />
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu aria-label="Data Buku Table Columns">
-                <DropdownItem key="edit-databuku" onPress={() => {}}>
-                  Edit
-                </DropdownItem>
+              <DropdownMenu>
+                <DropdownItem key="edit">Edit</DropdownItem>
                 <DropdownItem
-                  key="hapus-databuku"
-                  className="text-danger-500"
+                  key="hapus"
                   color="danger"
+                  className="text-danger"
                 >
                   Hapus
                 </DropdownItem>
@@ -62,19 +83,12 @@ const DataBuku: FC<DataBukuProps> = () => {
   return (
     <section>
       <DataTable
-        renderCell={renderCell}
+        buttonTopContentLabel="Tambah Buku"
         columns={COLUMN_LIST_DATABUKU}
-        data={[
-          {
-            id: 12312,
-            judul: "Apa Aja",
-            pengarang: "Siapa ya",
-            kategori: "umum",
-            penerbit: "ujang",
-            tahun_terbit: 2004,
-            stok: 2,
-          },
-        ]}
+        data={dummyData}
+        renderCell={renderCell}
+        searchFields={["judul", "kategori"]} // 🔍 Bisa cari di dua kolom
+        searchPlaceholder="Cari berdasarkan judul atau kategori..."
       />
     </section>
   );
