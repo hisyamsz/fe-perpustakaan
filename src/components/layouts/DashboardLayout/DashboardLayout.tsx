@@ -33,7 +33,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
   return (
     <Fragment>
       <PageHead title={title} />
-      <div className="mx-auto max-w-screen-2xl 2xl:container">
+      <div className="mx-auto max-w-500">
         <DashboardLayoutNavbar />
         <div className="flex">
           <DashboardLayoutSidebar
