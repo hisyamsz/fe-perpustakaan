@@ -6,6 +6,7 @@ import { cn } from "@/utils/cn";
 import { Button, Listbox, ListboxItem, Skeleton } from "@heroui/react";
 import { FiUser } from "react-icons/fi";
 import { IProfile } from "@/types/Auth";
+import Link from "next/link";
 
 interface SidebarItems {
   key: string;
@@ -63,7 +64,8 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
               key={item.key}
               textValue={item.label}
               startContent={item.icon}
-              onPress={() => router.push(item.href)}
+              as={Link}
+              href={item.href}
               className={cn("my-1 h-12 text-2xl transition-all duration-300", {
                 "bg-primary text-white": router.pathname.startsWith(item.href),
               })}

@@ -53,7 +53,12 @@ const DataBuku = () => {
       switch (columnKey) {
         case "kategori":
           return (
-            <Chip color="primary" variant="flat" className="capitalize">
+            <Chip
+              color="primary"
+              size="sm"
+              variant="flat"
+              className="capitalize"
+            >
               {cellValue as string}
             </Chip>
           );

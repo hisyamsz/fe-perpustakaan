@@ -24,6 +24,7 @@ interface DataTableProps {
   searchPlaceholder?: string;
   rowsPerPage?: number;
   onPressButtonTopContent?: () => void;
+  disabledSearch?: boolean;
 }
 
 const DataTable: FC<DataTableProps> = ({
@@ -35,6 +36,7 @@ const DataTable: FC<DataTableProps> = ({
   searchPlaceholder = "Cari data...",
   rowsPerPage = 5,
   onPressButtonTopContent,
+  disabledSearch = false,
 }) => {
   const [filterValue, setFilterValue] = useState("");
   const [sortColumn, setSortColumn] = useState<string | undefined>(undefined);
@@ -78,15 +80,17 @@ const DataTable: FC<DataTableProps> = ({
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-col-reverse justify-between gap-y-4 lg:flex-row lg:items-center">
-        <Input
-          isClearable
-          className="w-full lg:max-w-sm"
-          placeholder={searchPlaceholder}
-          startContent={<CiSearch />}
-          value={filterValue}
-          onValueChange={onSearchChange}
-          onClear={() => onSearchChange("")}
-        />
+        {!disabledSearch && (
+          <Input
+            isClearable
+            className="w-full lg:max-w-sm"
+            placeholder={searchPlaceholder}
+            startContent={<CiSearch />}
+            value={filterValue}
+            onValueChange={onSearchChange}
+            onClear={() => onSearchChange("")}
+          />
+        )}
         {buttonTopContentLabel && (
           <Button
             variant="solid"
@@ -103,6 +107,7 @@ const DataTable: FC<DataTableProps> = ({
     searchPlaceholder,
     buttonTopContentLabel,
     onPressButtonTopContent,
+    disabledSearch,
   ]);
 
   const bottomContent = useMemo(() => {

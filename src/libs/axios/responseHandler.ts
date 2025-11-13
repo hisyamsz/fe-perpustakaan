@@ -1,3 +1,4 @@
+import { addToast } from "@heroui/react";
 import type { AxiosError } from "axios";
 import { signOut } from "next-auth/react";
 
@@ -13,5 +14,13 @@ export const onErrorHandler = (error: Error) => {
 
   if (response && res?.data?.jwtError === "jwt expired") {
     signOut();
+    addToast({
+      title: "Sesi Berakhir",
+      description:
+        "Sesi login Anda telah habis. Silakan masuk kembali untuk melanjutkan.",
+      variant: "solid",
+      color: "warning",
+      timeout: 3000,
+    });
   }
 };
