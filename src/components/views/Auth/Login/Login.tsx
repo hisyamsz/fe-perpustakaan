@@ -30,19 +30,16 @@ const Login: React.FC<LoginProps> = () => {
 
   return (
     <Card className="shadow-2xl">
-      <CardBody className="p-8 text-black">
-        <div className="mb-4 flex flex-col items-center justify-center gap-2">
+      <CardBody className="flex items-center justify-center p-8">
+        <div className="mb-4 flex flex-col items-center gap-2 text-center">
           <Image
             src="/images/general/logo-smkn-6.png"
             alt="logo png"
             width={48}
             height={48}
-            loading="lazy"
             className="h-12 w-12"
           />
-          <h2 className="text-primary text-center text-2xl font-semibold">
-            Login
-          </h2>
+          <h2 className="text-primary text-2xl font-semibold">Login</h2>
         </div>
 
         <form

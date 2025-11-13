@@ -60,11 +60,11 @@ const LandingPageLayoutNavbar: React.FC = () => {
             alt="logo"
             width={50}
             height={50}
-            className="h-12 w-12 cursor-pointer"
+            className="h-12 w-12 cursor-pointer lg:h-14 lg:w-14"
           />
         </NavbarBrand>
         <div className="hidden md:block">
-          <h2 className="text-sm font-bold lg:text-xl">
+          <h2 className="text-sm font-bold lg:text-xl 2xl:text-2xl">
             Perpustakaan SMKN 6 Kota Tangerang Selatan
           </h2>
           <p className="text-sm">Pusat Sumber Belajar & Literasi</p>
@@ -78,7 +78,7 @@ const LandingPageLayoutNavbar: React.FC = () => {
             href={item.href}
             title={item.label}
             className={cn(
-              "rounded-lg px-2 py-1 text-sm text-white transition-all duration-150 hover:bg-white hover:text-sky-800",
+              "rounded-lg px-2.5 py-1.5 text-white transition-all duration-150 hover:bg-white hover:text-sky-800",
               { "bg-white text-sky-800": router.pathname === item.href },
             )}
           >
@@ -87,10 +87,9 @@ const LandingPageLayoutNavbar: React.FC = () => {
         ))}
         {isUnauthenticated && (
           <Button
-            size="sm"
             className="bg-white font-medium text-sky-800"
-            as={Link}
-            href="/auth/login"
+            type="button"
+            onPress={() => router.push("/auth/login")}
           >
             Login
           </Button>

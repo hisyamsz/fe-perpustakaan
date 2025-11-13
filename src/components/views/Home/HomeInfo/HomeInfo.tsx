@@ -8,7 +8,7 @@ interface HomeInfoProps {
 
 const HomeInfo: React.FC<HomeInfoProps> = () => {
   return (
-    <section className="relative z-10 container mx-auto -mt-36 mb-12 px-4 md:-mt-24">
+    <section className="relative z-10 mx-auto -mt-36 mb-12 w-full px-4 md:-mt-24 lg:px-8">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {HOME_INFO.map((info, index) => (
           <Card
