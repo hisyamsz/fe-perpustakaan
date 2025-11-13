@@ -13,3 +13,11 @@ export interface IBookCategory {
   id: string;
   name: string;
 }
+
+export interface ISearchBookParams {
+  page?: string | string[];
+  size?: string | string[];
+  judul?: string | string[];
+  kategori?: string | string[];
+  featured?: string | string[];
+}

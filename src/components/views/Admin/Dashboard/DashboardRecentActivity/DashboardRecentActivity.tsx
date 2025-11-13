@@ -111,8 +111,8 @@ const DashboardRecentActivity: FC = () => {
         columns={columns}
         data={data}
         renderCell={renderCell}
-        disabledSearch
-        rowsPerPage={5}
+        emptyContent="Data tidak ditemukan"
+        totalPages={1}
       />
     </div>
   );

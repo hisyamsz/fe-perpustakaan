@@ -8,7 +8,7 @@ import * as yup from "yup";
 
 const addBookSchema = yup.object().shape({
   judul: yup.string().required("Judul buku wajib diisi"),
-  pengarang: yup.string().required("Nama penulis wajib diisi"),
+  penulis: yup.string().required("Nama penulis wajib diisi"),
   kategori: yup.string().required("Kategori buku wajib diisi"),
   penerbit: yup.string().required("Nama penerbit wajib diisi"),
   tahun_terbit: yup

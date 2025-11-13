@@ -9,42 +9,36 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { CiMenuKebab } from "react-icons/ci";
-import { useCallback, Key, ReactNode } from "react";
+import { useCallback, Key, ReactNode, useEffect, FC } from "react";
 import { COLUMN_LIST_DATABUKU } from "./DataBuku.constants";
 import AddDataBukuModal from "./AddDataBukuModal";
+import useDataBuku from "./useDataBuku";
+import { useRouter } from "next/router";
 
-const dummyData = [
-  {
-    id: 1,
-    judul: "Algoritma Pemrograman",
-    penulis: "Ahmad Fauzi",
-    kategori: "Teknologi",
-    penerbit: "Informatika Press",
-    tahun_terbit: 2020,
-    stok: 5,
-  },
-  {
-    id: 2,
-    judul: "Belajar Database MySQL",
-    penulis: "Siti Rahma",
-    kategori: "Basis Data",
-    penerbit: "Andi Publisher",
-    tahun_terbit: 2019,
-    stok: 3,
-  },
-  {
-    id: 3,
-    judul: "Dasar Pemrograman Web",
-    penulis: "Hisyam Santoso",
-    kategori: "Web",
-    penerbit: "Tekno Media",
-    tahun_terbit: 2022,
-    stok: 10,
-  },
-];
+const DataBuku: FC = () => {
+  const { isReady, query } = useRouter();
+  const {
+    currentPage,
+    currentSize,
+    dataBooks,
+    handleChangePage,
+    handleChangeSize,
+    handleClearSearch,
+    handleSearch,
+    isLoadingBook,
+    isRefetchingBook,
+    refetchBook,
+    setUrl,
+  } = useDataBuku();
 
-const DataBuku = () => {
   const disclosureAddDataBukuModal = useDisclosure();
+
+  useEffect(() => {
+    if (isReady) {
+      setUrl();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReady]);
 
   const renderCell = useCallback(
     (buku: Record<string, unknown>, columnKey: Key) => {
@@ -91,18 +85,30 @@ const DataBuku = () => {
 
   return (
     <section>
-      <DataTable
-        buttonTopContentLabel="Tambah Buku"
-        onPressButtonTopContent={disclosureAddDataBukuModal.onOpen}
-        columns={COLUMN_LIST_DATABUKU}
-        data={dummyData}
-        renderCell={renderCell}
-        searchFields={["judul", "kategori"]} // 🔍 Bisa cari di dua kolom
-        searchPlaceholder="Cari berdasarkan judul atau kategori..."
-      />
+      {Object.keys(query).length > 0 && (
+        <DataTable
+          buttonTopContentLabel="Tambah Buku"
+          columns={COLUMN_LIST_DATABUKU}
+          currentLimit={String(currentSize)}
+          currentPage={Number(currentPage)}
+          data={dataBooks?.data || []}
+          emptyContent="Data buku tidak ditemukan"
+          handleChangeLimit={handleChangeSize}
+          handleChangePage={handleChangePage}
+          handleClearSearch={handleClearSearch}
+          handleSearch={handleSearch}
+          isLoading={isLoadingBook || isRefetchingBook}
+          onClickButtonTopContent={disclosureAddDataBukuModal.onOpen}
+          renderCell={renderCell}
+          showLimit
+          showSearch
+          totalPages={dataBooks?.paging?.totalPage || 1}
+        />
+      )}
+
       <AddDataBukuModal
         {...disclosureAddDataBukuModal}
-        refetchBook={() => {}}
+        refetchBook={refetchBook}
       />
     </section>
   );

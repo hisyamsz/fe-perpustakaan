@@ -1,7 +1,12 @@
+import { LIMIT_LISTS } from "@/constants/list.constants";
+import { cn } from "@/utils/cn";
 import {
   Button,
   Input,
   Pagination,
+  Select,
+  SelectItem,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -9,93 +14,64 @@ import {
   TableHeader,
   TableRow,
 } from "@heroui/react";
-import { FC, Key, ReactNode, useMemo, useState } from "react";
+import { ChangeEvent, FC, Key, ReactNode, useMemo } from "react";
 import { CiSearch } from "react-icons/ci";
 
 interface DataTableProps {
   buttonTopContentLabel?: string;
-  columns: { name: string; uid: string; sortable?: boolean }[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: Record<string, any>[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderCell: (item: Record<string, any>, columnKey: Key) => ReactNode;
-
-  searchFields?: string[];
-  searchPlaceholder?: string;
-  rowsPerPage?: number;
-  onPressButtonTopContent?: () => void;
-  disabledSearch?: boolean;
+  columns: Record<string, unknown>[];
+  currentLimit?: string;
+  currentPage?: number;
+  data: Record<string, unknown>[];
+  emptyContent: string;
+  handleChangeLimit?: (e: ChangeEvent<HTMLSelectElement>) => void;
+  handleChangePage?: (page: number) => void;
+  handleClearSearch?: () => void;
+  handleSearch?: (e: ChangeEvent<HTMLInputElement>) => void;
+  isLoading?: boolean;
+  onClickButtonTopContent?: () => void;
+  renderCell: (item: Record<string, unknown>, columnKey: Key) => ReactNode;
+  showLimit?: boolean;
+  showSearch?: boolean;
+  totalPages: number;
 }
 
 const DataTable: FC<DataTableProps> = ({
   buttonTopContentLabel,
   columns,
+  currentLimit,
+  currentPage,
   data,
+  emptyContent,
+  handleChangeLimit,
+  handleChangePage,
+  handleClearSearch,
+  handleSearch,
+  isLoading,
+  onClickButtonTopContent,
   renderCell,
-  searchFields = ["judul"],
-  searchPlaceholder = "Cari data...",
-  rowsPerPage = 5,
-  onPressButtonTopContent,
-  disabledSearch = false,
+  showLimit = false,
+  showSearch = false,
+  totalPages,
 }) => {
-  const [filterValue, setFilterValue] = useState("");
-  const [sortColumn, setSortColumn] = useState<string | undefined>(undefined);
-  const [sortDirection, setSortDirection] = useState<
-    "ascending" | "descending"
-  >("ascending");
-  const [page, setPage] = useState(1);
-
-  const filteredData = useMemo(() => {
-    if (!filterValue) return data;
-    const lowerFilter = filterValue.toLowerCase();
-    return data.filter((item) =>
-      searchFields.some((field) =>
-        String(item[field]).toLowerCase().includes(lowerFilter),
-      ),
-    );
-  }, [filterValue, data, searchFields]);
-
-  const sortedData = useMemo(() => {
-    if (!sortColumn) return filteredData;
-    return [...filteredData].sort((a, b) => {
-      const first = a[sortColumn];
-      const second = b[sortColumn];
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
-      return sortDirection === "descending" ? -cmp : cmp;
-    });
-  }, [filteredData, sortColumn, sortDirection]);
-
-  // 📄 Pagination
-  const pages = Math.ceil(sortedData.length / rowsPerPage);
-  const pagedData = sortedData.slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage,
-  );
-
-  const onSearchChange = (value?: string) => {
-    setFilterValue(value || "");
-    setPage(1);
-  };
-
-  const topContent = useMemo(() => {
+  const TopContent = useMemo(() => {
     return (
-      <div className="flex flex-col-reverse justify-between gap-y-4 lg:flex-row lg:items-center">
-        {!disabledSearch && (
+      <div className="mb-2 flex flex-col-reverse justify-between gap-y-4 lg:flex-row lg:items-center">
+        {showSearch && (
           <Input
             isClearable
-            className="w-full lg:max-w-sm"
-            placeholder={searchPlaceholder}
+            variant="flat"
+            placeholder="Cari berdasarkan judul.."
             startContent={<CiSearch />}
-            value={filterValue}
-            onValueChange={onSearchChange}
-            onClear={() => onSearchChange("")}
+            onClear={handleClearSearch}
+            onChange={handleSearch}
+            className="w-full lg:max-w-64"
           />
         )}
         {buttonTopContentLabel && (
           <Button
-            variant="solid"
-            color="primary"
-            onPress={onPressButtonTopContent}
+            className="bg-primary text-white"
+            onPress={onClickButtonTopContent}
           >
             {buttonTopContentLabel}
           </Button>
@@ -103,62 +79,84 @@ const DataTable: FC<DataTableProps> = ({
       </div>
     );
   }, [
-    filterValue,
-    searchPlaceholder,
     buttonTopContentLabel,
-    onPressButtonTopContent,
-    disabledSearch,
+    handleSearch,
+    handleClearSearch,
+    onClickButtonTopContent,
+    showSearch,
   ]);
 
-  const bottomContent = useMemo(() => {
+  const BottomContent = useMemo(() => {
     return (
-      <>
-        {pages > 1 && (
-          <div className="mt-4 flex justify-center">
-            <Pagination
-              isCompact
-              showControls
-              color="primary"
-              page={page}
-              total={pages}
-              onChange={setPage}
-            />
-          </div>
+      <div className="flex items-center justify-center p-2 lg:justify-between">
+        {showLimit && (
+          <Select
+            aria-label="Select Limit"
+            className="hidden max-w-32 lg:block"
+            size="md"
+            selectedKeys={[`${currentLimit}`]}
+            selectionMode="single"
+            onChange={handleChangeLimit}
+            startContent={<p className="text-sm">Show:</p>}
+            disallowEmptySelection
+          >
+            {LIMIT_LISTS.map(({ value, label }) => (
+              <SelectItem key={value}>{label}</SelectItem>
+            ))}
+          </Select>
         )}
-      </>
+        {totalPages > 1 && (
+          <Pagination
+            loop
+            isCompact
+            showControls
+            aria-label="Pagination"
+            color="primary"
+            total={totalPages}
+            page={Number(currentPage)}
+            onChange={handleChangePage}
+          />
+        )}
+      </div>
     );
-  }, [page, pages]);
+  }, [
+    currentLimit,
+    currentPage,
+    totalPages,
+    handleChangeLimit,
+    handleChangePage,
+    showLimit,
+  ]);
 
   return (
     <Table
-      aria-label="Reusable Data Table"
-      topContent={topContent}
+      topContent={TopContent}
       topContentPlacement="outside"
-      bottomContent={bottomContent}
+      bottomContent={BottomContent}
       bottomContentPlacement="outside"
-      sortDescriptor={
-        sortColumn
-          ? { column: sortColumn, direction: sortDirection }
-          : undefined
-      }
-      onSortChange={(descriptor) => {
-        setSortColumn(descriptor.column as string);
-        setSortDirection(descriptor.direction as "ascending" | "descending");
+      aria-label="Data Table"
+      classNames={{
+        base: "max-w-full",
+        wrapper: cn({ "overflow-x-hidden": isLoading }),
       }}
     >
       <TableHeader columns={columns}>
         {(column) => (
-          <TableColumn
-            key={column.uid}
-            allowsSorting={column.sortable}
-            align={column.uid === "actions" ? "center" : "start"}
-          >
-            {column.name}
+          <TableColumn key={column.uid as Key}>
+            {column.name as string}
           </TableColumn>
         )}
       </TableHeader>
-
-      <TableBody emptyContent={"Tidak ada data ditemukan"} items={pagedData}>
+      <TableBody
+        emptyContent={emptyContent}
+        isLoading={isLoading}
+        items={data}
+        loadingContent={
+          <div className="bg-foreground-400/30 z-50 flex h-full w-full items-center justify-center backdrop-blur-sm">
+            <Spinner className="text-primary" />
+          </div>
+        }
+      >
         {(item) => (
           <TableRow key={item.id as Key}>
             {(columnKey) => (

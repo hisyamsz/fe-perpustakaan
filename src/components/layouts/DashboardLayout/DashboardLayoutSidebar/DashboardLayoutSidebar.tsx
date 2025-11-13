@@ -62,7 +62,6 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
           {(item) => (
             <ListboxItem
               key={item.key}
-              textValue={item.label}
               startContent={item.icon}
               as={Link}
               href={item.href}

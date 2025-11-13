@@ -94,19 +94,19 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
                 )}
               />
               <Controller
-                name="pengarang"
+                name="penulis"
                 control={control}
                 render={({ field }) => (
                   <Input
                     {...field}
                     isRequired
                     label="Penulis"
-                    placeholder="Masukkan nama pengarang"
+                    placeholder="Masukkan nama penulis"
                     variant="bordered"
                     type="text"
                     autoComplete="off"
-                    isInvalid={!!errors.pengarang}
-                    errorMessage={errors.pengarang?.message}
+                    isInvalid={!!errors.penulis}
+                    errorMessage={errors.penulis?.message}
                   />
                 )}
               />
