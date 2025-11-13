@@ -125,6 +125,7 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
                     isInvalid={!!errors.kategori}
                     errorMessage={errors.kategori?.message}
                     onSelectionChange={(value) => onChange(value)}
+                    onInputChange={(value) => onChange(value)}
                   >
                     {(kategori: IBookCategory) => (
                       <AutocompleteItem key={kategori.name}>
@@ -169,13 +170,14 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
                 )}
               />
 
-              {/*<Controller
+              <Controller
                 name="isFeatured"
                 control={control}
                 render={({ field }) => (
                   <Select
                     {...field}
                     isRequired
+                    aria-hidden={false}
                     label="Apakah Buku Unggulan?"
                     variant="bordered"
                     disallowEmptySelection
@@ -186,7 +188,7 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
                     <SelectItem key="false">Tidak</SelectItem>
                   </Select>
                 )}
-              />*/}
+              />
 
               <p className="text-sm font-bold">Stok Buku</p>
               <Controller

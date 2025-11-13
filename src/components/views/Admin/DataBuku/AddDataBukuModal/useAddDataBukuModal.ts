@@ -16,7 +16,7 @@ const addBookSchema = yup.object().shape({
     .required("Tahun terbit wajib diisi")
     .max(4, "Tahun terbit harus berupa 4 angka")
     .matches(/^[0-9]{4}$/, "Tahun terbit harus berupa 4 angka"),
-  // isFeatured: yup.string().required("Status unggulan wajib diisi (Ya/Tidak)"),
+  isFeatured: yup.string().required("Status unggulan wajib diisi (Ya/Tidak)"),
   stok: yup
     .string()
     .required("Jumlah stok wajib diisi")
@@ -69,7 +69,7 @@ const useAddDataBukuModal = () => {
     const payload = {
       ...data,
       tahun_terbit: Number(data.tahun_terbit),
-      // isFeatured: data.isFeatured === "true",
+      isFeatured: data.isFeatured === "true",
       stok: Number(data.stok),
     };
 

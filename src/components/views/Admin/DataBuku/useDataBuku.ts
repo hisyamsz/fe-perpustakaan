@@ -62,7 +62,7 @@ const useDataBuku = () => {
       const hasSearchParams = !!currentJudul || !!currentKategori;
       return hasSearchParams ? searchBooks() : getBooks();
     },
-    enabled: router.isReady,
+    enabled: router.isReady && !!router.query,
   });
 
   const handleChangePage = (page: number) => {
