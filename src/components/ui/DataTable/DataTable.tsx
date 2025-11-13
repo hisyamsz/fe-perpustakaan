@@ -65,7 +65,7 @@ const DataTable: FC<DataTableProps> = ({
             startContent={<CiSearch />}
             onClear={handleClearSearch}
             onChange={handleSearch}
-            className="w-full lg:max-w-64"
+            className="w-full lg:max-w-72"
           />
         )}
         {buttonTopContentLabel && (

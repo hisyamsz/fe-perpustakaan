@@ -1,11 +1,13 @@
 import { DELAY, LIMIT_DEFAULT, PAGE_DEFAULT } from "@/constants/list.constants";
 import useDebounce from "@/hooks/useDebounce";
 import bookServices from "@/services/book.service";
+import { IBook } from "@/types/Book";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 
 const useDataBuku = () => {
+  const [selectedId, setSelectedId] = useState<IBook | null>(null);
   const router = useRouter();
   const debounce = useDebounce();
   const currentSize = router.query.size;
@@ -13,7 +15,6 @@ const useDataBuku = () => {
   const currentJudul = router.query.judul;
   const currentKategori = router.query.kategori;
 
-  // ✅ Fungsi untuk set URL default
   const setUrl = () => {
     router.replace({
       query: {
@@ -25,13 +26,11 @@ const useDataBuku = () => {
     });
   };
 
-  // ✅ Fungsi ambil semua buku (tanpa parameter)
   const getBooks = async () => {
     const { data } = await bookServices.getBooks();
     return data;
   };
 
-  // ✅ Fungsi search buku (mengirim query ke backend)
   const searchBooks = async () => {
     const params = {
       page: currentPage,
@@ -88,7 +87,6 @@ const useDataBuku = () => {
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     debounce(() => {
       const searchJudul = e.target.value;
-      console.log(searchJudul);
       router.push({
         query: {
           ...router.query,
@@ -123,6 +121,8 @@ const useDataBuku = () => {
     isRefetchingBook,
     refetchBook,
     setUrl,
+    selectedId,
+    setSelectedId,
   };
 };
 

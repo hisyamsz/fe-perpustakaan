@@ -1,19 +1,13 @@
 import DataTable from "@/components/ui/DataTable";
-import {
-  Button,
-  Chip,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  useDisclosure,
-} from "@heroui/react";
-import { CiMenuKebab } from "react-icons/ci";
+import { Chip, useDisclosure } from "@heroui/react";
 import { useCallback, Key, ReactNode, useEffect, FC } from "react";
 import { COLUMN_LIST_DATABUKU } from "./DataBuku.constants";
 import AddDataBukuModal from "./AddDataBukuModal";
 import useDataBuku from "./useDataBuku";
 import { useRouter } from "next/router";
+import DeleteDataBukuModal from "./DeleteDataBukuModal";
+import DropdownAction from "@/components/commons/DropdownAction";
+import UpdateDataBukuModal from "./UpdateDataBukuModal";
 
 const DataBuku: FC = () => {
   const { isReady, query } = useRouter();
@@ -29,9 +23,13 @@ const DataBuku: FC = () => {
     isRefetchingBook,
     refetchBook,
     setUrl,
+    selectedId,
+    setSelectedId,
   } = useDataBuku();
 
   const disclosureAddDataBukuModal = useDisclosure();
+  const disclosureUpdateDataBukuModal = useDisclosure();
+  const disclosureDeleteDataBukuModal = useDisclosure();
 
   useEffect(() => {
     if (isReady) {
@@ -58,29 +56,28 @@ const DataBuku: FC = () => {
           );
         case "aksi":
           return (
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="flat">
-                  <CiMenuKebab />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem key="edit">Edit</DropdownItem>
-                <DropdownItem
-                  key="hapus"
-                  color="danger"
-                  className="text-danger"
-                >
-                  Hapus
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <DropdownAction
+              detailLabel="Edit"
+              onPressButtonDetail={() => {
+                setSelectedId(buku);
+                disclosureUpdateDataBukuModal.onOpen();
+              }}
+              deleteLabel="Hapus"
+              onPressButtonDelete={() => {
+                setSelectedId(buku);
+                disclosureDeleteDataBukuModal.onOpen();
+              }}
+            />
           );
         default:
           return cellValue as ReactNode;
       }
     },
-    [],
+    [
+      setSelectedId,
+      disclosureDeleteDataBukuModal,
+      disclosureUpdateDataBukuModal,
+    ],
   );
 
   return (
@@ -109,6 +106,18 @@ const DataBuku: FC = () => {
       <AddDataBukuModal
         {...disclosureAddDataBukuModal}
         refetchBook={refetchBook}
+      />
+      <UpdateDataBukuModal
+        {...disclosureUpdateDataBukuModal}
+        refetchBook={refetchBook}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+      />
+      <DeleteDataBukuModal
+        {...disclosureDeleteDataBukuModal}
+        refetchBook={refetchBook}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
       />
     </section>
   );

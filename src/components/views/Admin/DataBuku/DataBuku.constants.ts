@@ -10,7 +10,7 @@ export const COLUMN_LIST_DATABUKU = [
   { name: "AKSI", uid: "aksi" },
 ];
 
-export const kategoriBuku: IBookCategory[] = [
+export const KATEGORI_BUKU: IBookCategory[] = [
   { id: "1", name: "Fiksi" },
   { id: "2", name: "Non-Fiksi" },
   { id: "3", name: "Novel" },

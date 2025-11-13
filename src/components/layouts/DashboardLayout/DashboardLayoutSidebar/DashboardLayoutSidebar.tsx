@@ -35,7 +35,7 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
         { "translate-x-0": isOpen },
       )}
     >
-      <div className="flex flex-1 flex-col overflow-y-auto pb-[90px]">
+      <div className="flex flex-1 flex-col">
         <div className="flex items-center gap-4 px-4 py-6">
           <FiUser className="h-12 w-12" />
           <div className="flex flex-col gap-2">

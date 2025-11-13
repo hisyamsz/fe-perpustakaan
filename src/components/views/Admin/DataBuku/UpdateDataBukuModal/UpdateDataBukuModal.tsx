@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -14,44 +14,63 @@ import {
   Spinner,
 } from "@heroui/react";
 import { Controller } from "react-hook-form";
-import useAddDataBukuModal from "./useAddDataBukuModal";
-import { KATEGORI_BUKU } from "../DataBuku.constants";
-import { IBookCategory } from "@/types/Book";
+import { IBook, IBookCategory } from "@/types/Book";
 import { cn } from "@/utils/cn";
+import { KATEGORI_BUKU } from "../DataBuku.constants";
+import useUpdateDataBukuModal from "./useUpdateDataBukuModal";
 
-interface AddDataBukuProps {
+interface UpdateDataBukuModalProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenChange: () => void;
   refetchBook: () => void;
+  selectedId: IBook | null;
+  setSelectedId: Dispatch<SetStateAction<IBook | null>>;
 }
 
-const AddDataBukuModal: FC<AddDataBukuProps> = ({
+const UpdateDataBukuModal: FC<UpdateDataBukuModalProps> = ({
   isOpen,
   onClose,
   onOpenChange,
   refetchBook,
+  selectedId,
+  setSelectedId,
 }) => {
   const {
     control,
     errors,
     reset,
-    handleAddBook,
+    setValueUpdateBook,
     handleSubmit,
-    isPendingAddBook,
-    isSuccessAddBook,
-  } = useAddDataBukuModal();
+    handleUpdateBook,
+    isPendingUpdateBook,
+    isSuccessUpdateBook,
+  } = useUpdateDataBukuModal(`${selectedId?.id}`);
 
   useEffect(() => {
-    if (isSuccessAddBook) {
+    if (selectedId) {
+      setValueUpdateBook("judul", `${selectedId.judul}`);
+      setValueUpdateBook("penulis", `${selectedId.penulis}`);
+      setValueUpdateBook("kategori", `${selectedId.kategori}`);
+      setValueUpdateBook("penerbit", `${selectedId.penerbit}`);
+      setValueUpdateBook("tahun_terbit", `${selectedId.tahun_terbit}`);
+      setValueUpdateBook("isFeatured", `${selectedId.isFeatured}`);
+      setValueUpdateBook("stok", `${selectedId.stok}`);
+    }
+  }, [selectedId]);
+
+  useEffect(() => {
+    if (isSuccessUpdateBook) {
       onClose();
       refetchBook();
+      setSelectedId(null);
     }
-  }, [isSuccessAddBook, onClose, refetchBook]);
+  }, [isSuccessUpdateBook]);
 
   const handleOnClose = () => {
     reset();
     onClose();
+    setSelectedId(null);
   };
 
   return (
@@ -62,10 +81,10 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
       placement="center"
       scrollBehavior="inside"
     >
-      <form noValidate onSubmit={handleSubmit(handleAddBook)}>
+      <form onSubmit={handleSubmit(handleUpdateBook)}>
         <ModalContent className="m-4 p-2">
           <ModalHeader className="text-lg font-semibold">
-            Tambah Data Buku
+            Edit Data Buku
           </ModalHeader>
 
           <ModalBody>
@@ -123,6 +142,7 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
                     placeholder="Masukkan kategori..."
                     variant="bordered"
                     isInvalid={!!errors.kategori}
+                    defaultInputValue={selectedId?.kategori}
                     errorMessage={errors.kategori?.message}
                     onSelectionChange={(value) => onChange(value)}
                     onInputChange={(value) => onChange(value)}
@@ -181,6 +201,9 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
                     label="Apakah Buku Unggulan?"
                     variant="bordered"
                     disallowEmptySelection
+                    defaultSelectedKeys={
+                      selectedId?.isFeatured === true ? ["true"] : ["false"]
+                    }
                     isInvalid={!!errors.isFeatured}
                     errorMessage={errors.isFeatured?.message}
                   >
@@ -216,17 +239,17 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
               onPress={handleOnClose}
               color="primary"
               variant="bordered"
-              disabled={isPendingAddBook}
+              disabled={isPendingUpdateBook}
             >
               Batal
             </Button>
             <Button
               type="submit"
               color="primary"
-              isLoading={isPendingAddBook}
+              isLoading={isPendingUpdateBook}
               spinner={<Spinner size="sm" color="white" />}
             >
-              {!isPendingAddBook && "Tambahkan"}
+              {!isPendingUpdateBook && "Edit Buku"}
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -235,4 +258,4 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
   );
 };
 
-export default AddDataBukuModal;
+export default UpdateDataBukuModal;
