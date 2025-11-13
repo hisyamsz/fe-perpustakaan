@@ -16,9 +16,10 @@ const Activate: FC<ActivateProps> = ({ status }) => {
         <Image
           src="/images/general/logo-smkn-6.png"
           alt="success"
-          width={250}
-          height={250}
+          width={200}
+          height={200}
           loading="eager"
+          className="h-auto w-64 object-cover"
         />
         <div className="flex flex-col items-center justify-center gap-2 text-center">
           <h2 className="text-primary text-3xl font-bold">
@@ -30,12 +31,15 @@ const Activate: FC<ActivateProps> = ({ status }) => {
             {status === "success" ? "Lanjutkan untuk login" : "Code is Invalid"}
           </p>
           <Button
-            className="border-primary text-primary mt-4 w-fit"
+            className="mt-4"
             variant="bordered"
+            color="primary"
             type="button"
-            onPress={() => router.push("/")}
+            onPress={() =>
+              router.push(status === "success" ? "/auth/login" : "/")
+            }
           >
-            Kembali ke beranda
+            {status === "success" ? "Lanjut untuk login" : "Kembali ke beranda"}
           </Button>
         </div>
       </div>

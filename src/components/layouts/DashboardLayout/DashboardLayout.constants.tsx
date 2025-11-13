@@ -49,12 +49,6 @@ export const SIDEBAR_USER = [
     icon: <CiBookmark />,
   },
   {
-    key: "laporan",
-    label: "Laporan Buku",
-    href: "/member/laporan",
-    icon: <TbReportAnalytics />,
-  },
-  {
     key: "profile",
     label: "Profile",
     href: "/member/profile",

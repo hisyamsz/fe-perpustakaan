@@ -15,30 +15,33 @@ const ActivatePage: FC<ActivatePageProps> = ({ status }) => {
   );
 };
 
-export async function getServerSideProps(context: { query: { code: string } }) {
-  try {
-    const result = await authServices.activate({ code: context.query.code });
-    console.log(result.data.status);
+export async function getServerSideProps(context: {
+  query: { code?: string };
+}) {
+  const { code } = context.query;
 
-    if (result.data.status === "success") {
+  if (!code || typeof code !== "string") {
+    return {
+      props: { status: "failed" },
+    };
+  }
+
+  try {
+    const result = await authServices.activate({ code });
+
+    if (result?.data?.status === "success") {
       return {
-        props: {
-          status: "success",
-        },
-      };
-    } else {
-      return {
-        props: {
-          status: "failed",
-        },
+        props: { status: "success" },
       };
     }
-  } catch (error) {
-    console.log("Error Message:", error);
+
     return {
-      props: {
-        status: "failed",
-      },
+      props: { status: "failed" },
+    };
+  } catch (error) {
+    console.error("Activation error:", error);
+    return {
+      props: { status: "failed" },
     };
   }
 }

@@ -31,7 +31,7 @@ export default function App({
       <QueryClientProvider client={queryClient}>
         <HeroUIProvider>
           <AppShell>
-            <ToastProvider placement="top-right" />
+            <ToastProvider placement="top-center" />
             <Component {...pageProps} />
           </AppShell>
         </HeroUIProvider>
