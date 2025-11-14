@@ -17,7 +17,7 @@ const LandingPageLayout: React.FC<LandingPageLayoutProps> = ({
       <PageHead title={title} />
       <div className="mx-auto max-w-500">
         <LandingPageLayoutNavbar />
-        {children}
+        <div className="min-h-screen bg-slate-100">{children}</div>
         <LandingPageLayoutFooter />
       </div>
     </>

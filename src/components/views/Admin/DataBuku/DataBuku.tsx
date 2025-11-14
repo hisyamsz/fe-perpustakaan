@@ -43,6 +43,10 @@ const DataBuku: FC = () => {
       const cellValue = buku[columnKey as keyof typeof buku];
 
       switch (columnKey) {
+        case "penulis":
+        return (
+          <p className="">{ cellValue as string}</p>
+        )
         case "kategori":
           return (
             <Chip

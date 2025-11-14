@@ -50,6 +50,7 @@ const LandingPageLayoutNavbar: React.FC = () => {
       isBordered
       isBlurred
       disableAnimation
+      shouldHideOnScroll
       onMenuOpenChange={setIsMenuOpen}
       className="bg-linear-to-r from-sky-900 to-sky-700 py-2 text-white lg:px-8 lg:py-6"
     >

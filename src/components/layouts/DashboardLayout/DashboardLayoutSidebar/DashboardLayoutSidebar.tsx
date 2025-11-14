@@ -29,7 +29,7 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
   const router = useRouter();
 
   return (
-    <div
+    <aside
       className={cn(
         "fixed inset-0 z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col bg-gray-700 text-white transition-all duration-300 lg:relative lg:translate-x-0",
         { "translate-x-0": isOpen },
@@ -85,7 +85,7 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
           </Button>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 

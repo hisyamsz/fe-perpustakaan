@@ -9,8 +9,8 @@ export const HOME_INFO = [
     title: "Jam Buka",
     details: [
       "Senin - Jum'at: 8:00 - 16.00 WIB",
-      "Sabtu: 9:00 AM - 4:00 PM",
-      "Minggu: Closed",
+      "Sabtu: 9:00 AM - 16:00 WIB",
+      "Minggu: Tutup",
     ],
     color: "text-primary",
   },
