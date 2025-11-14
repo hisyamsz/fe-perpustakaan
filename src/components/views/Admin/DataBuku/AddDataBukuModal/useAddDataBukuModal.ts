@@ -27,6 +27,7 @@ const addBookSchema = yup.object().shape({
         return year <= currentYear;
       },
     ),
+  isFeatured: yup.string().required("Status unggulan wajib diisi (Ya/Tidak)"),
   stok: yup
     .string()
     .required("Jumlah stok wajib diisi")
