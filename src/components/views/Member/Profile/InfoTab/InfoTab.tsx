@@ -66,7 +66,7 @@ const InfoTab: FC<InfoTabProps> = ({
     !currentNamaTrimmed;
 
   return (
-    <Card className="w-full p-4 lg:w-1/2">
+    <Card className="w-full p-4 lg:w-1/2 2xl:w-2/5">
       <CardHeader className="flex-col items-center">
         <h1 className="w-full text-xl font-bold">Profile Information</h1>
         <p className="text-default-400 w-full text-sm">

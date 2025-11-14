@@ -31,28 +31,26 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
   return (
     <div
       className={cn(
-        "fixed inset-0 z-50 flex w-full max-w-[300px] -translate-x-full flex-col bg-gray-700 text-white transition-all duration-300 lg:relative lg:translate-x-0",
+        "fixed inset-0 z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col bg-gray-700 text-white transition-all duration-300 lg:relative lg:translate-x-0",
         { "translate-x-0": isOpen },
       )}
     >
-      <div className="flex flex-1 flex-col">
-        <div className="flex items-center gap-4 px-4 py-6">
-          <FiUser className="h-12 w-12" />
-          <div className="flex flex-col gap-2">
-            <Skeleton isLoaded={!!dataProfile?.nama} className="rounded-md">
-              <p className="font-medium">{dataProfile?.nama || "Memuat..."}</p>
-            </Skeleton>
-            <Skeleton
-              isLoaded={!!dataProfile?.role}
-              className="w-24 rounded-md"
-            >
-              <p className="text-default-400 text-sm capitalize">
-                {dataProfile?.role || "-"}
-              </p>
-            </Skeleton>
-          </div>
+      <div className="grid grid-cols-[48px_1fr] items-center gap-4 p-6">
+        <FiUser className="h-12 w-12" />
+        <div className="flex flex-col gap-2">
+          <Skeleton isLoaded={!!dataProfile?.nama} className="rounded-md">
+            <p className="line-clamp-2 font-medium">
+              {dataProfile?.nama || "Memuat..."}
+            </p>
+          </Skeleton>
+          <Skeleton isLoaded={!!dataProfile?.role} className="w-24 rounded-md">
+            <p className="text-default-400 text-sm capitalize">
+              {dataProfile?.role || "-"}
+            </p>
+          </Skeleton>
         </div>
-
+      </div>
+      <div className="flex flex-col gap-4">
         <Listbox
           items={sidebarItems}
           variant="solid"
@@ -73,20 +71,19 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
             </ListboxItem>
           )}
         </Listbox>
-      </div>
-
-      <div className="fixed bottom-0 left-0 w-[300px] border-t border-gray-600 bg-gray-700 p-4">
-        <Button
-          fullWidth
-          variant="solid"
-          size="lg"
-          color="danger"
-          className="flex justify-start rounded-lg px-2 py-1.5 text-white"
-          onPress={() => signOut()}
-        >
-          <CiLogout />
-          Logout
-        </Button>
+        <div className="flex items-center border-t border-gray-600 bg-gray-700 p-4">
+          <Button
+            fullWidth
+            variant="solid"
+            size="lg"
+            color="danger"
+            className="flex justify-start rounded-lg px-2 py-1.5 text-white"
+            onPress={() => signOut()}
+          >
+            <CiLogout />
+            Logout
+          </Button>
+        </div>
       </div>
     </div>
   );
