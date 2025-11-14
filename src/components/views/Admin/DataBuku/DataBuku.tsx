@@ -44,9 +44,7 @@ const DataBuku: FC = () => {
 
       switch (columnKey) {
         case "penulis":
-        return (
-          <p className="">{ cellValue as string}</p>
-        )
+          return <p className="">{cellValue as string}</p>;
         case "kategori":
           return (
             <Chip

@@ -27,7 +27,12 @@ const useDataBuku = () => {
   };
 
   const getBooks = async () => {
-    const { data } = await bookServices.getBooks();
+    const params = {
+      page: currentPage,
+      size: currentSize,
+    };
+
+    const { data } = await bookServices.getBooks(params);
     return data;
   };
 
@@ -43,7 +48,7 @@ const useDataBuku = () => {
     return data;
   };
 
-  // ✅ Logika otomatis — jika ada query pencarian, pakai searchBooks
+  // Logika otomatis — jika ada query pencarian, pakai searchBooks
   const {
     data: dataBooks,
     refetch: refetchBook,

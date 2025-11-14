@@ -3,7 +3,10 @@ import endpoint from "./endpoint.constant";
 import { IBook, ISearchBookParams } from "@/types/Book";
 
 const bookServices = {
-  getBooks: () => instance.get(`${endpoint.BOOK}/getAll`),
+  getBooks: (params?: ISearchBookParams) =>
+    instance.get(`${endpoint.BOOK}/getAll`, { params }),
+  searchBooks: (params?: ISearchBookParams) =>
+    instance.get(`${endpoint.BOOK}/search`, { params }),
   getBookById: (id_buku: string) =>
     instance.get(`${endpoint.BOOK}/get/${id_buku}`),
   addBook: (payload: IBook) =>
@@ -12,8 +15,6 @@ const bookServices = {
     instance.patch(`${endpoint.BOOK}/update/${id_buku}`, payload),
   deleteBook: (id_buku: string) =>
     instance.delete(`${endpoint.BOOK}/delete/${id_buku}`),
-  searchBooks: (params?: ISearchBookParams) =>
-    instance.get(`${endpoint.BOOK}/search`, { params }),
 };
 
 export default bookServices;
