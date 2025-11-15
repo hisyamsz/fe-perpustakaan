@@ -2,12 +2,14 @@ import { DELAY, LIMIT_DEFAULT, PAGE_DEFAULT } from "@/constants/list.constants";
 import useDebounce from "@/hooks/useDebounce";
 import bookServices from "@/services/book.service";
 import { IBook } from "@/types/Book";
+import { SharedSelection } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 
 const useDataBuku = () => {
   const [selectedId, setSelectedId] = useState<IBook | null>(null);
+  const [filterBy, setFilterBy] = useState<"judul" | "kategori">("judul");
   const router = useRouter();
   const debounce = useDebounce();
   const currentSize = router.query.size;
@@ -20,8 +22,8 @@ const useDataBuku = () => {
       query: {
         size: currentSize || LIMIT_DEFAULT,
         page: currentPage || PAGE_DEFAULT,
-        judul: currentJudul || "",
-        kategori: currentKategori || "",
+        judul: filterBy === "judul" ? currentJudul || "" : "",
+        kategori: filterBy === "kategori" ? currentKategori || "" : "",
       },
     });
   };
@@ -40,8 +42,9 @@ const useDataBuku = () => {
     const params = {
       page: currentPage,
       size: currentSize,
-      judul: currentJudul || undefined,
-      kategori: currentKategori || undefined,
+      judul: filterBy === "judul" ? currentJudul || undefined : undefined,
+      kategori:
+        filterBy === "kategori" ? currentKategori || undefined : undefined,
     };
 
     const { data } = await bookServices.searchBooks(params);
@@ -61,6 +64,7 @@ const useDataBuku = () => {
       currentSize,
       currentJudul,
       currentKategori,
+      filterBy,
     ],
     queryFn: () => {
       const hasSearchParams = !!currentJudul || !!currentKategori;
@@ -91,11 +95,12 @@ const useDataBuku = () => {
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     debounce(() => {
-      const searchJudul = e.target.value;
+      const value = e.target.value;
       router.push({
         query: {
           ...router.query,
-          judul: searchJudul,
+          judul: filterBy === "judul" ? value || undefined : undefined,
+          kategori: filterBy === "kategori" ? value || undefined : undefined,
           page: PAGE_DEFAULT,
         },
       });
@@ -106,10 +111,36 @@ const useDataBuku = () => {
     router.push({
       query: {
         ...router.query,
-        judul: "",
+        [filterBy]: undefined,
         page: PAGE_DEFAULT,
       },
     });
+  };
+
+  const handleFilterSearch = (keys: SharedSelection) => {
+    const key = Array.from(keys)[0] as "judul" | "kategori";
+
+    setFilterBy(key);
+
+    if (key === "judul") {
+      router.push({
+        query: {
+          ...router.query,
+          judul: key === "judul" ? undefined : undefined,
+          kategori: undefined,
+          page: PAGE_DEFAULT,
+        },
+      });
+    } else {
+      router.push({
+        query: {
+          ...router.query,
+          judul: undefined,
+          kategori: key === "kategori" ? undefined : undefined,
+          page: PAGE_DEFAULT,
+        },
+      });
+    }
   };
 
   return {
@@ -118,6 +149,9 @@ const useDataBuku = () => {
     currentPage,
     currentSize,
     dataBooks,
+    filterBy,
+    setFilterBy,
+    handleFilterSearch,
     handleChangePage,
     handleChangeSize,
     handleClearSearch,

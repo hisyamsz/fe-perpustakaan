@@ -41,7 +41,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({
             isOpen={open}
             dataProfile={dataProfile}
           />
-          <div className="h-screen w-full px-6 py-4 lg:overflow-y-auto lg:px-10 lg:py-6">
+          <div className="min-h-screen w-full px-6 py-4 lg:px-12 lg:py-6">
             <Navbar
               className="flex justify-between bg-transparent px-0"
               isBlurred={false}

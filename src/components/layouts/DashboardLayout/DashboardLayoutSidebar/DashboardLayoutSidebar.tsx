@@ -31,7 +31,7 @@ const DashboardLayoutSidebar: FC<DashboardLayoutSidebarProps> = ({
   return (
     <aside
       className={cn(
-        "fixed inset-0 z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col bg-gray-700 text-white transition-all duration-300 lg:relative lg:translate-x-0",
+        "fixed inset-0 z-50 flex min-h-screen w-full max-w-[300px] -translate-x-full flex-col bg-gray-700 text-white transition-all duration-300 lg:relative lg:translate-x-0",
         { "translate-x-0": isOpen },
       )}
     >

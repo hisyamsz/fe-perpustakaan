@@ -15,6 +15,8 @@ const DataBuku: FC = () => {
     currentPage,
     currentSize,
     dataBooks,
+    filterBy,
+    setFilterBy,
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
@@ -23,6 +25,7 @@ const DataBuku: FC = () => {
     isRefetchingBook,
     refetchBook,
     setUrl,
+    handleFilterSearch,
     selectedId,
     setSelectedId,
   } = useDataBuku();
@@ -92,6 +95,8 @@ const DataBuku: FC = () => {
           currentPage={Number(currentPage)}
           data={dataBooks?.data || []}
           emptyContent="Data buku tidak ditemukan"
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
           handleChangeLimit={handleChangeSize}
           handleChangePage={handleChangePage}
           handleClearSearch={handleClearSearch}
@@ -101,6 +106,7 @@ const DataBuku: FC = () => {
           renderCell={renderCell}
           showLimit
           showSearch
+          onSelectionChange={handleFilterSearch}
           totalPages={dataBooks?.paging?.totalPage || 1}
         />
       )}
