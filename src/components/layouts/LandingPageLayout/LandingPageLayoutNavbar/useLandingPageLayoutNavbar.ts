@@ -6,18 +6,15 @@ const useLandingPageLayoutNavbar = () => {
   const router = useRouter();
 
   const getProfile = async () => {
-    try {
-      const { data } = await authServices.getProfile();
-      return data.data;
-    } catch {
-      return null;
-    }
+    const { data } = await authServices.getProfile();
+    return data.data;
   };
 
   const { data: dataProfile, refetch: refetchProfile } = useQuery({
     queryKey: ["Profile"],
     queryFn: getProfile,
     enabled: router.isReady,
+    retry: false,
   });
 
   return { dataProfile, refetchProfile };

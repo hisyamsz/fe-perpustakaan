@@ -1,15 +1,12 @@
-import { Card, CardBody } from "@heroui/react";
+import { Card, CardBody, Skeleton } from "@heroui/react";
 import { FC } from "react";
 import DashboardRecentActivity from "./DashboardRecentActivity";
 import { IStatistic } from "@/types/Stat";
 import { STATS_CARD } from "./Dashboard.constants";
+import useDashboard from "./useDashboard";
 
-interface DashbaordProps {
-  dataStat?: IStatistic;
-}
-
-const Dashboard: FC<DashbaordProps> = ({ dataStat }) => {
-  console.log(dataStat);
+const Dashboard: FC = () => {
+  const { dataStats, isPendingStats } = useDashboard();
 
   return (
     <section>
@@ -25,9 +22,13 @@ const Dashboard: FC<DashbaordProps> = ({ dataStat }) => {
                   <p className="text-sm font-medium text-gray-500">
                     {item.title}
                   </p>
-                  <p className="text-foreground text-2xl font-bold">
-                    {dataStat?.[item.key as keyof IStatistic] ?? 0}
-                  </p>
+                  <div className="text-foreground text-2xl font-bold">
+                    {isPendingStats ? (
+                      <Skeleton className="h-7 w-14 rounded-full" />
+                    ) : (
+                      <p>{dataStats?.[item.key as keyof IStatistic] ?? 0}</p>
+                    )}
+                  </div>
                 </div>
                 <div
                   className={`rounded-full p-4 ${item.bgColor} ${item.textColor}`}

@@ -38,6 +38,8 @@ const LandingPageLayoutNavbar: React.FC = () => {
 
   const isAuthenticated = status === "authenticated";
   const isUnauthenticated = status === "unauthenticated";
+  const isLoadingSession = status === "loading";
+
   const dashboardHref =
     dataProfile && dataProfile.role === "user"
       ? "/member/dashboard"
@@ -85,6 +87,17 @@ const LandingPageLayoutNavbar: React.FC = () => {
             {item.label}
           </NavbarItem>
         ))}
+
+        {isLoadingSession && (
+          <Button
+            className="bg-white font-medium text-sky-800"
+            type="button"
+            onPress={() => router.push("/auth/login")}
+          >
+            Login
+          </Button>
+        )}
+
         {isUnauthenticated && (
           <Button
             className="bg-white font-medium text-sky-800"
@@ -94,6 +107,7 @@ const LandingPageLayoutNavbar: React.FC = () => {
             Login
           </Button>
         )}
+
         {isAuthenticated && (
           <NavbarItem className="hidden lg:flex">
             <Dropdown>
@@ -155,6 +169,13 @@ const LandingPageLayoutNavbar: React.FC = () => {
               </Link>
             </NavbarMenuItem>
           ))}
+
+          {isLoadingSession && (
+            <Button fullWidth color="primary" as={Link} href="/auth/login">
+              Login
+            </Button>
+          )}
+
           {isUnauthenticated && (
             <Button fullWidth color="primary" as={Link} href="/auth/login">
               Login
