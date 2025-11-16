@@ -31,8 +31,8 @@ interface DataTableProps {
   currentPage?: number;
   data: Record<string, unknown>[];
   emptyContent: string;
-  filterBy?: "judul" | "kategori";
-  setFilterBy?: (key: "judul" | "kategori") => void;
+  filterBy?: string;
+  setFilterBy?: (key: string) => void;
   handleChangeLimit?: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleChangePage?: (page: number) => void;
   handleClearSearch?: () => void;

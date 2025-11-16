@@ -17,8 +17,12 @@ export interface IBorrowItem {
   tenggat_kembali?: string | DateValue;
   valid?: boolean | string;
   status?: "Dipinjam" | "Dikembalikan";
-  user?: IBorrowUser;
-  buku?: IBorrowBook;
+  user?: {
+    nama?: string;
+  };
+  buku?: {
+    judul?: string;
+  };
 }
 
 export interface ISearchBorrowBook {

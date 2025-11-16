@@ -5,7 +5,7 @@ import { FC } from "react";
 const AdminDashboardPage: FC = () => {
   return (
     <DashboardLayout
-      title="Admin Dashboard"
+      title="Dashboard"
       description="Selamat Datang di Perpustakaan SMKN 6 Kota Tangerang Selatan"
       type="admin"
     >
