@@ -101,7 +101,6 @@ const Peminjaman: FC = () => {
           data={dataBorrows?.data || []}
           emptyContent="Data buku tidak ditemukan"
           filterBy={filterBy}
-          setFilterBy={setFilterBy}
           handleChangeLimit={handleChangeSize}
           handleChangePage={handleChangePage}
           handleClearSearch={handleClearSearch}
