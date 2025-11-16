@@ -1,5 +1,6 @@
 import authServices from "@/services/auth.service";
 import { IForgotPasswordEmail } from "@/types/Auth";
+import { ApiAxiosError } from "@/types/Axios";
 import { addToast } from "@heroui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
@@ -35,10 +36,12 @@ const useForgotPassword = () => {
   const { mutate: mutateForgotPassword, isPending: isPendingForgotPassword } =
     useMutation({
       mutationFn: forgotPasswordService,
-      onError: () => {
+      onError: (error: ApiAxiosError) => {
         addToast({
           title: "Gagal mengirim link reset password",
           description:
+            error?.response?.data?.errors ||
+            error?.response?.data?.message ||
             "Terjadi kesalahan saat mengirim link. Silakan coba lagi.",
           color: "danger",
           variant: "solid",

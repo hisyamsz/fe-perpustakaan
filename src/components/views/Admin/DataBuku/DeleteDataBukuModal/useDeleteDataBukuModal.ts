@@ -1,4 +1,5 @@
 import bookServices from "@/services/book.service";
+import { ApiAxiosError } from "@/types/Axios";
 import { addToast } from "@heroui/react";
 import { useMutation } from "@tanstack/react-query";
 
@@ -14,10 +15,12 @@ const useDeleteDataBukuModal = () => {
     isSuccess: isSuccessDeleteDataBuku,
   } = useMutation({
     mutationFn: deleteBook,
-    onError: () => {
+    onError: (error: ApiAxiosError) => {
       addToast({
         title: "Gagal Menghapus Data Buku",
         description:
+          error?.response?.data?.errors ||
+          error?.response?.data?.message ||
           "Terjadi kesalahan saat menghapus data buku. Silakan coba lagi.",
         variant: "solid",
         color: "danger",

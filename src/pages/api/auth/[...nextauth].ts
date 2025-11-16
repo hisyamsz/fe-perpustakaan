@@ -18,29 +18,48 @@ export default NextAuth({
         email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },
       },
-      async authorize(
-        credentials: Record<"email" | "password", string> | undefined,
-      ): Promise<UserExtended | null> {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
+      async authorize(credentials) {
+        try {
+          const { email, password } = credentials as {
+            email: string;
+            password: string;
+          };
 
-        const resultToken = await authServices.login({ email, password });
-        const accessToken = resultToken.data.data.token_access;
-        const me = await authServices.getProfileWithToken(accessToken);
-        const user = me.data.data;
+          // Coba login
+          const resultToken = await authServices.login({ email, password });
+          const accessToken = resultToken.data?.data?.token_access;
 
-        if (
-          accessToken &&
-          resultToken.status === 200 &&
-          me.status === 200 &&
-          user.id
-        ) {
+          if (!accessToken) {
+            throw new Error(
+              resultToken.data?.message ||
+                resultToken.data?.errors ||
+                "Gagal mendapatkan token.",
+            );
+          }
+
+          // Ambil profile
+          const me = await authServices.getProfileWithToken(accessToken);
+          const user = me?.data?.data;
+
+          if (!user?.id) {
+            throw new Error(
+              me.data?.message ||
+                me.data?.errors ||
+                "Gagal mendapatkan data pengguna.",
+            );
+          }
+
           user.accessToken = accessToken;
           return user;
-        } else {
-          return null;
+        } catch (err: any) {
+          // Jika error dari backend (axios)
+          const msg =
+            err?.response?.data?.message ||
+            err?.response?.data?.errors ||
+            err?.message ||
+            "Terjadi kesalahan saat memproses login.";
+
+          throw new Error(msg);
         }
       },
     }),

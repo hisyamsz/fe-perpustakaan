@@ -1,5 +1,6 @@
 import authServices from "@/services/auth.service";
 import { IProfile } from "@/types/Auth";
+import { ApiAxiosError } from "@/types/Axios";
 import { addToast } from "@heroui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
@@ -35,10 +36,13 @@ const useProfile = () => {
     isSuccess: isSuccessUpdateProfile,
   } = useMutation({
     mutationFn: (payload: IProfile) => updateProfile(payload),
-    onError: () => {
+    onError: (error: ApiAxiosError) => {
       addToast({
         title: "Gagal memperbarui profil",
-        description: "Terjadi kesalahan saat mengupdate profil.",
+        description:
+          error?.response?.data?.errors ||
+          error?.response?.data?.message ||
+          "Terjadi kesalahan saat mengupdate profil.",
         color: "danger",
         variant: "solid",
         timeout: 3000,

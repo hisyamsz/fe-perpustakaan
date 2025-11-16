@@ -1,4 +1,5 @@
 import { ILogin } from "@/types/Auth";
+import { ApiAxiosError } from "@/types/Axios";
 import { addToast } from "@heroui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
@@ -39,8 +40,8 @@ const useLogin = () => {
       callbackUrl,
     });
 
-    if (result?.error && result?.status === 401) {
-      throw new Error("Email atau password salah");
+    if (result?.error) {
+      throw new Error(result.error);
     }
 
     return result;
@@ -48,10 +49,14 @@ const useLogin = () => {
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginService,
-    onError: (error) => {
+    onError: (error: ApiAxiosError) => {
       addToast({
         title: "Login gagal",
-        description: error.message,
+        description:
+          error?.response?.data?.errors ||
+          error?.response?.data?.message ||
+          error?.message ||
+          "Terjadi kesalahan tak terduga. Silakan coba lagi.",
         color: "danger",
         variant: "solid",
         timeout: 3000,

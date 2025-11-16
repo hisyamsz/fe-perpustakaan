@@ -1,5 +1,6 @@
 import authServices from "@/services/auth.service";
 import { IResetPassword } from "@/types/Auth";
+import { ApiAxiosError } from "@/types/Axios";
 import { addToast } from "@heroui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
@@ -45,10 +46,13 @@ const useResetPassword = () => {
   const { mutate: mutateResetPassword, isPending: isPendingResetPassword } =
     useMutation({
       mutationFn: (data: IResetPassword) => resetPasswordService(code, data),
-      onError: () => {
+      onError: (error: ApiAxiosError) => {
         addToast({
           title: "Gagal ubah password",
-          description: "Terjadi kesalahan server.",
+          description:
+            error?.response?.data?.errors ||
+            error?.response?.data?.message ||
+            "Terjadi kesalahan server.",
           color: "danger",
           variant: "solid",
           timeout: 3000,

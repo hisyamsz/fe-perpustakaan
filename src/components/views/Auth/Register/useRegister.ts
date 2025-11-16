@@ -1,5 +1,6 @@
 import authServices from "@/services/auth.service";
 import { IRegister } from "@/types/Auth";
+import { ApiAxiosError } from "@/types/Axios";
 import { addToast } from "@heroui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
@@ -48,10 +49,13 @@ const useRegister = () => {
 
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
-    onError: () => {
+    onError: (error: ApiAxiosError) => {
       addToast({
         title: "Register gagal",
-        description: "Email sudah terdaftar. Silakan coba lagi.",
+        description:
+          error?.response?.data?.errors ||
+          error?.response?.data?.message ||
+          "Email sudah terdaftar. Silakan coba lagi.",
         color: "danger",
         variant: "solid",
         timeout: 3000,
