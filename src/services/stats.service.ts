@@ -1,8 +1,8 @@
 import instance from "@/libs/axios/instance";
 import endpoint from "./endpoint.constant";
 
-const statServices = {
+const statsServices = {
   getStat: () => instance.get(`${endpoint.STAT}`),
 };
 
-export default statServices;
+export default statsServices;

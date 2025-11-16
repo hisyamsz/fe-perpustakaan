@@ -2,12 +2,10 @@ import DataTable from "@/components/ui/DataTable";
 import { Chip, useDisclosure } from "@heroui/react";
 import { useCallback, Key, ReactNode, useEffect, FC } from "react";
 import { COLUMN_LIST_DATABUKU } from "./DataBuku.constants";
-import AddDataBukuModal from "./AddDataBukuModal";
 import useDataBuku from "./useDataBuku";
 import { useRouter } from "next/router";
-import DeleteDataBukuModal from "./DeleteDataBukuModal";
+import BorrowBookModal from "./BorrowBookModal";
 import DropdownAction from "@/components/commons/DropdownAction";
-import UpdateDataBukuModal from "./UpdateDataBukuModal";
 
 const DataBuku: FC = () => {
   const { isReady, query } = useRouter();
@@ -30,9 +28,7 @@ const DataBuku: FC = () => {
     setSelectedId,
   } = useDataBuku();
 
-  const disclosureAddDataBukuModal = useDisclosure();
-  const disclosureUpdateDataBukuModal = useDisclosure();
-  const disclosureDeleteDataBukuModal = useDisclosure();
+  const disclosureBorrowModal = useDisclosure();
 
   useEffect(() => {
     if (isReady) {
@@ -59,18 +55,25 @@ const DataBuku: FC = () => {
               {cellValue as string}
             </Chip>
           );
+        case "stok": {
+          return (
+            <Chip
+              color={(buku.stok as number) > 0 ? "success" : "danger"}
+              variant="flat"
+              size="sm"
+            >
+              {(buku.stok as number) > 0 ? "Tersedia" : "Habis"}
+            </Chip>
+          );
+        }
         case "aksi":
           return (
             <DropdownAction
-              detailLabel="Edit"
+              hideButtonDelete
+              detailLabel="Pinjam"
               onPressButtonDetail={() => {
                 setSelectedId(buku);
-                disclosureUpdateDataBukuModal.onOpen();
-              }}
-              deleteLabel="Hapus"
-              onPressButtonDelete={() => {
-                setSelectedId(buku);
-                disclosureDeleteDataBukuModal.onOpen();
+                disclosureBorrowModal.onOpen();
               }}
             />
           );
@@ -78,18 +81,13 @@ const DataBuku: FC = () => {
           return cellValue as ReactNode;
       }
     },
-    [
-      setSelectedId,
-      disclosureDeleteDataBukuModal,
-      disclosureUpdateDataBukuModal,
-    ],
+    [setSelectedId, disclosureBorrowModal],
   );
 
   return (
     <section>
       {Object.keys(query).length > 0 && (
         <DataTable
-          buttonTopContentLabel="Tambah Buku"
           columns={COLUMN_LIST_DATABUKU}
           currentLimit={String(currentSize)}
           currentPage={Number(currentPage)}
@@ -102,7 +100,6 @@ const DataBuku: FC = () => {
           handleClearSearch={handleClearSearch}
           handleSearch={handleSearch}
           isLoading={isLoadingBook || isRefetchingBook}
-          onClickButtonTopContent={disclosureAddDataBukuModal.onOpen}
           renderCell={renderCell}
           showLimit
           showSearch
@@ -111,21 +108,11 @@ const DataBuku: FC = () => {
         />
       )}
 
-      <AddDataBukuModal
-        {...disclosureAddDataBukuModal}
+      <BorrowBookModal
+        {...disclosureBorrowModal}
         refetchBook={refetchBook}
-      />
-      <UpdateDataBukuModal
-        {...disclosureUpdateDataBukuModal}
-        refetchBook={refetchBook}
-        selectedId={selectedId}
-        setSelectedId={setSelectedId}
-      />
-      <DeleteDataBukuModal
-        {...disclosureDeleteDataBukuModal}
-        refetchBook={refetchBook}
-        selectedId={selectedId}
-        setSelectedId={setSelectedId}
+        selectedBook={selectedId}
+        setSelectedBook={setSelectedId}
       />
     </section>
   );

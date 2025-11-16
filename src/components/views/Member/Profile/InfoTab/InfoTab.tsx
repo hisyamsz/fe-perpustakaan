@@ -74,6 +74,7 @@ const InfoTab: FC<InfoTabProps> = ({
         </p>
         <CardBody>
           <form
+            noValidate
             className="mt-2 flex flex-col gap-4"
             onSubmit={handleSubmitUpdateInfo(onUpdate)}
           >

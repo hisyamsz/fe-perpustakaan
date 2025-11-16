@@ -1,4 +1,4 @@
-import statServices from "@/services/Stat.service";
+import statsServices from "@/services/stats.service";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
@@ -6,7 +6,7 @@ const useDashboard = () => {
   const router = useRouter();
 
   const getStats = async () => {
-    const { data } = await statServices.getStat();
+    const { data } = await statsServices.getStat();
     return data.data;
   };
 

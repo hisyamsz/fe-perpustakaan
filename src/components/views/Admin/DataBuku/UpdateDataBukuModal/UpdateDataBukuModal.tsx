@@ -81,7 +81,7 @@ const UpdateDataBukuModal: FC<UpdateDataBukuModalProps> = ({
       placement="center"
       scrollBehavior="inside"
     >
-      <form onSubmit={handleSubmit(handleUpdateBook)}>
+      <form noValidate onSubmit={handleSubmit(handleUpdateBook)}>
         <ModalContent className="m-4 p-2">
           <ModalHeader className="text-lg font-semibold">
             Edit Data Buku
