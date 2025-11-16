@@ -16,7 +16,6 @@ const DataBuku: FC = () => {
     currentSize,
     dataBooks,
     filterBy,
-    setFilterBy,
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
@@ -96,7 +95,6 @@ const DataBuku: FC = () => {
           data={dataBooks?.data || []}
           emptyContent="Data buku tidak ditemukan"
           filterBy={filterBy}
-          setFilterBy={setFilterBy}
           handleChangeLimit={handleChangeSize}
           handleChangePage={handleChangePage}
           handleClearSearch={handleClearSearch}

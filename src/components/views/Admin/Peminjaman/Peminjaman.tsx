@@ -17,7 +17,6 @@ const Peminjaman: FC = () => {
     currentSize,
     dataBorrows,
     filterBy,
-    setFilterBy,
     handleFilterSearch,
     handleChangePage,
     handleChangeSize,

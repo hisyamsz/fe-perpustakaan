@@ -14,7 +14,6 @@ const DataBuku: FC = () => {
     currentSize,
     dataBooks,
     filterBy,
-    setFilterBy,
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
