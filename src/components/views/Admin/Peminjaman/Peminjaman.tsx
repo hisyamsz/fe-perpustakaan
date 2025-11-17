@@ -12,7 +12,7 @@ const Peminjaman: FC = () => {
   const { isReady, query } = useRouter();
   const {
     currentJudul,
-    currentKategori,
+    currentPeminjam,
     currentPage,
     currentSize,
     dataBorrows,
@@ -52,20 +52,19 @@ const Peminjaman: FC = () => {
           return <p>{convertTime(cellValue as string)}</p>;
         case "tenggat_kembali":
           return <p>{convertTime(cellValue as string)}</p>;
-        case "valid":
-          return (
-            <Chip
-              color={borrow.valid ? "success" : "danger"}
-              size="sm"
-              variant="flat"
-            >
-              {borrow.valid ? "Valid" : "Tidak Valid"}
-            </Chip>
-          );
+
         case "status":
           return (
             <Chip
-              color={cellValue === "Dipinjam" ? "warning" : "success"}
+              color={
+                cellValue === "Diproses"
+                  ? "warning"
+                  : cellValue === "Dipinjam"
+                    ? "secondary"
+                    : cellValue === "Dikembalikan"
+                      ? "success"
+                      : "danger"
+              }
               size="sm"
               variant="flat"
             >
@@ -98,8 +97,12 @@ const Peminjaman: FC = () => {
           currentLimit={String(currentSize)}
           currentPage={Number(currentPage)}
           data={dataBorrows?.data || []}
-          emptyContent="Data buku tidak ditemukan"
+          emptyContent="Data peminjam tidak ditemukan"
           filterBy={filterBy}
+          filterOptions={[
+            { key: "user", label: "Peminjam" },
+            { key: "buku", label: "Judul Buku" },
+          ]}
           handleChangeLimit={handleChangeSize}
           handleChangePage={handleChangePage}
           handleClearSearch={handleClearSearch}

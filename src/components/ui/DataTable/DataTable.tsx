@@ -33,6 +33,7 @@ interface DataTableProps {
   emptyContent: string;
   filterBy?: string;
   setFilterBy?: (key: string) => void;
+  filterOptions?: { key: string; label: string }[];
   handleChangeLimit?: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleChangePage?: (page: number) => void;
   handleClearSearch?: () => void;
@@ -54,6 +55,7 @@ const DataTable: FC<DataTableProps> = ({
   data,
   emptyContent,
   filterBy,
+  filterOptions,
   handleChangeLimit,
   handleChangePage,
   handleClearSearch,
@@ -98,8 +100,9 @@ const DataTable: FC<DataTableProps> = ({
                 color="primary"
                 onSelectionChange={onSelectionChange}
               >
-                <DropdownItem key="judul">Judul</DropdownItem>
-                <DropdownItem key="kategori">Kategori</DropdownItem>
+                {(filterOptions ?? []).map((opt) => (
+                  <DropdownItem key={opt.key}>{opt.label}</DropdownItem>
+                ))}
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -121,6 +124,7 @@ const DataTable: FC<DataTableProps> = ({
     onClickButtonTopContent,
     showSearch,
     filterBy,
+    filterOptions,
     query,
     onSelectionChange,
   ]);

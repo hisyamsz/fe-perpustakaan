@@ -26,6 +26,8 @@ export interface IBorrowItem {
 }
 
 export interface ISearchBorrowBook {
-  page?: string | string[];
-  size?: string | string[];
+  page?: string | string[] | number;
+  size?: string | string[] | number;
+  judul?: string | string[];
+  user?: string | string[];
 }

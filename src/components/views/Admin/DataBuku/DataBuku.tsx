@@ -95,6 +95,10 @@ const DataBuku: FC = () => {
           data={dataBooks?.data || []}
           emptyContent="Data buku tidak ditemukan"
           filterBy={filterBy}
+          filterOptions={[
+            { key: "judul", label: "Judul Buku" },
+            { key: "kategori", label: "Kategori" },
+          ]}
           handleChangeLimit={handleChangeSize}
           handleChangePage={handleChangePage}
           handleClearSearch={handleClearSearch}

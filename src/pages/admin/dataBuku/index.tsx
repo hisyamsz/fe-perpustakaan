@@ -4,8 +4,8 @@ import DataBuku from "@/components/views/Admin/DataBuku";
 const AdminDashboardPage = () => {
   return (
     <DashboardLayout
-      title="Manajemen Data Buku"
-      description="Kelola informasi buku dalam perpustakaan. Admin dapat menambah, memperbarui, atau menghapus data buku sesuai kebutuhan."
+      title="Data Buku"
+      description="Kelola informasi buku dalam perpustakaan."
       type="admin"
     >
       <DataBuku />

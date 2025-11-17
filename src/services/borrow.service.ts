@@ -5,6 +5,8 @@ import { ISearchBorrowBook } from "@/types/Borrow";
 const borrowServices = {
   getBorrows: (params?: ISearchBorrowBook) =>
     instance.get(`${endpoint.BORROW}/getAll`, { params }),
+  searchBorrow: (params?: ISearchBorrowBook) =>
+    instance.get(`${endpoint.BORROW}/search`, { params }),
   validateBorrow: (borrowId: number | string) =>
     instance.post(`${endpoint.BORROW}/validate/${borrowId}`),
   returnBorrow: (borrowId: number | string) =>

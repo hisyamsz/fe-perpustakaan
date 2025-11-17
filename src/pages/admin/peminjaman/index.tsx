@@ -5,8 +5,8 @@ import { FC } from "react";
 const AdminPeminjamanPage: FC = () => {
   return (
     <DashboardLayout
-      title="Manajemen Peminjaman"
-      description="Kelola dan konfirmasi permintaan peminjaman buku dari pengguna. Admin dapat meninjau detail peminjaman sebelum menyetujui atau menolak permintaan."
+      title="Peminjaman"
+      description="Kelola dan konfirmasi permintaan peminjaman buku dari pengguna."
       type="admin"
     >
       <Peminjaman />
