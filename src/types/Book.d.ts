@@ -15,8 +15,8 @@ export interface IBookCategory {
 }
 
 export interface ISearchBookParams {
-  page?: string | string[];
-  size?: string | string[];
+  page?: string | string[] | number;
+  size?: string | string[] | number;
   judul?: string | string[];
   kategori?: string | string[];
   featured?: string | string[];

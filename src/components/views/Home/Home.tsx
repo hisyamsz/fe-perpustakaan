@@ -1,12 +1,21 @@
 import * as React from "react";
 import HomeHero from "./HomeHero";
-import HomeInfo from "./HomeInfo/HomeInfo";
+import HomeInfo from "./HomeInfo";
+import HomeFeatured from "./HomeFeatured";
+import useHome from "./useHome";
 
 const Home: React.FC = () => {
+  const { dataBooks, isLoadingBooks } = useHome();
+
   return (
-    <section className="mb-32">
+    <section className="pb-18">
       <HomeHero />
       <HomeInfo />
+      <HomeFeatured
+        dataBooks={dataBooks || []}
+        isLoadingBooks={isLoadingBooks}
+        title="Buku Unggulan"
+      />
     </section>
   );
 };

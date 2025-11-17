@@ -9,7 +9,7 @@ interface HomeInfoProps {
 const HomeInfo: React.FC<HomeInfoProps> = () => {
   return (
     <section
-      className="relative z-10 mx-auto -mt-36 mb-12 w-full px-4 md:-mt-24 lg:px-8"
+      className="relative z-10 mx-auto -mt-36 mb-16 w-full px-4 md:-mt-24 lg:px-8"
       aria-labelledby="home-info-heading"
       role="region"
     >

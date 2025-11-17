@@ -37,3 +37,68 @@ export const HOME_INFO = [
     color: "text-accent",
   },
 ];
+
+export const CATEGORY_COLORS: Record<
+  string,
+  "primary" | "secondary" | "success" | "warning" | "danger" | "default"
+> = {
+  fiksi: "primary",
+  "non-fiksi": "secondary",
+  novel: "success",
+  komik: "warning",
+  biografi: "danger",
+  pelajaran: "primary",
+  ensiklopedia: "secondary",
+  teknologi: "success",
+  agama: "warning",
+  sejarah: "danger",
+};
+
+export const CATEGORY_STYLES: Record<
+  string,
+  {
+    iconColor: string; // warna untuk icon
+    coverBg: string; // warna bg cover icon
+  }
+> = {
+  fiksi: {
+    iconColor: "text-blue-500",
+    coverBg: "bg-blue-100",
+  },
+  "non-fiksi": {
+    iconColor: "text-purple-500",
+    coverBg: "bg-purple-100",
+  },
+  novel: {
+    iconColor: "text-green-600",
+    coverBg: "bg-green-100",
+  },
+  komik: {
+    iconColor: "text-yellow-500",
+    coverBg: "bg-yellow-100",
+  },
+  biografi: {
+    iconColor: "text-red-500",
+    coverBg: "bg-red-100",
+  },
+  pelajaran: {
+    iconColor: "text-sky-600",
+    coverBg: "bg-sky-100",
+  },
+  ensiklopedia: {
+    iconColor: "text-teal-600",
+    coverBg: "bg-teal-100",
+  },
+  teknologi: {
+    iconColor: "text-indigo-600",
+    coverBg: "bg-indigo-100",
+  },
+  agama: {
+    iconColor: "text-amber-600",
+    coverBg: "bg-amber-100",
+  },
+  sejarah: {
+    iconColor: "text-rose-600",
+    coverBg: "bg-rose-100",
+  },
+};

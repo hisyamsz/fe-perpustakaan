@@ -10,6 +10,6 @@ export const PAGE_DEFAULT = 1;
 
 export const LIMIT_BANNER = 5;
 export const LIMIT_CATEGORY = 8;
-export const LIMIT_EVENT = 4;
+export const LIMIT_BOOK = 4;
 
 export const DELAY = 400;
