@@ -9,7 +9,7 @@ import {
 } from "@heroui/react";
 import { FC } from "react";
 
-interface DeleteModalProps {
+interface ModalPopupProps {
   title: string;
   description: string;
   disabled: boolean;
@@ -19,7 +19,7 @@ interface DeleteModalProps {
   onPressCancel: () => void;
 }
 
-const DeleteModal: FC<DeleteModalProps> = ({
+const ModalPopup: FC<ModalPopupProps> = ({
   title,
   description,
   disabled,
@@ -38,7 +38,7 @@ const DeleteModal: FC<DeleteModalProps> = ({
       <ModalContent className="m-4">
         <ModalHeader>{title}</ModalHeader>
         <ModalBody>
-          <p className="text-medium font-semibold">{description}</p>
+          <div className="text-medium font-semibold">{description}</div>
         </ModalBody>
         <ModalFooter>
           <Button
@@ -63,4 +63,4 @@ const DeleteModal: FC<DeleteModalProps> = ({
   );
 };
 
-export default DeleteModal;
+export default ModalPopup;

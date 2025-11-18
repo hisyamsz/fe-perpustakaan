@@ -23,6 +23,7 @@ import { useRouter } from "next/router";
 import { ChangeEvent, FC, Key, ReactNode, useMemo } from "react";
 import { CiSearch } from "react-icons/ci";
 import { LuTextSearch } from "react-icons/lu";
+import { TbRefresh } from "react-icons/tb";
 
 interface DataTableProps {
   buttonTopContentLabel?: string;
@@ -41,6 +42,9 @@ interface DataTableProps {
   isLoading?: boolean;
   onClickButtonTopContent?: () => void;
   renderCell: (item: Record<string, unknown>, columnKey: Key) => ReactNode;
+  refreshButton?: boolean;
+  refreshClassName?: string;
+  onRefreshButton?: () => void;
   showLimit?: boolean;
   showSearch?: boolean;
   totalPages: number;
@@ -63,6 +67,9 @@ const DataTable: FC<DataTableProps> = ({
   isLoading,
   onClickButtonTopContent,
   renderCell,
+  refreshButton = false,
+  refreshClassName,
+  onRefreshButton,
   showLimit = false,
   showSearch = false,
   totalPages,
@@ -107,14 +114,30 @@ const DataTable: FC<DataTableProps> = ({
             </Dropdown>
           </div>
         )}
-        {buttonTopContentLabel && (
-          <Button
-            className="bg-primary text-white"
-            onPress={onClickButtonTopContent}
-          >
-            {buttonTopContentLabel}
-          </Button>
-        )}
+
+        <div className="flex w-full items-center justify-end gap-2 lg:w-auto">
+          {refreshButton && (
+            <Button
+              isIconOnly
+              color="primary"
+              variant="bordered"
+              title="Refresh"
+              className={refreshClassName}
+              onPress={onRefreshButton}
+            >
+              <TbRefresh size={18} />
+            </Button>
+          )}
+
+          {buttonTopContentLabel && (
+            <Button
+              className="bg-primary w-full text-white lg:w-auto"
+              onPress={onClickButtonTopContent}
+            >
+              {buttonTopContentLabel}
+            </Button>
+          )}
+        </div>
       </div>
     );
   }, [
@@ -127,6 +150,9 @@ const DataTable: FC<DataTableProps> = ({
     filterOptions,
     query,
     onSelectionChange,
+    refreshButton,
+    onRefreshButton,
+    refreshClassName,
   ]);
 
   const BottomContent = useMemo(() => {

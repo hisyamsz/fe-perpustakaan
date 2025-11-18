@@ -106,6 +106,8 @@ const DataBuku: FC = () => {
           isLoading={isLoadingBook || isRefetchingBook}
           onClickButtonTopContent={disclosureAddDataBukuModal.onOpen}
           renderCell={renderCell}
+          refreshButton
+          onRefreshButton={refetchBook}
           showLimit
           showSearch
           onSelectionChange={handleFilterSearch}

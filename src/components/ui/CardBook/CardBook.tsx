@@ -27,13 +27,14 @@ const CardBook: FC<CardBookProps> = ({ className, book, key, isLoading }) => {
 
   return (
     <Card
+      key={key}
       className={cn(
         className,
         "shadow-card hover:shadow-soft cursor-pointer px-2 py-1 transition-all duration-300 hover:-translate-y-1",
       )}
       shadow="sm"
       isPressable
-      onPress={() => router.push(`books/${book?.id}`)}
+      onPress={() => router.push(`books/${book?.id || ""}`)}
     >
       {!isLoading ? (
         <Fragment>

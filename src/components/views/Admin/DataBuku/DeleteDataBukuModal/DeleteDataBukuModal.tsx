@@ -1,4 +1,4 @@
-import DeleteModal from "@/components/commons/DeleteModal";
+import ModalPopup from "@/components/commons/ModalPopup";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import useDeleteDataBukuModal from "./useDeleteDataBukuModal";
 import { IBook } from "@/types/Book";
@@ -35,7 +35,7 @@ const DeleteDataBukuModal: FC<DeleteDataBukuModalProps> = ({
   }, [isSuccessDeleteDataBuku]);
 
   return (
-    <DeleteModal
+    <ModalPopup
       title="Hapus Buku"
       description="Apakah Anda yakin ingin menghapus buku ini?"
       isOpen={isOpen}

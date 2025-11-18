@@ -7,12 +7,11 @@ import { COLUMN_LIST_PEMINJAMAN } from "./Peminjaman.constants";
 import usePeminjaman from "./usePeminjaman";
 import { convertTime } from "@/utils/date";
 import { IBorrowItem } from "@/types/Borrow";
+import PeminjamanValidateModal from "./PeminjamanValidateModal";
 
 const Peminjaman: FC = () => {
   const { isReady, query } = useRouter();
   const {
-    currentJudul,
-    currentPeminjam,
     currentPage,
     currentSize,
     dataBorrows,
@@ -30,7 +29,7 @@ const Peminjaman: FC = () => {
     setSelectedId,
   } = usePeminjaman();
 
-  const disclosureBorrowModal = useDisclosure();
+  const disclosureValidateModal = useDisclosure();
 
   useEffect(() => {
     if (isReady) {
@@ -78,7 +77,7 @@ const Peminjaman: FC = () => {
               detailLabel="Konfirmasi"
               onPressButtonDetail={() => {
                 setSelectedId(borrow);
-                disclosureBorrowModal.onOpen();
+                disclosureValidateModal.onOpen();
               }}
             />
           );
@@ -86,7 +85,7 @@ const Peminjaman: FC = () => {
           return cellValue as ReactNode;
       }
     },
-    [setSelectedId, disclosureBorrowModal],
+    [setSelectedId, disclosureValidateModal],
   );
 
   return (
@@ -109,6 +108,9 @@ const Peminjaman: FC = () => {
           handleSearch={handleSearch}
           isLoading={isLoadingBorrows || isRefetchingBorrows}
           renderCell={renderCell}
+          refreshButton
+          onRefreshButton={refetchBorrows}
+          refreshClassName="w-full"
           showLimit
           showSearch
           onSelectionChange={handleFilterSearch}
@@ -116,12 +118,12 @@ const Peminjaman: FC = () => {
         />
       )}
 
-      {/*<BorrowBookModal
-        {...disclosureBorrowModal}
-        refetchBook={refetchBorrows}
-        selectedBook={selectedId}
-        setSelectedBook={setSelectedId}
-      />*/}
+      <PeminjamanValidateModal
+        {...disclosureValidateModal}
+        refetchBorrow={refetchBorrows}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+      />
     </section>
   );
 };
