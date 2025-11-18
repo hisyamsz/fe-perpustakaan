@@ -64,18 +64,14 @@ const useUpdateDataBukuModal = (id: string) => {
           error?.response?.data?.errors ||
           error?.response?.data?.message ||
           "Terjadi kesalahan saat menghapus data buku. Silakan coba lagi.",
-        variant: "solid",
         color: "danger",
-        timeout: 3000,
       });
     },
     onSuccess: () => {
       addToast({
         title: "Berhasil Menghapus Buku",
         description: "Data buku telah berhasil dihapus.",
-        variant: "solid",
         color: "success",
-        timeout: 3000,
       });
       reset();
     },

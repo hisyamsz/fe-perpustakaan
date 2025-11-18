@@ -57,8 +57,6 @@ const useRegister = () => {
           error?.response?.data?.message ||
           "Email sudah terdaftar. Silakan coba lagi.",
         color: "danger",
-        variant: "solid",
-        timeout: 3000,
       });
     },
     onSuccess: () => {
@@ -67,8 +65,6 @@ const useRegister = () => {
         description:
           "Akun Anda berhasil dibuat. Silakan aktivasi untuk melanjutkan.",
         color: "success",
-        variant: "solid",
-        timeout: 3000,
       });
       reset();
       router.push("/auth/register/success");

@@ -22,9 +22,7 @@ const useBorrowBookModal = () => {
           error.response?.data?.errors ||
           error.response?.data?.errors ||
           "Terjadi kesalahan saat memproses peminjaman. Silakan coba lagi.",
-        variant: "solid",
         color: "danger",
-        timeout: 3000,
       });
     },
     onSuccess: () => {
@@ -32,9 +30,7 @@ const useBorrowBookModal = () => {
         title: "Berhasil Meminjam Buku",
         description:
           "Peminjaman berhasil diajukan. Mohon menunggu proses persetujuan.",
-        variant: "solid",
         color: "success",
-        timeout: 3000,
       });
     },
   });

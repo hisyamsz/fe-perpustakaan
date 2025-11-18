@@ -44,8 +44,6 @@ const useForgotPassword = () => {
             error?.response?.data?.message ||
             "Terjadi kesalahan saat mengirim link. Silakan coba lagi.",
           color: "danger",
-          variant: "solid",
-          timeout: 3000,
         });
       },
       onSuccess: () => {
@@ -54,8 +52,6 @@ const useForgotPassword = () => {
           description:
             "Silakan cek email Anda untuk mengatur ulang password. Link berlaku selama 1 jam.",
           color: "success",
-          variant: "solid",
-          timeout: 3000,
         });
         reset();
         router.push("/");

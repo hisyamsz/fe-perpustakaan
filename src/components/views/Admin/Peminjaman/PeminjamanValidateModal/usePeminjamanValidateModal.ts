@@ -22,7 +22,6 @@ const usePeminjamanValidateModal = () => {
           error?.response?.data?.message ||
           "Terjadi kesalahan saat memvalidasi peminjaman.",
         color: "danger",
-        timeout: 3000,
       });
     },
     onSuccess: () => {
@@ -30,7 +29,6 @@ const usePeminjamanValidateModal = () => {
         title: "Peminjaman Divalidasi",
         description: "Peminjaman berhasil divalidasi.",
         color: "success",
-        timeout: 3000,
       });
     },
   });

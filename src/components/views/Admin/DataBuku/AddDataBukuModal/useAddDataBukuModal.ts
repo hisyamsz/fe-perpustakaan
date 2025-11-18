@@ -64,8 +64,6 @@ const useAddDataBukuModal = () => {
           error?.response?.data?.message ||
           "Terjadi kesalahan saat menyimpan data",
         color: "danger",
-        variant: "solid",
-        timeout: 3000,
       });
     },
     onSuccess: () => {
@@ -73,8 +71,6 @@ const useAddDataBukuModal = () => {
         title: "Berhasil",
         description: "Buku berhasil ditambahkan",
         color: "success",
-        variant: "solid",
-        timeout: 3000,
       });
       reset();
     },

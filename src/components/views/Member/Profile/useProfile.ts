@@ -44,8 +44,6 @@ const useProfile = () => {
           error?.response?.data?.message ||
           "Terjadi kesalahan saat mengupdate profil.",
         color: "danger",
-        variant: "solid",
-        timeout: 3000,
       });
     },
     onSuccess: () => {
@@ -55,8 +53,6 @@ const useProfile = () => {
         title: "Profil diperbarui",
         description: "Data profil kamu berhasil diperbarui.",
         color: "success",
-        variant: "solid",
-        timeout: 3000,
       });
     },
   });

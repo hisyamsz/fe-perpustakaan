@@ -54,8 +54,6 @@ const useResetPassword = () => {
             error?.response?.data?.message ||
             "Terjadi kesalahan server.",
           color: "danger",
-          variant: "solid",
-          timeout: 3000,
         });
       },
       onSuccess: () => {
@@ -63,8 +61,6 @@ const useResetPassword = () => {
           title: "Berhasil",
           description: "Password kamu berhasil diubah!",
           color: "success",
-          variant: "solid",
-          timeout: 3000,
         });
         reset();
         router.push("/auth/login");

@@ -18,9 +18,7 @@ export const onErrorHandler = (error: Error) => {
       title: "Sesi Berakhir",
       description:
         "Sesi login Anda telah habis. Silakan masuk kembali untuk melanjutkan.",
-      variant: "solid",
       color: "warning",
-      timeout: 3000,
     });
   }
 };
