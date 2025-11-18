@@ -8,6 +8,7 @@ import usePeminjaman from "./usePeminjaman";
 import { convertTime } from "@/utils/date";
 import { IBorrowItem } from "@/types/Borrow";
 import PeminjamanValidateModal from "./PeminjamanValidateModal";
+import PeminjamanReturnModal from "./PeminjamanReturnModal";
 
 const Peminjaman: FC = () => {
   const { isReady, query } = useRouter();
@@ -30,6 +31,7 @@ const Peminjaman: FC = () => {
   } = usePeminjaman();
 
   const disclosureValidateModal = useDisclosure();
+  const disclosureReturnModal = useDisclosure();
 
   useEffect(() => {
     if (isReady) {
@@ -71,13 +73,19 @@ const Peminjaman: FC = () => {
             </Chip>
           );
         case "aksi":
+          const isValid = Boolean(borrow.valid);
           return (
             <DropdownAction
               hideButtonDelete
-              detailLabel="Konfirmasi"
+              detailLabel={!isValid ? "Konfirmasi" : "Pengembalian"}
               onPressButtonDetail={() => {
                 setSelectedId(borrow);
-                disclosureValidateModal.onOpen();
+
+                if (!isValid) {
+                  disclosureValidateModal.onOpen();
+                } else {
+                  disclosureReturnModal.onOpen();
+                }
               }}
             />
           );
@@ -85,7 +93,7 @@ const Peminjaman: FC = () => {
           return cellValue as ReactNode;
       }
     },
-    [setSelectedId, disclosureValidateModal],
+    [setSelectedId, disclosureValidateModal, disclosureReturnModal],
   );
 
   return (
@@ -120,6 +128,12 @@ const Peminjaman: FC = () => {
 
       <PeminjamanValidateModal
         {...disclosureValidateModal}
+        refetchBorrow={refetchBorrows}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+      />
+      <PeminjamanReturnModal
+        {...disclosureReturnModal}
         refetchBorrow={refetchBorrows}
         selectedId={selectedId}
         setSelectedId={setSelectedId}

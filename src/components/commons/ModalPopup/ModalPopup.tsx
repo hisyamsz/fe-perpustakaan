@@ -7,24 +7,28 @@ import {
   ModalHeader,
   Spinner,
 } from "@heroui/react";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 interface ModalPopupProps {
+  children?: ReactNode;
   title: string;
   description: string;
   disabled: boolean;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
+  onClose?: () => void;
   onPressDelete: () => void;
   onPressCancel: () => void;
 }
 
 const ModalPopup: FC<ModalPopupProps> = ({
+  children,
   title,
   description,
   disabled,
   isOpen,
   onOpenChange,
+  onClose,
   onPressDelete,
   onPressCancel,
 }) => {
@@ -32,13 +36,17 @@ const ModalPopup: FC<ModalPopupProps> = ({
     <Modal
       onOpenChange={onOpenChange}
       isOpen={isOpen}
+      onClose={onClose}
       placement="center"
       scrollBehavior="inside"
     >
       <ModalContent className="m-4">
         <ModalHeader>{title}</ModalHeader>
         <ModalBody>
-          <div className="text-medium font-semibold">{description}</div>
+          <div className="flex flex-col justify-center gap-2">
+            <p className="text-medium font-semibold">{description}</p>
+            {children}
+          </div>
         </ModalBody>
         <ModalFooter>
           <Button

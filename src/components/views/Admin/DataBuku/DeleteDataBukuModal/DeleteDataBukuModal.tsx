@@ -26,6 +26,11 @@ const DeleteDataBukuModal: FC<DeleteDataBukuModalProps> = ({
     isSuccessDeleteDataBuku,
   } = useDeleteDataBukuModal();
 
+  const handleOnClose = () => {
+    onClose();
+    setSelectedId(null);
+  };
+
   useEffect(() => {
     if (isSuccessDeleteDataBuku) {
       onClose();
@@ -40,10 +45,8 @@ const DeleteDataBukuModal: FC<DeleteDataBukuModalProps> = ({
       description="Apakah Anda yakin ingin menghapus buku ini?"
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      onPressCancel={() => {
-        onClose();
-        setSelectedId(null);
-      }}
+      onClose={handleOnClose}
+      onPressCancel={handleOnClose}
       onPressDelete={() => mutateDeleteDataBuku(`${selectedId?.id}`)}
       disabled={isPendingDeleteDataBuku}
     />

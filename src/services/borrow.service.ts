@@ -9,8 +9,10 @@ const borrowServices = {
     instance.get(`${endpoint.BORROW}/search`, { params }),
   validateBorrow: (borrowId: number | string) =>
     instance.post(`${endpoint.BORROW}/validate/${borrowId}`),
-  returnBorrow: (borrowId: number | string) =>
-    instance.post(`${endpoint.RETURN}/${borrowId}`),
+  returnBorrow: (
+    borrowId: number | string,
+    payload: { kondisi_buku: string },
+  ) => instance.post(`${endpoint.RETURN}/${borrowId}`, payload),
   // User (membuat peminjaman)
   createBorrow: (payload: { buku_id?: number | string }) =>
     instance.post(`${endpoint.BORROW}/create`, payload),

@@ -24,6 +24,11 @@ const PeminjamanValidateModal: FC<PeminjamanValidateModalProps> = ({
   const { mutateBorrowBook, isPendingBorrowBook, isSuccessBorrowBook } =
     usePeminjamanValidateModal();
 
+  const handleOnClose = () => {
+    onClose();
+    setSelectedId(null);
+  };
+
   useEffect(() => {
     if (isSuccessBorrowBook) {
       onClose();
@@ -42,10 +47,8 @@ const PeminjamanValidateModal: FC<PeminjamanValidateModalProps> = ({
       }
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      onPressCancel={() => {
-        onClose();
-        setSelectedId(null);
-      }}
+      onClose={handleOnClose}
+      onPressCancel={handleOnClose}
       onPressDelete={() => mutateBorrowBook(`${selectedId?.id}`)}
       disabled={isPendingBorrowBook}
     />
