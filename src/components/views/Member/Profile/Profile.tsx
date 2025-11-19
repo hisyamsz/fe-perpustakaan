@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "@heroui/react";
+import { Card, CardBody, Tab, Tabs } from "@heroui/react";
 import * as React from "react";
 import InfoTab from "./InfoTab";
 import useProfile from "./useProfile";
@@ -26,7 +26,29 @@ const Profile: React.FC<ProfileProps> = () => {
         />
       </Tab>
       <Tab key="security" title="Keamanan">
-        <div>Keamanan</div>
+        <div className="max-w-md">
+          <Card className="bg-gray-50 p-4">
+            <CardBody className="space-y-3">
+              <h3 className="text-lg font-semibold">Keamanan Akun</h3>
+
+              <p className="text-sm text-gray-700">
+                Untuk mengganti password, Anda perlu melakukan proses reset
+                password melalui halaman login.
+              </p>
+
+              <p className="text-sm text-gray-700">
+                Silakan <strong>logout terlebih dahulu</strong> sebelum
+                melakukan reset password.
+              </p>
+
+              <p className="text-sm text-gray-700">
+                Setelah logout, pilih opsi{" "}
+                <strong>&quot;Lupa Password&quot;</strong> pada halaman login
+                untuk memulai prosesnya.
+              </p>
+            </CardBody>
+          </Card>
+        </div>
       </Tab>
     </Tabs>
   );

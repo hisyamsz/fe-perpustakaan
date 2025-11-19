@@ -68,9 +68,9 @@ const InfoTab: FC<InfoTabProps> = ({
   return (
     <Card className="w-full p-4 lg:w-1/2 2xl:w-2/5">
       <CardHeader className="flex-col items-center">
-        <h1 className="w-full text-xl font-bold">Profile Information</h1>
+        <h1 className="w-full text-xl font-bold">Informasi Akun</h1>
         <p className="text-default-400 w-full text-sm">
-          Manage information of this account
+          Kelola dan perbarui informasi dasar akun Anda.
         </p>
         <CardBody>
           <form
