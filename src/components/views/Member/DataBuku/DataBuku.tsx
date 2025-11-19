@@ -17,14 +17,14 @@ const DataBuku: FC = () => {
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
+    handleFilterSearch,
     handleSearch,
     isLoadingBook,
     isRefetchingBook,
     refetchBook,
-    setUrl,
-    handleFilterSearch,
     selectedId,
     setSelectedId,
+    setUrl,
   } = useDataBuku();
 
   const disclosureBorrowModal = useDisclosure();
@@ -93,15 +93,19 @@ const DataBuku: FC = () => {
           data={dataBooks?.data || []}
           emptyContent="Data buku tidak ditemukan"
           filterBy={filterBy}
+          filterOptions={[
+            { key: "judul", label: "Judul Buku" },
+            { key: "kategori", label: "Kategori" },
+          ]}
           handleChangeLimit={handleChangeSize}
           handleChangePage={handleChangePage}
           handleClearSearch={handleClearSearch}
           handleSearch={handleSearch}
           isLoading={isLoadingBook || isRefetchingBook}
+          onSelectionChange={handleFilterSearch}
           renderCell={renderCell}
           showLimit
           showSearch
-          onSelectionChange={handleFilterSearch}
           totalPages={dataBooks?.paging?.totalPage || 1}
         />
       )}

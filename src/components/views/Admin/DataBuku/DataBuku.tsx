@@ -19,14 +19,14 @@ const DataBuku: FC = () => {
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
+    handleFilterSearch,
     handleSearch,
     isLoadingBook,
     isRefetchingBook,
     refetchBook,
-    setUrl,
-    handleFilterSearch,
     selectedId,
     setSelectedId,
+    setUrl,
   } = useDataBuku();
 
   const disclosureAddDataBukuModal = useDisclosure();
@@ -105,12 +105,12 @@ const DataBuku: FC = () => {
           handleSearch={handleSearch}
           isLoading={isLoadingBook || isRefetchingBook}
           onClickButtonTopContent={disclosureAddDataBukuModal.onOpen}
-          renderCell={renderCell}
-          refreshButton
           onRefreshButton={refetchBook}
+          onSelectionChange={handleFilterSearch}
+          refreshButton
+          renderCell={renderCell}
           showLimit
           showSearch
-          onSelectionChange={handleFilterSearch}
           totalPages={dataBooks?.paging?.totalPage || 1}
         />
       )}

@@ -17,17 +17,17 @@ const Peminjaman: FC = () => {
     currentSize,
     dataBorrows,
     filterBy,
-    handleFilterSearch,
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
+    handleFilterSearch,
     handleSearch,
     isLoadingBorrows,
     isRefetchingBorrows,
     refetchBorrows,
-    setUrl,
     selectedId,
     setSelectedId,
+    setUrl,
   } = usePeminjaman();
 
   const disclosureValidateModal = useDisclosure();
@@ -115,13 +115,13 @@ const Peminjaman: FC = () => {
           handleClearSearch={handleClearSearch}
           handleSearch={handleSearch}
           isLoading={isLoadingBorrows || isRefetchingBorrows}
-          renderCell={renderCell}
-          refreshButton
           onRefreshButton={refetchBorrows}
+          onSelectionChange={handleFilterSearch}
+          refreshButton
           refreshClassName="w-full"
+          renderCell={renderCell}
           showLimit
           showSearch
-          onSelectionChange={handleFilterSearch}
           totalPages={dataBorrows?.paging?.totalPage || 1}
         />
       )}

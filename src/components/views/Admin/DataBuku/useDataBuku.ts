@@ -9,7 +9,7 @@ import { ChangeEvent, useState } from "react";
 
 const useDataBuku = () => {
   const [selectedId, setSelectedId] = useState<IBook | null>(null);
-  const [filterBy, setFilterBy] = useState<"judul" | "kategori">("judul");
+  const [filterBy, setFilterBy] = useState<string>("judul");
   const router = useRouter();
   const debounce = useDebounce();
   const currentSize = router.query.size;
@@ -118,29 +118,18 @@ const useDataBuku = () => {
   };
 
   const handleFilterSearch = (keys: SharedSelection) => {
-    const key = Array.from(keys)[0] as "judul" | "kategori";
+    const key = Array.from(keys)[0] as string;
 
     setFilterBy(key);
 
-    if (key === "judul") {
-      router.push({
-        query: {
-          ...router.query,
-          judul: key === "judul" ? undefined : undefined,
-          kategori: undefined,
-          page: PAGE_DEFAULT,
-        },
-      });
-    } else {
-      router.push({
-        query: {
-          ...router.query,
-          judul: undefined,
-          kategori: key === "kategori" ? undefined : undefined,
-          page: PAGE_DEFAULT,
-        },
-      });
-    }
+    router.push({
+      query: {
+        ...router.query,
+        user: key === "judul" ? "" : undefined,
+        buku: key === "kategori" ? "" : undefined,
+        page: PAGE_DEFAULT,
+      },
+    });
   };
 
   return {

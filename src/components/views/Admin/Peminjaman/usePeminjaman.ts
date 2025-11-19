@@ -132,23 +132,23 @@ const usePeminjaman = () => {
 
   return {
     currentJudul,
-    currentPeminjam,
     currentPage,
+    currentPeminjam,
     currentSize,
     dataBorrows,
     filterBy,
-    setFilterBy,
-    handleFilterSearch,
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
+    handleFilterSearch,
     handleSearch,
     isLoadingBorrows,
     isRefetchingBorrows,
     refetchBorrows,
-    setUrl,
     selectedId,
+    setFilterBy,
     setSelectedId,
+    setUrl,
   };
 };
 

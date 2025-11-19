@@ -19,8 +19,6 @@ const Peminjaman: FC = () => {
     isRefetchingBorrows,
     refetchBorrows,
     setUrl,
-    selectedId,
-    setSelectedId,
   } = usePeminjaman();
 
   useEffect(() => {
@@ -76,10 +74,10 @@ const Peminjaman: FC = () => {
           handleChangeLimit={handleChangeSize}
           handleChangePage={handleChangePage}
           isLoading={isLoadingBorrows || isRefetchingBorrows}
-          renderCell={renderCell}
-          refreshButton
           onRefreshButton={refetchBorrows}
+          refreshButton
           refreshClassName="w-full"
+          renderCell={renderCell}
           showLimit
           totalPages={dataBorrows?.paging?.totalPage || 1}
         />

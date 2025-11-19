@@ -1,12 +1,10 @@
 import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/constants/list.constants";
 import borrowServices from "@/services/borrow.service";
-import { IBorrowItem } from "@/types/Borrow";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 
 const usePeminjaman = () => {
-  const [selectedId, setSelectedId] = useState<IBorrowItem | null>(null);
   const router = useRouter();
   const currentSize = router.query.size;
   const currentPage = router.query.page;
@@ -70,8 +68,6 @@ const usePeminjaman = () => {
     isRefetchingBorrows,
     refetchBorrows,
     setUrl,
-    selectedId,
-    setSelectedId,
   };
 };
 
