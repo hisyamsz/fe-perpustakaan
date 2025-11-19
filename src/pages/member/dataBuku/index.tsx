@@ -5,7 +5,7 @@ const MemberDataBukuPage = () => {
   return (
     <DashboardLayout
       title="Data Buku"
-      description="Cari buku dan pinjam"
+      description="Temukan dan lihat koleksi buku yang tersedia untuk dipinjam"
       type="user"
     >
       <DataBuku />

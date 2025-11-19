@@ -40,3 +40,21 @@ export const convertTime = (isoDate: string) => {
 
   return `${date} WIB`;
 };
+
+export function toISODateString(
+  date: string | DateValue | undefined,
+): string | undefined {
+  if (!date) return undefined;
+
+  // Jika sudah string → kembalikan apa adanya
+  if (typeof date === "string") {
+    return date;
+  }
+
+  // Jika DateValue → ubah ke string (HeroUI DateValue → CalendarDate)
+  if ("toString" in date) {
+    return date.toString(); // Output: "2025-11-30"
+  }
+
+  return undefined;
+}

@@ -23,8 +23,6 @@ const Peminjaman: FC = () => {
     setSelectedId,
   } = usePeminjaman();
 
-  console.log(dataBorrows);
-
   useEffect(() => {
     if (isReady) {
       setUrl();

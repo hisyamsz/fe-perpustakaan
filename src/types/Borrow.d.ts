@@ -25,6 +25,22 @@ export interface IBorrowItem {
   };
 }
 
+export interface IBorrowSummary {
+  total: number;
+  dipinjam: number;
+  dikembalikan: number;
+  terlambat: number;
+}
+
+export type TFilterBorrow = (items: IBorrowItem[]) => IBorrowSummary;
+
+export interface IBorrowUserResponse {
+  data: IBorrowItem[];
+  page: number;
+  size: number;
+  total: number;
+}
+
 export interface ISearchBorrowBook {
   page?: string | string[] | number;
   size?: string | string[] | number;

@@ -1,13 +1,14 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import Dashboard from "@/components/views/Member/Dashboard";
 
 const MemberDashboardPage = () => {
   return (
     <DashboardLayout
-      title="Member Dashboard"
-      description="Dashboard"
+      title="Dashboard"
+      description="Selamat Datang di Perpustakaan SMKN 6 Kota Tangerang Selatan"
       type="user"
     >
-      <div>Dashboard</div>
+      <Dashboard />
     </DashboardLayout>
   );
 };
