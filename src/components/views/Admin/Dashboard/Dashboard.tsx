@@ -10,15 +10,15 @@ const Dashboard: FC = () => {
 
   return (
     <section>
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         {STATS_CARD.map((item, idx) => (
           <Card
             key={idx}
-            className="overflow-hidden transition-all hover:shadow-lg"
+            className="h-30 overflow-hidden transition-all hover:shadow-lg"
           >
             <CardBody className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
+              <div className="flex h-full items-center justify-between">
+                <div className="flex h-full flex-col justify-between">
                   <p className="text-sm font-medium text-gray-500">
                     {item.title}
                   </p>
