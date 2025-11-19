@@ -9,9 +9,10 @@ import { convertTime } from "@/utils/date";
 import { IBorrowItem } from "@/types/Borrow";
 import PeminjamanValidateModal from "./PeminjamanValidateModal";
 import PeminjamanReturnModal from "./PeminjamanReturnModal";
+import PeminjamanRejectModal from "./PeminjamanRejectModal";
 
 const Peminjaman: FC = () => {
-  const { isReady, query } = useRouter();
+  const { isReady, query, push } = useRouter();
   const {
     currentPage,
     currentSize,
@@ -32,6 +33,7 @@ const Peminjaman: FC = () => {
 
   const disclosureValidateModal = useDisclosure();
   const disclosureReturnModal = useDisclosure();
+  const disclosureRejectModal = useDisclosure();
 
   useEffect(() => {
     if (isReady) {
@@ -74,18 +76,40 @@ const Peminjaman: FC = () => {
           );
         case "aksi":
           const isValid = Boolean(borrow.valid);
+          const status = borrow?.status?.toLowerCase();
+          const canReject = status === "diproses";
+          const detailLabel =
+            status === "dikembalikan"
+              ? "Detail Pengembalian"
+              : !isValid
+                ? "Konfirmasi"
+                : "Pengembalian";
+
+          const handleDetailAction = () => {
+            console.log(borrow);
+            setSelectedId(borrow);
+
+            if (status === "dikembalikan") {
+              push(`/admin/pengembalian/${borrow.id}`);
+              return;
+            }
+
+            if (!isValid) {
+              disclosureValidateModal.onOpen();
+            } else {
+              disclosureReturnModal.onOpen();
+            }
+          };
+
           return (
             <DropdownAction
-              hideButtonDelete
-              detailLabel={!isValid ? "Konfirmasi" : "Pengembalian"}
-              onPressButtonDetail={() => {
+              detailLabel={detailLabel}
+              onPressButtonDetail={handleDetailAction}
+              hideButtonDelete={!canReject}
+              deleteLabel="Tolak"
+              onPressButtonDelete={() => {
                 setSelectedId(borrow);
-
-                if (!isValid) {
-                  disclosureValidateModal.onOpen();
-                } else {
-                  disclosureReturnModal.onOpen();
-                }
+                disclosureRejectModal.onOpen();
               }}
             />
           );
@@ -93,7 +117,13 @@ const Peminjaman: FC = () => {
           return cellValue as ReactNode;
       }
     },
-    [setSelectedId, disclosureValidateModal, disclosureReturnModal],
+    [
+      setSelectedId,
+      disclosureValidateModal,
+      disclosureReturnModal,
+      disclosureRejectModal,
+      push,
+    ],
   );
 
   return (
@@ -134,6 +164,12 @@ const Peminjaman: FC = () => {
       />
       <PeminjamanReturnModal
         {...disclosureReturnModal}
+        refetchBorrow={refetchBorrows}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+      />
+      <PeminjamanRejectModal
+        {...disclosureRejectModal}
         refetchBorrow={refetchBorrows}
         selectedId={selectedId}
         setSelectedId={setSelectedId}

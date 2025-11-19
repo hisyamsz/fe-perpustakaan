@@ -69,7 +69,8 @@ const DataBuku: FC = () => {
           return (
             <DropdownAction
               hideButtonDelete
-              detailLabel="Pinjam"
+              detailLabel={(buku.stok as number) > 0 ? "Pinjam" : "Habis"}
+              disabledButtonDetail={(buku.stok as number) <= 0}
               onPressButtonDetail={() => {
                 setSelectedId(buku);
                 disclosureBorrowModal.onOpen();

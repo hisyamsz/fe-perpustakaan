@@ -14,6 +14,7 @@ interface DropdownActionProps {
   onPressButtonDetail: () => void;
   onPressButtonDelete?: () => void;
   hideButtonDelete?: boolean;
+  disabledButtonDetail?: boolean;
 }
 
 const DropdownAction: FC<DropdownActionProps> = ({
@@ -22,6 +23,7 @@ const DropdownAction: FC<DropdownActionProps> = ({
   onPressButtonDetail,
   onPressButtonDelete,
   hideButtonDelete,
+  disabledButtonDetail,
 }) => {
   return (
     <Dropdown>
@@ -31,7 +33,11 @@ const DropdownAction: FC<DropdownActionProps> = ({
         </Button>
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem key="detail-event-button" onPress={onPressButtonDetail}>
+        <DropdownItem
+          key="detail-event-button"
+          onPress={onPressButtonDetail}
+          isDisabled={disabledButtonDetail}
+        >
           {detailLabel}
         </DropdownItem>
         {!hideButtonDelete ? (

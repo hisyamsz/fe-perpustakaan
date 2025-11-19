@@ -16,7 +16,7 @@ export interface IBorrowItem {
   tanggal_pinjam?: string | DateValue;
   tenggat_kembali?: string | DateValue;
   valid?: boolean | string;
-  status?: "Dipinjam" | "Dikembalikan";
+  status?: "Dipinjam" | "Dikembalikan" | "Diproses";
   user?: {
     nama?: string;
   };
