@@ -16,6 +16,8 @@ const borrowServices = {
   // User (membuat peminjaman)
   createBorrow: (payload: { buku_id?: number | string }) =>
     instance.post(`${endpoint.BORROW}/create`, payload),
+  getBorrowUser: (params?: ISearchBorrowBook) =>
+    instance.get(`${endpoint.BORROW}/get`, { params }),
 };
 
 export default borrowServices;

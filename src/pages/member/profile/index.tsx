@@ -5,7 +5,7 @@ const MemberProfilePage = () => {
   return (
     <DashboardLayout
       title="Profile"
-      description="Manage your profile here"
+      description="Atur nama profile di sini"
       type="user"
     >
       <Profile />

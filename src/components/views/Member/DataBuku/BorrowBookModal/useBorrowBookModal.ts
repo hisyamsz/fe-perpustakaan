@@ -1,9 +1,11 @@
 import borrowServices from "@/services/borrow.service";
 import { ApiAxiosError } from "@/types/Axios";
 import { addToast } from "@heroui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useBorrowBookModal = () => {
+  const queryClient = useQueryClient();
+
   const borrowBook = async (id: string | number) => {
     const result = await borrowServices.createBorrow({ buku_id: id });
     return result;
@@ -26,6 +28,7 @@ const useBorrowBookModal = () => {
       });
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["MemberPeminjaman"] });
       addToast({
         title: "Berhasil Meminjam Buku",
         description:
