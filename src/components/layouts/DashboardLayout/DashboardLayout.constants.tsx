@@ -1,6 +1,5 @@
 import { CiBookmark, CiGrid41, CiUser } from "react-icons/ci";
 import { LuBookOpen } from "react-icons/lu";
-import { TbReportAnalytics } from "react-icons/tb";
 
 export const SIDEBAR_ADMIN = [
   {
@@ -20,12 +19,6 @@ export const SIDEBAR_ADMIN = [
     label: "Peminjaman",
     href: "/admin/peminjaman",
     icon: <CiBookmark />,
-  },
-  {
-    key: "laporan",
-    label: "Laporan Buku",
-    href: "/admin/laporan",
-    icon: <TbReportAnalytics />,
   },
 ];
 

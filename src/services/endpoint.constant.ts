@@ -1,9 +1,10 @@
 const endpoint = {
   AUTH: "/users",
   BOOK: "/books",
-  STAT: "/statistic",
   BORROW: "/peminjaman",
   RETURN: "/pengembalian",
+  STAT: "/statistic",
+  STATUSER: "/statistik",
 };
 
 export default endpoint;

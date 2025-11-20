@@ -14,7 +14,7 @@ const Dashboard: FC = () => {
         {STATS_CARD.map((item, idx) => (
           <Card
             key={idx}
-            className="h-30 overflow-hidden transition-all hover:shadow-lg"
+            className="h-32 overflow-hidden transition-all hover:shadow-lg"
           >
             <CardBody className="p-6">
               <div className="flex h-full items-center justify-between">
@@ -22,7 +22,7 @@ const Dashboard: FC = () => {
                   <p className="text-sm font-medium text-gray-500">
                     {item.title}
                   </p>
-                  <div className="text-foreground text-2xl font-bold">
+                  <div className="text-foreground text-3xl font-bold">
                     {isPendingStats ? (
                       <Skeleton className="h-7 w-14 rounded-full" />
                     ) : (
@@ -33,7 +33,7 @@ const Dashboard: FC = () => {
                 <div
                   className={`rounded-full p-4 ${item.bgColor} ${item.textColor}`}
                 >
-                  <item.icon />
+                  <item.icon size={32} />
                 </div>
               </div>
             </CardBody>

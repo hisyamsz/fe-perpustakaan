@@ -3,6 +3,7 @@ import endpoint from "./endpoint.constant";
 
 const statsServices = {
   getStat: () => instance.get(`${endpoint.STAT}`),
+  getStatUser: () => instance.get(`${endpoint.STATUSER}/anggota`),
 };
 
 export default statsServices;
