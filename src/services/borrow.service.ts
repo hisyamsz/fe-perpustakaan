@@ -13,6 +13,7 @@ const borrowServices = {
     borrowId: number | string,
     payload: { kondisi_buku: string },
   ) => instance.post(`${endpoint.RETURN}/${borrowId}`, payload),
+  getDetailReturnById: (id: string) => instance.get(`${endpoint.RETURN}/${id}`),
   rejectBorrow: (borrowId: number | string) =>
     instance.delete(`${endpoint.BORROW}/reject/${borrowId}`),
   // User (membuat peminjaman)

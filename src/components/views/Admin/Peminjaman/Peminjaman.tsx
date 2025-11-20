@@ -86,7 +86,6 @@ const Peminjaman: FC = () => {
                 : "Pengembalian";
 
           const handleDetailAction = () => {
-            console.log(borrow);
             setSelectedId(borrow);
 
             if (status === "dikembalikan") {

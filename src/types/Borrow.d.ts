@@ -47,3 +47,27 @@ export interface ISearchBorrowBook {
   judul?: string | string[];
   user?: string | string[];
 }
+
+export interface IDetailReturn {
+  id: number;
+  peminjaman_id: number;
+  tanggal_dikembalikan: string;
+  hari_telat: number;
+  kondisi_buku: string;
+  denda: string | number;
+  peminjaman: {
+    id: number;
+    user_id: number;
+    buku_id: number;
+    tanggal_pinjam: string;
+    tenggat_kembali: string;
+    valid: boolean;
+    status: string;
+    user: {
+      nama: string;
+    };
+    buku: {
+      judul: string;
+    };
+  };
+}
