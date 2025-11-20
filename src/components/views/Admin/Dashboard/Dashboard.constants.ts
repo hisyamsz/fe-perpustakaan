@@ -30,3 +30,11 @@ export const STATS_CARD = [
     bgColor: "bg-red-100",
   },
 ];
+
+export const COLUMN_LIST_RECENT_ACTIVITY = [
+  { name: "PEMINJAM", uid: "peminjam" },
+  { name: "BUKU", uid: "buku" },
+  { name: "TANGGAL PINJAM", uid: "tanggal_pinjam" },
+  { name: "TENGGAT", uid: "tenggat_kembali" },
+  { name: "STATUS", uid: "status" },
+];
