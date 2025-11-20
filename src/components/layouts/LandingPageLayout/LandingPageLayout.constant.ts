@@ -4,7 +4,6 @@ export const NAVBAR_ITEMS = [
   { label: "Beranda", href: "/" },
   { label: "Tentang", href: "/tentang" },
   { label: "Koleksi Buku", href: "/books" },
-  { label: "Kontak", href: "/kontak" },
 ];
 
 export const CONTACT_INFO = [
