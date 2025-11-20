@@ -216,19 +216,20 @@ const DetailPengembalianCard: FC<DetailPengembalianCardProps> = ({
 
       {isErrorDetailReturn && (
         <Card className="border border-red-300 bg-red-50">
-          <CardBody className="py-10 text-center text-red-600">
-            <p className="font-semibold">
+          <CardBody className="space-y-1 py-10 text-center text-red-600">
+            <p className="font-semibold text-red-700">
               Terjadi kesalahan saat mengambil data.
             </p>
-            <p className="text-sm">Silakan coba lagi.</p>
+            <p className="text-sm">Data tidak ditemukan.</p>
           </CardBody>
         </Card>
       )}
 
       {!isPendingDetailReturn && !isErrorDetailReturn && !dataDetailReturn && (
         <Card className="border border-gray-300 bg-gray-50">
-          <CardBody className="py-10 text-center text-gray-600">
-            <p className="font-semibold">Data tidak ditemukan.</p>
+          <CardBody className="space-y-1 py-10 text-center text-gray-600">
+            <p className="font-semibold text-gray-700">Data tidak ditemukan.</p>
+            <p className="text-sm">Pastikan data pengembalian tersedia.</p>
           </CardBody>
         </Card>
       )}

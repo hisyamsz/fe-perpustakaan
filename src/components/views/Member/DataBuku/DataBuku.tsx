@@ -72,8 +72,11 @@ const DataBuku: FC = () => {
               detailLabel={(buku.stok as number) > 0 ? "Pinjam" : "Habis"}
               disabledButtonDetail={(buku.stok as number) <= 0}
               onPressButtonDetail={() => {
-                setSelectedId(buku);
-                disclosureBorrowModal.onOpen();
+                if ((buku.stok as number) > 0) {
+                  setSelectedId(buku);
+                  disclosureBorrowModal.onOpen();
+                }
+                return null;
               }}
             />
           );

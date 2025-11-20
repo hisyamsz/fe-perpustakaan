@@ -6,9 +6,10 @@ import { COLUMN_LIST_PEMINJAMAN } from "./Peminjaman.constants";
 import usePeminjaman from "./usePeminjaman";
 import { convertTime } from "@/utils/date";
 import { IBorrowItem } from "@/types/Borrow";
+import DropdownAction from "@/components/commons/DropdownAction";
 
 const Peminjaman: FC = () => {
-  const { isReady, query } = useRouter();
+  const { isReady, query, push } = useRouter();
   const {
     currentPage,
     currentSize,
@@ -28,39 +29,57 @@ const Peminjaman: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isReady]);
 
-  const renderCell = useCallback((borrow: IBorrowItem, columnKey: Key) => {
-    const cellValue = borrow[columnKey as keyof typeof borrow];
+  const renderCell = useCallback(
+    (borrow: IBorrowItem, columnKey: Key) => {
+      const cellValue = borrow[columnKey as keyof typeof borrow];
 
-    switch (columnKey) {
-      case "buku":
-        return <p>{borrow.buku?.judul}</p>;
-      case "tanggal_pinjam":
-        return <p>{convertTime(cellValue as string)}</p>;
-      case "tenggat_kembali":
-        return <p>{convertTime(cellValue as string)}</p>;
+      switch (columnKey) {
+        case "buku":
+          return <p>{borrow.buku?.judul}</p>;
+        case "tanggal_pinjam":
+          return <p>{convertTime(cellValue as string)}</p>;
+        case "tenggat_kembali":
+          return <p>{convertTime(cellValue as string)}</p>;
 
-      case "status":
-        return (
-          <Chip
-            color={
-              cellValue === "Diproses"
-                ? "warning"
-                : cellValue === "Dipinjam"
-                  ? "secondary"
-                  : cellValue === "Dikembalikan"
-                    ? "success"
-                    : "danger"
-            }
-            size="sm"
-            variant="flat"
-          >
-            {cellValue as string}
-          </Chip>
-        );
-      default:
-        return cellValue as ReactNode;
-    }
-  }, []);
+        case "status":
+          return (
+            <Chip
+              color={
+                cellValue === "Diproses"
+                  ? "warning"
+                  : cellValue === "Dipinjam"
+                    ? "secondary"
+                    : cellValue === "Dikembalikan"
+                      ? "success"
+                      : "danger"
+              }
+              size="sm"
+              variant="flat"
+            >
+              {cellValue as string}
+            </Chip>
+          );
+        case "aksi":
+          const isReturned = borrow.status?.toLowerCase() === "dikembalikan";
+          return (
+            <DropdownAction
+              detailLabel="Detail Pengembalian"
+              disabledButtonDetail={!isReturned}
+              hideButtonDelete
+              onPressButtonDetail={() => {
+                if (isReturned) {
+                  push(`/member/pengembalian/${borrow.id}`);
+                }
+                return null;
+              }}
+            />
+          );
+        default:
+          return cellValue as ReactNode;
+      }
+    },
+    [push],
+  );
 
   return (
     <section>
