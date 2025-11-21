@@ -1,7 +1,8 @@
 import CardBook from "@/components/ui/CardBook";
 import { IBook } from "@/types/Book";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface HomeEventListProps {
   dataBooks: IBook[];
@@ -14,8 +15,27 @@ const HomeEventList: FC<HomeEventListProps> = ({
   dataBooks,
   isLoadingBooks,
   title,
-  urlMore = "books",
+  urlMore = "koleksi-buku",
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  const [constraints, setConstraints] = useState({ left: 0, right: 0 });
+
+  useEffect(() => {
+    if (!containerRef.current || !innerRef.current) return;
+
+    const containerWidth = containerRef.current.offsetWidth;
+    const contentWidth = innerRef.current.scrollWidth;
+
+    const maxDrag = contentWidth - containerWidth;
+
+    setConstraints({
+      left: -maxDrag,
+      right: 0,
+    });
+  }, [dataBooks]);
+
   return (
     <section className="px-6 lg:px-8">
       <div className="mb-4 flex items-center justify-between">
@@ -27,22 +47,30 @@ const HomeEventList: FC<HomeEventListProps> = ({
           Lainnya
         </Link>
       </div>
-      <div className="grid auto-cols-[20rem] grid-flow-col gap-6 overflow-x-auto pt-2 pb-6 lg:grid-cols-4 lg:py-1">
-        {!isLoadingBooks
-          ? dataBooks?.map((book) => (
-              <CardBook
-                key={`card-book-${book.id}`}
-                book={book}
-                className="first:ml-4 last:mr-4 lg:first:ml-1 lg:last:mr-1"
-              />
-            ))
-          : Array.from({ length: 4 }).map((_, index) => (
-              <CardBook
-                key={`card-event-loading${index}`}
-                className="first:ml-4 last:mr-4 lg:first:ml-1 lg:last:mr-1"
-                isLoading={isLoadingBooks}
-              />
-            ))}
+
+      <div ref={containerRef} className="overflow-hidden py-2">
+        <motion.div
+          ref={innerRef}
+          drag="x"
+          dragConstraints={constraints}
+          className="grid cursor-grab auto-cols-[20rem] grid-flow-col gap-6 select-none active:cursor-grabbing"
+        >
+          {!isLoadingBooks
+            ? dataBooks?.map((book) => (
+                <CardBook
+                  key={`card-book-${book.id}`}
+                  book={book}
+                  className="first:ml-2 last:mr-2 lg:first:ml-1 lg:last:mr-1"
+                />
+              ))
+            : Array.from({ length: 4 }).map((_, index) => (
+                <CardBook
+                  key={`card-event-loading${index}`}
+                  className="first:ml-2 last:mr-2 lg:first:ml-1 lg:last:mr-1"
+                  isLoading={isLoadingBooks}
+                />
+              ))}
+        </motion.div>
       </div>
     </section>
   );

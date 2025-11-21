@@ -1,3 +1,4 @@
+import { ChipProps } from "@heroui/react";
 import { BiSolidCity } from "react-icons/bi";
 import { CiClock1 } from "react-icons/ci";
 import { ImBooks } from "react-icons/im";
@@ -38,18 +39,15 @@ export const HOME_INFO = [
   },
 ];
 
-export const CATEGORY_COLORS: Record<
-  string,
-  "primary" | "secondary" | "success" | "warning" | "danger" | "default"
-> = {
+export const CATEGORY_COLORS: Record<string, ChipProps["color"]> = {
   fiksi: "primary",
   "non-fiksi": "secondary",
   novel: "success",
   komik: "warning",
   biografi: "danger",
   pelajaran: "primary",
-  ensiklopedia: "secondary",
-  teknologi: "success",
+  ensiklopedia: "success",
+  teknologi: "secondary",
   agama: "warning",
   sejarah: "danger",
 };

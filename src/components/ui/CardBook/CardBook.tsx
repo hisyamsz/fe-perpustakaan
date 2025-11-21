@@ -4,42 +4,48 @@ import {
 } from "@/components/views/Home/Home.constants";
 import { IBook } from "@/types/Book";
 import { cn } from "@/utils/cn";
-import { Card, CardBody, CardFooter, Chip, Skeleton } from "@heroui/react";
-import { useRouter } from "next/router";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Chip,
+  Skeleton,
+  Button,
+  Divider,
+} from "@heroui/react";
 import { FC, Fragment } from "react";
 import { FaBookOpen } from "react-icons/fa";
 
 interface CardBookProps {
   className?: string;
   book?: IBook;
-  key?: string;
   isLoading?: boolean;
+  handleNavigate?: () => void;
 }
 
-const CardBook: FC<CardBookProps> = ({ className, book, key, isLoading }) => {
-  const router = useRouter();
-
-  const category = book?.kategori?.toLowerCase() || "Unknown";
+const CardBook: FC<CardBookProps> = ({
+  className,
+  book,
+  isLoading,
+  handleNavigate,
+}) => {
+  const category = book?.kategori?.toLowerCase() || "unknown";
   const style = CATEGORY_STYLES[category] || {
     iconColor: "text-gray-400",
     coverBg: "bg-gray-100",
   };
 
+  const isOutOfStock = ((book?.stok as number) ?? 0) <= 0;
+
   return (
     <Card
-      key={key}
-      className={cn(
-        className,
-        "shadow-card hover:shadow-soft cursor-pointer px-2 py-1 transition-all duration-300 hover:-translate-y-1",
-      )}
+      key={`card-book-${book?.id || "unknown"}`}
+      className={cn(className, "px-2 py-1 hover:shadow-lg")}
       shadow="sm"
-      isPressable
-      onPress={() => router.push(`books/${book?.id || ""}`)}
     >
       {!isLoading ? (
         <Fragment>
           <CardBody className="flex flex-col">
-            {/* Cover Book Icon */}
             <div
               className={cn(
                 "mb-4 flex h-40 w-full items-center justify-center rounded-lg",
@@ -58,20 +64,37 @@ const CardBook: FC<CardBookProps> = ({ className, book, key, isLoading }) => {
             </p>
           </CardBody>
 
-          <CardFooter className="text-foreground-400 flex w-full justify-between pt-0 text-sm">
-            {/* category */}
-            <Chip
-              color={
-                CATEGORY_COLORS[book?.kategori?.toLowerCase() || ""] ||
-                "default"
-              }
-              className="capitalize"
-            >
-              {book?.kategori || "Unknown"}
-            </Chip>
+          <CardFooter className="flex w-full flex-col gap-2 pt-0">
+            {/* category + year */}
+            <div className="flex w-full justify-between text-sm">
+              <Chip
+                color={
+                  CATEGORY_COLORS[book?.kategori?.toLowerCase() || ""] ||
+                  "default"
+                }
+                variant="solid"
+                size="sm"
+                className="capitalize"
+              >
+                {book?.kategori || "Unknown"}
+              </Chip>
 
-            {/* year */}
-            <span>{book?.tahun_terbit || "-"}</span>
+              <span className="text-foreground-400">
+                {book?.tahun_terbit || "-"}
+              </span>
+            </div>
+
+            <Divider className="my-2" />
+
+            <Button
+              size="sm"
+              color={isOutOfStock ? "default" : "primary"}
+              className="w-full"
+              onPress={handleNavigate}
+              isDisabled={isOutOfStock}
+            >
+              {isOutOfStock ? "Stok Habis" : "Pinjam"}
+            </Button>
           </CardFooter>
         </Fragment>
       ) : (

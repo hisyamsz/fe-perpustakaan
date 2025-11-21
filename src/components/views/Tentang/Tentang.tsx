@@ -12,12 +12,12 @@ const Tentang: FC = () => {
           <header className="text-center">
             <h1
               id="tentang-heading-title"
-              className="mb-4 text-4xl font-bold md:text-5xl"
+              className="mb-4 text-4xl font-bold drop-shadow-md md:text-5xl"
             >
               Tentang Perpustakaan
             </h1>
 
-            <p className="text-muted-foreground mx-auto mb-12 max-w-2xl text-lg">
+            <p className="text-foreground-600 mx-auto mb-12 max-w-3xl text-lg">
               Pusat literasi modern yang mendukung proses belajar, pengembangan
               karakter, serta peningkatan kualitas pendidikan di SMKN 6 Kota
               Tangerang Selatan.
@@ -36,7 +36,7 @@ const Tentang: FC = () => {
               </CardHeader>
 
               <CardBody>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-foreground-600 leading-relaxed">
                   Perpustakaan SMKN 6 Kota Tangerang Selatan merupakan pusat
                   informasi dan sumber belajar yang dirancang untuk mendukung
                   proses pendidikan. Dengan koleksi buku fisik dan digital,
@@ -66,7 +66,7 @@ const Tentang: FC = () => {
                   </div>
                 }
               >
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-foreground-600 leading-relaxed">
                   Menjadi pusat literasi unggulan yang mendukung pembelajaran
                   sepanjang hayat, menumbuhkan kreativitas, serta memperkuat
                   karakter melalui akses informasi yang berkualitas dan
@@ -86,7 +86,7 @@ const Tentang: FC = () => {
                   </div>
                 }
               >
-                <ul className="text-muted-foreground space-y-2 leading-relaxed">
+                <ul className="text-foreground-600 space-y-2 leading-relaxed">
                   {ACCORDION_MISI_LIST.map((misi, index) => (
                     <li key={index}>{misi.label}</li>
                   ))}
@@ -118,7 +118,7 @@ const Tentang: FC = () => {
                   </CardHeader>
 
                   <CardBody>
-                    <p className="text-muted-foreground">
+                    <p className="text-foreground-600">
                       {facility.description}
                     </p>
                   </CardBody>

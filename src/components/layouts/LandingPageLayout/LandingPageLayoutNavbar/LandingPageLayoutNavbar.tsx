@@ -116,7 +116,7 @@ const LandingPageLayoutNavbar: React.FC = () => {
                   isBordered
                   showFallback
                   title={dataProfile?.email}
-                  className="cursor-pointer transition-transform"
+                  className="ml-1 cursor-pointer transition-transform"
                 />
               </DropdownTrigger>
               <DropdownMenu>

@@ -3,7 +3,7 @@ import { CiMail, CiMapPin, CiPhone } from "react-icons/ci";
 export const NAVBAR_ITEMS = [
   { label: "Beranda", href: "/" },
   { label: "Tentang", href: "/tentang" },
-  { label: "Koleksi Buku", href: "/books" },
+  { label: "Koleksi Buku", href: "/koleksi-buku" },
 ];
 
 export const CONTACT_INFO = [
