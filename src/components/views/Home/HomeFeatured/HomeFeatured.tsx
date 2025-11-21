@@ -4,17 +4,19 @@ import Link from "next/link";
 import { FC, useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-interface HomeEventListProps {
+interface HomeFeaturedProps {
   dataBooks: IBook[];
   isLoadingBooks: boolean;
   title: string;
+  handleNavigate: (judul?: string) => void;
   urlMore?: string;
 }
 
-const HomeEventList: FC<HomeEventListProps> = ({
+const HomeFeatured: FC<HomeFeaturedProps> = ({
   dataBooks,
   isLoadingBooks,
   title,
+  handleNavigate,
   urlMore = "koleksi-buku",
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -61,6 +63,9 @@ const HomeEventList: FC<HomeEventListProps> = ({
                   key={`card-book-${book.id}`}
                   book={book}
                   className="first:ml-2 last:mr-2 lg:first:ml-1 lg:last:mr-1"
+                  handleNavigate={() => {
+                    handleNavigate(book.judul);
+                  }}
                 />
               ))
             : Array.from({ length: 4 }).map((_, index) => (
@@ -76,4 +81,4 @@ const HomeEventList: FC<HomeEventListProps> = ({
   );
 };
 
-export default HomeEventList;
+export default HomeFeatured;
