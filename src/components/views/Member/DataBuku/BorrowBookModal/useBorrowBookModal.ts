@@ -30,6 +30,7 @@ const useBorrowBookModal = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["MemberPeminjaman"] });
       queryClient.invalidateQueries({ queryKey: ["UserSummary"] });
+      queryClient.invalidateQueries({ queryKey: ["Statistic"] });
       addToast({
         title: "Berhasil Meminjam Buku",
         description:

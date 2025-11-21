@@ -1,9 +1,11 @@
 import bookServices from "@/services/book.service";
 import { ApiAxiosError } from "@/types/Axios";
 import { addToast } from "@heroui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useDeleteDataBukuModal = () => {
+  const queryClient = useQueryClient();
+
   const deleteBook = async (id: string) => {
     const result = await bookServices.deleteBook(id);
     return result;
@@ -26,6 +28,7 @@ const useDeleteDataBukuModal = () => {
       });
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["Statistic"] });
       addToast({
         title: "Berhasil Menghapus Buku",
         description: "Data buku telah berhasil dihapus.",

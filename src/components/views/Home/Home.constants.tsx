@@ -10,7 +10,7 @@ export const HOME_INFO = [
     title: "Jam Buka",
     details: [
       "Senin - Jum'at: 8:00 - 16.00 WIB",
-      "Sabtu: 9:00 AM - 16:00 WIB",
+      "Sabtu: 9:00 - 16:00 WIB",
       "Minggu: Tutup",
     ],
     color: "text-primary",
@@ -28,7 +28,7 @@ export const HOME_INFO = [
   {
     icon: ImBooks,
     title: "Koleksi Buku",
-    details: ["Buku pelajarann", "Materi kompetensi kejuruan", "Laporan"],
+    details: ["Buku pelajaran", "Materi kompetensi kejuruan", "Laporan"],
     color: "text-primary",
   },
   {

@@ -38,6 +38,8 @@ const useKoleksiBuku = () => {
       const isSearch = params.judul || params.featured;
       return isSearch ? searchDataBooks() : getAllBooks();
     },
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
   });
 
   const handleSearch = () => {

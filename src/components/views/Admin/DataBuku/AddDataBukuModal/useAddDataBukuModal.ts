@@ -3,7 +3,7 @@ import { ApiAxiosError } from "@/types/Axios";
 import { IBook } from "@/types/Book";
 import { addToast } from "@heroui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -36,6 +36,8 @@ const addBookSchema = yup.object().shape({
 });
 
 const useAddDataBukuModal = () => {
+  const queryClient = useQueryClient();
+
   const {
     control,
     handleSubmit,
@@ -67,6 +69,9 @@ const useAddDataBukuModal = () => {
       });
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["Statistic"] });
+      queryClient.invalidateQueries({ queryKey: ["MemberPeminjaman"] });
+      queryClient.invalidateQueries({ queryKey: ["UserSummary"] });
       addToast({
         title: "Berhasil",
         description: "Buku berhasil ditambahkan",

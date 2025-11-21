@@ -20,6 +20,8 @@ const useHome = () => {
   const { data: dataBooks, isLoading: isLoadingBooks } = useQuery({
     queryKey: ["BooksFeatured"],
     queryFn: getBooksFeatured,
+    staleTime: 1000 * 60 * 3,
+    gcTime: 1000 * 60 * 10,
   });
 
   const handleNavigate = (judul?: string) => {

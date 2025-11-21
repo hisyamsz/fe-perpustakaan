@@ -10,6 +10,8 @@ const useDashboard = () => {
   const { data: dataStatUser, isPending: isPendingStatUser } = useQuery({
     queryKey: ["UserSummary"],
     queryFn: getStatUser,
+    staleTime: 1000 * 60 * 3,
+    gcTime: 1000 * 60 * 10,
   });
 
   return {
