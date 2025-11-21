@@ -36,7 +36,7 @@ const HomeHero: React.FC<HomeHeroProps> = () => {
 
         <Button
           color="secondary"
-          onPress={() => router.push("/books")}
+          onPress={() => router.push("/koleksi-buku")}
           aria-label="Lihat katalog buku perpustakaan"
         >
           <LuBookOpen aria-hidden="true" /> Lihat Katalog
