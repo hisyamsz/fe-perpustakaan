@@ -32,13 +32,15 @@ const Login: React.FC<LoginProps> = () => {
     <Card className="shadow-2xl">
       <CardBody className="flex items-center justify-center p-8">
         <div className="mb-4 flex flex-col items-center gap-2 text-center">
-          <Image
-            src="/images/general/logo-smkn-6.png"
-            alt="logo png"
-            width={48}
-            height={48}
-            className="h-12 w-12"
-          />
+          <Link href="/">
+            <Image
+              src="/images/general/logo-smkn-6.png"
+              alt="logo png"
+              width={76}
+              height={76}
+              className="h-12 w-12"
+            />
+          </Link>
           <h2 className="text-primary text-2xl font-semibold">Login</h2>
         </div>
 

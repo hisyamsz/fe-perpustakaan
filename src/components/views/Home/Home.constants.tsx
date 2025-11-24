@@ -9,9 +9,9 @@ export const HOME_INFO = [
     icon: CiClock1,
     title: "Jam Buka",
     details: [
-      "Senin - Jum'at: 8:00 - 16.00 WIB",
-      "Sabtu: 9:00 - 16:00 WIB",
-      "Minggu: Tutup",
+      "Senin - Jum'at: 7.00 - 15.00 WIB",
+      "Istirahat: 12.00 - 13.00 WIB",
+      "Sabtu & Minggu: Tutup",
     ],
     color: "text-primary",
   },
@@ -20,21 +20,25 @@ export const HOME_INFO = [
     title: "Kegiatan Literasi",
     details: [
       "Program baca bersama",
-      "Bedah buku",
-      "Pelatihan literasi digital",
+      "Kegiatan literasi",
+      "Pengembangan minat baca siswa",
     ],
     color: "text-secondary",
   },
   {
     icon: ImBooks,
     title: "Koleksi Buku",
-    details: ["Buku pelajaran", "Materi kompetensi kejuruan", "Laporan"],
+    details: [
+      "Buku pelajaran semua jurusan",
+      "Materi kompetensi kejuruan",
+      "Buku fiksi & non-fiksi umum",
+    ],
     color: "text-primary",
   },
   {
     icon: BiSolidCity,
     title: "Fasilitas",
-    details: ["Area baca nyaman", "Komputer", "Wi-Fi untuk riset"],
+    details: ["Area baca nyaman", "Komputer", "Rak koleksi tertata rapi"],
     color: "text-accent",
   },
 ];

@@ -41,8 +41,8 @@ const Tentang: FC = () => {
                   informasi dan sumber belajar yang dirancang untuk mendukung
                   proses pendidikan. Dengan koleksi buku fisik dan digital,
                   fasilitas nyaman, serta layanan ramah, kami berkomitmen untuk
-                  menciptakan lingkungan belajar yang produktif dan menyenangkan
-                  bagi seluruh warga sekolah.
+                  menciptakan lingkungan belajar yang produktif, menyenangkan
+                  bagi seluruh warga sekolah, dan menumbuhkan minat baca.
                 </p>
               </CardBody>
             </Card>
@@ -67,10 +67,8 @@ const Tentang: FC = () => {
                 }
               >
                 <p className="text-foreground-600 leading-relaxed">
-                  Menjadi pusat literasi unggulan yang mendukung pembelajaran
-                  sepanjang hayat, menumbuhkan kreativitas, serta memperkuat
-                  karakter melalui akses informasi yang berkualitas dan
-                  inklusif.
+                  Mewujudkan generasi yang berkualitas, cerdas, dan kompeten
+                  melalui budaya literasi.
                 </p>
               </AccordionItem>
 

@@ -55,7 +55,7 @@ const HomeFeatured: FC<HomeFeaturedProps> = ({
           ref={innerRef}
           drag="x"
           dragConstraints={constraints}
-          className="grid cursor-grab auto-cols-[20rem] grid-flow-col gap-6 select-none active:cursor-grabbing"
+          className="grid auto-cols-[20rem] grid-flow-col gap-6 select-none active:cursor-grabbing"
         >
           {!isLoadingBooks
             ? dataBooks?.map((book) => (

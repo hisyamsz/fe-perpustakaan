@@ -7,7 +7,11 @@ export const NAVBAR_ITEMS = [
 ];
 
 export const CONTACT_INFO = [
-  { key: "location", icon: CiMapPin, label: "SMKN 6 Kota Tangerang Selatan" },
-  { key: "phone", icon: CiPhone, label: "(021) 123-4567" },
-  { key: "mail", icon: CiMail, label: "perpustakaan@smkn6tangsel.sch.id" },
+  {
+    key: "location",
+    icon: CiMapPin,
+    label: "Jl. Magnolia VI No. 6",
+  },
+  { key: "phone", icon: CiPhone, label: "0859-0010-0806" },
+  { key: "mail", icon: CiMail, label: "smkn6tangsel@gmail.com" },
 ];

@@ -1,10 +1,11 @@
-import { FaWifi, FaCoffee, FaBookReader, FaUsers } from "react-icons/fa";
+import { FaCoffee, FaUsers, FaDesktop, FaSearch } from "react-icons/fa";
 
 export const FACILITIES_LIST = [
   {
-    icon: FaWifi,
-    title: "Free WiFi",
-    description: "Akses internet cepat tersedia di seluruh area perpustakaan.",
+    icon: FaDesktop,
+    title: "Komputer Akses Informasi",
+    description:
+      "Perangkat komputer untuk mengakses katalog dan sumber belajar.",
   },
   {
     icon: FaCoffee,
@@ -12,9 +13,10 @@ export const FACILITIES_LIST = [
     description: "Area baca yang tenang, bersih, dan nyaman untuk belajar.",
   },
   {
-    icon: FaBookReader,
-    title: "Sumber Digital",
-    description: "E-book, jurnal, dan koleksi digital lainnya.",
+    icon: FaSearch,
+    title: "Katalog Terkomputerisasi",
+    description:
+      "Pencarian buku lebih mudah melalui sistem katalog digital perpustakaan.",
   },
   {
     icon: FaUsers,
@@ -24,16 +26,16 @@ export const FACILITIES_LIST = [
 ];
 
 export const ACCORDION_MISI_LIST = [
-  { label: "- Memberikan akses informasi yang luas, akurat, dan relevan." },
   {
-    label: "- Mendukung kegiatan belajar melalui fasilitas modern dan nyaman.",
+    label:
+      "1. Mengoptimalkan perpustakaan sebagai pusat akses informasi yang akurat, relevan, dan up-to-date.",
   },
   {
     label:
-      "- Menyediakan koleksi buku dan digital untuk seluruh kebutuhan akademik.",
+      "2. Mendorong minat baca serta menumbuhkembangkan budaya literasi melalui program dan kegiatan yang berkelanjutan.",
   },
   {
     label:
-      "- Mendorong budaya membaca dan berpikir kritis di lingkungan sekolah.",
+      "3. Menjadikan perpustakaan sebagai jantung pendidikan sekolah yang mendukung proses belajar, kreativitas, dan pengembangan kompetensi siswa.",
   },
 ];
