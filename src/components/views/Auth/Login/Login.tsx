@@ -58,6 +58,7 @@ const Login: React.FC<LoginProps> = () => {
             render={({ field }) => (
               <Input
                 {...field}
+                autoFocus
                 label="Email"
                 type="email"
                 variant="bordered"

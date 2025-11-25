@@ -165,24 +165,34 @@ const DetailPengembalianCard: FC<DetailPengembalianCardProps> = ({
 
                 <div className="flex items-center gap-2">
                   <FaMoneyBillWave
-                    className={`${
-                      (dataDetailReturn.denda as number) > 0
+                    className={` ${
+                      dataDetailReturn.kondisi_buku === "Hilang"
                         ? "text-red-600"
-                        : "text-emerald-600"
-                    }`}
+                        : dataDetailReturn.hari_telat &&
+                            dataDetailReturn.hari_telat > 0
+                          ? "text-red-600"
+                          : "text-emerald-600"
+                    } `}
                   />
+
                   <span className="text-sm font-semibold text-gray-600">
                     Denda:
                   </span>
-                  <span
-                    className={`text-sm font-semibold ${
-                      (dataDetailReturn.denda as number) > 0
-                        ? "text-red-600"
-                        : "text-green-600"
-                    }`}
-                  >
-                    {convertIDR(dataDetailReturn.denda as number)}
-                  </span>
+
+                  {dataDetailReturn.kondisi_buku === "Hilang" ? (
+                    <span className="text-sm font-semibold text-red-600">
+                      Harap diganti dengan buku baru
+                    </span>
+                  ) : dataDetailReturn.hari_telat &&
+                    dataDetailReturn.hari_telat > 0 ? (
+                    <span className="text-sm font-semibold text-red-600">
+                      {convertIDR(dataDetailReturn.denda as number)}
+                    </span>
+                  ) : (
+                    <span className="text-sm font-semibold text-emerald-600">
+                      {convertIDR(0)}
+                    </span>
+                  )}
                 </div>
               </div>
             </CardBody>

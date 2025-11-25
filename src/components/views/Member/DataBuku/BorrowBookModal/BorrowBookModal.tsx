@@ -42,7 +42,7 @@ const BorrowBookModal: FC<BorrowBookModalProps> = ({
     );
   }, []);
 
-  const dueDate = useMemo(() => today.add({ days: 14 }), [today]);
+  const dueDate = useMemo(() => today.add({ days: 3 }), [today]);
 
   useEffect(() => {
     if (isSuccessBorrow) {

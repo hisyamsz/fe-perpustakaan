@@ -88,6 +88,7 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
                     variant="bordered"
                     type="text"
                     autoComplete="off"
+                    autoFocus
                     isInvalid={!!errors.judul}
                     errorMessage={errors.judul?.message}
                   />
