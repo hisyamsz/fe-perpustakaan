@@ -64,7 +64,7 @@ const DetailPengembalianCard: FC<DetailPengembalianCardProps> = ({
                   <span className="text-sm font-semibold text-gray-600">
                     Kelas:
                   </span>
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-medium uppercase">
                     {dataDetailReturn.peminjaman.user.kelas}
                   </span>
                 </div>

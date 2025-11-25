@@ -28,7 +28,8 @@ export interface IResetPassword {
 
 export interface IProfile {
   id?: string;
-  nama?: string;
+  nama?: string | null;
+  kelas?: string | null;
   email?: string;
   role?: string;
 }

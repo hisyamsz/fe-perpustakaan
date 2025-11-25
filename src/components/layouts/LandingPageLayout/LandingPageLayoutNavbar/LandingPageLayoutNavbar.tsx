@@ -115,7 +115,7 @@ const LandingPageLayoutNavbar: React.FC = () => {
                 <Avatar
                   isBordered
                   showFallback
-                  title={dataProfile?.email}
+                  title={`${dataProfile?.nama} ${dataProfile?.kelas}`}
                   className="ml-1 cursor-pointer transition-transform"
                 />
               </DropdownTrigger>

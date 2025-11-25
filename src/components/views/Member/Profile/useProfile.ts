@@ -24,6 +24,7 @@ const useProfile = () => {
     const cleanedPayload = {
       ...payload,
       nama: payload?.nama?.trim(),
+      kelas: payload?.kelas?.trim(),
     };
 
     const { data } = await authServices.updateProfile(cleanedPayload);
@@ -58,7 +59,7 @@ const useProfile = () => {
   });
 
   const handleUpdateProfile = (data: IProfile) =>
-    mutateUpdateProfile({ nama: data.nama });
+    mutateUpdateProfile({ nama: data.nama, kelas: data.kelas });
 
   return {
     dataProfile,
