@@ -19,6 +19,7 @@ export interface IBorrowItem {
   status?: "Dipinjam" | "Dikembalikan" | "Diproses";
   user?: {
     nama?: string;
+    kelas?: string;
   };
   buku?: {
     judul?: string;
@@ -65,6 +66,7 @@ export interface IDetailReturn {
     status: string;
     user: {
       nama: string;
+      kelas: string;
     };
     buku: {
       judul: string;

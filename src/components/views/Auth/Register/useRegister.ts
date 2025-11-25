@@ -11,6 +11,12 @@ import * as yup from "yup";
 
 const registerSchema = yup.object().shape({
   nama: yup.string().required("Nama tidak boleh kosong"),
+  kelas: yup
+    .string()
+    .matches(/^(10|11|12)[A-Z]{3}[0-9]{1,2}$/, {
+      message: "Format kelas tidak valid (contoh: 11RPL1 atau 12TKJ02)",
+    })
+    .required("Kelas tidak boleh kosong"),
   email: yup
     .string()
     .email("Format email tidak valid")

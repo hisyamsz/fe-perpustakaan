@@ -49,6 +49,8 @@ const Peminjaman: FC = () => {
       switch (columnKey) {
         case "peminjam":
           return <p>{borrow.user?.nama}</p>;
+        case "kelas":
+          return <p className="uppercase">{borrow.user?.kelas}</p>;
         case "buku":
           return <p>{borrow.buku?.judul}</p>;
         case "tanggal_pinjam":

@@ -3,6 +3,7 @@ import { JWT } from "next-auth/jwt";
 
 export interface IRegister {
   nama: string;
+  kelas: string;
   email: string;
   password: string;
   role: string;

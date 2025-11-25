@@ -60,6 +60,14 @@ const DetailPengembalianCard: FC<DetailPengembalianCardProps> = ({
                     {dataDetailReturn.peminjaman.user.nama}
                   </span>
                 </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-semibold text-gray-600">
+                    Kelas:
+                  </span>
+                  <span className="text-sm font-medium">
+                    {dataDetailReturn.peminjaman.user.kelas}
+                  </span>
+                </div>
               </CardBody>
             </Card>
           </div>

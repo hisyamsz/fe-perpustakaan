@@ -69,6 +69,25 @@ const Register: React.FC = () => {
             )}
           />
           <Controller
+            name="kelas"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                type="text"
+                label="Kelas"
+                placeholder="Masukkan kelas anda, Contoh: 10RPL1"
+                variant="bordered"
+                isRequired
+                isReadOnly={isPendingRegister}
+                isInvalid={errors.kelas !== undefined}
+                errorMessage={errors.kelas?.message}
+                onChange={(e) => field.onChange(e.target.value.toUpperCase())}
+                value={field.value?.toUpperCase() ?? ""}
+              />
+            )}
+          />
+          <Controller
             control={control}
             name="email"
             render={({ field }) => (
