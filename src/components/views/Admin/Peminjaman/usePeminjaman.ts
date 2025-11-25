@@ -69,6 +69,7 @@ const usePeminjaman = () => {
       const hasSearchParams = !!currentJudul || !!currentPeminjam;
       return hasSearchParams ? searchBorrow() : getBorrows();
     },
+    enabled: router.isReady && !!router.query,
   });
 
   const handleChangePage = (page: number) => {

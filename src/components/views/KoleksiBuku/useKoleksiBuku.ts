@@ -4,15 +4,20 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 const useKoleksiBuku = () => {
-  const [search, setSearch] = useState<string | undefined>("");
+  const [searchInput, setSearchInput] = useState(""); // user mengetik
+  const [searchQuery, setSearchQuery] = useState(""); // dipakai fetch
+
   const [featured, setFeatured] = useState<string | undefined>(undefined);
+  const [paket, setPaket] = useState<string | undefined>(undefined);
+
   const router = useRouter();
 
   const params = {
     size: 20,
     page: 1,
-    judul: search || undefined,
+    judul: searchQuery || undefined,
     featured: featured || undefined,
+    paket: paket || undefined,
   };
 
   const getAllBooks = async () => {
@@ -33,36 +38,47 @@ const useKoleksiBuku = () => {
     isPending: isPendingBooks,
     refetch,
   } = useQuery({
-    queryKey: ["books", params.judul, params.featured],
+    queryKey: ["Books", params.judul, params.featured, params.paket],
     queryFn: () => {
-      const isSearch = params.judul || params.featured;
+      const isSearch = params.judul || params.featured || params.paket;
       return isSearch ? searchDataBooks() : getAllBooks();
     },
+    enabled: router.isReady,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 30,
   });
 
   const handleSearch = () => {
-    refetch();
+    setSearchQuery(searchInput);
   };
 
-  const handleNavigate = () => {
+  const handleClearSearch = () => {
+    setSearchInput("");
+    setSearchQuery("");
+  };
+
+  const handleNavigate = (judul?: string) => {
     router.push({
       pathname: "/member/dataBuku",
-      query: { judul: dataBooks?.data?.judul || "" },
+      query: { judul },
     });
-    setSearch("");
+    setSearchInput("");
+    setSearchQuery("");
   };
 
   return {
     dataBooks,
-    handleNavigate,
-    handleSearch,
-    isPendingBooks,
-    search,
-    setSearch,
+    searchInput,
+    setSearchInput,
     featured,
+    paket,
+    handleSearch,
+    handleClearSearch,
+    handleNavigate,
+    refetch,
     setFeatured,
+    setPaket,
+    isPendingBooks,
   };
 };
 

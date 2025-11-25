@@ -11,23 +11,26 @@ import { CiFilter, CiSearch } from "react-icons/ci";
 import useKoleksiBuku from "./useKoleksiBuku";
 import CardBook from "@/components/ui/CardBook";
 import { IBook } from "@/types/Book";
-import { data } from "framer-motion/m";
 
 const KoleksiBuku: FC = () => {
   const {
     dataBooks,
-    handleNavigate,
-    handleSearch,
-    isPendingBooks,
-    search,
-    setSearch,
+    searchInput,
+    setSearchInput,
     featured,
+    paket,
+    handleSearch,
+    handleClearSearch,
+    handleNavigate,
     setFeatured,
+    setPaket,
+    isPendingBooks,
   } = useKoleksiBuku();
 
   useEffect(() => {
-    setSearch("");
+    setSearchInput("");
     setFeatured(undefined);
+    setPaket(undefined);
   }, []);
 
   return (
@@ -52,7 +55,7 @@ const KoleksiBuku: FC = () => {
             </p>
           </header>
 
-          <div className="flex w-full items-center justify-center gap-2">
+          <div className="flex w-full items-center justify-center gap-2 px-4">
             <Input
               type="text"
               placeholder="Cari buku berdasakan judul.."
@@ -61,8 +64,9 @@ const KoleksiBuku: FC = () => {
               color="primary"
               isClearable
               className="w-full lg:w-xl"
-              value={search}
-              onValueChange={setSearch}
+              value={searchInput}
+              onValueChange={setSearchInput}
+              onClear={handleClearSearch}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
             <Button
@@ -84,18 +88,26 @@ const KoleksiBuku: FC = () => {
                 aria-label="Filter buku"
                 variant="solid"
                 selectionMode="multiple"
-                selectedKeys={featured ? ["featured"] : undefined}
+                selectedKeys={[
+                  ...(featured ? ["featured"] : []),
+                  ...(paket ? ["paket"] : []),
+                ]}
                 onSelectionChange={(keys) => {
-                  const selected = Array.from(keys).includes("featured");
-                  setFeatured(selected ? "true" : undefined);
+                  const selected = Array.from(keys);
+
+                  setFeatured(
+                    selected.includes("featured") ? "true" : undefined,
+                  );
+                  setPaket(selected.includes("paket") ? "true" : undefined);
                 }}
               >
                 <DropdownItem key="featured">Unggulan</DropdownItem>
+                <DropdownItem key="paket">Buku Paket</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
         </div>
-        <div className="mt-14 w-full space-y-4 lg:px-14">
+        <div className="mt-14 w-full space-y-4 px-4 lg:px-14">
           <div className="text-foreground-500 text-sm">
             Menampilkan{" "}
             {!isPendingBooks ? (
@@ -111,7 +123,7 @@ const KoleksiBuku: FC = () => {
                   <CardBook
                     key={`card-book-collection-${book.id}`}
                     book={book}
-                    handleNavigate={handleNavigate}
+                    handleNavigate={() => handleNavigate(book.judul || "")}
                     className=""
                   />
                 ))

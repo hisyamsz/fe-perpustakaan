@@ -36,6 +36,7 @@ const usePeminjaman = () => {
   } = useQuery({
     queryKey: ["MemberPeminjaman", currentPage, currentSize],
     queryFn: getBorrowUser,
+    enabled: router.isReady && !!router.query,
   });
 
   const handleChangePage = (page: number) => {

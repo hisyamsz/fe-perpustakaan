@@ -18,7 +18,6 @@ const Peminjaman: FC = () => {
     handleChangeSize,
     isLoadingBorrows,
     isRefetchingBorrows,
-    refetchBorrows,
     setUrl,
   } = usePeminjaman();
 
@@ -93,9 +92,6 @@ const Peminjaman: FC = () => {
           handleChangeLimit={handleChangeSize}
           handleChangePage={handleChangePage}
           isLoading={isLoadingBorrows || isRefetchingBorrows}
-          onRefreshButton={refetchBorrows}
-          refreshButton
-          refreshClassName="w-full"
           renderCell={renderCell}
           showLimit
           totalPages={dataBorrows?.paging?.totalPage || 1}
