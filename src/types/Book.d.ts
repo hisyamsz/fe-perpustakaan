@@ -6,6 +6,7 @@ export interface IBook {
   tahun_terbit?: number | string;
   kategori?: string;
   isFeatured?: string | boolean;
+  buku_paket?: string | boolean;
   stok?: number | string;
 }
 

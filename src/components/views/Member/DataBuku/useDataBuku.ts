@@ -10,12 +10,15 @@ import { ChangeEvent, useState } from "react";
 const useDataBuku = () => {
   const [selectedId, setSelectedId] = useState<IBook | null>(null);
   const [filterBy, setFilterBy] = useState<string>("judul");
+  const [filter, setFilter] = useState<string | string[]>("");
   const router = useRouter();
   const debounce = useDebounce();
   const currentSize = router.query.size;
   const currentPage = router.query.page;
   const currentJudul = router.query.judul;
   const currentKategori = router.query.kategori;
+  const currentFeatured = router.query.featured;
+  const currentPaket = router.query.paket;
 
   const setUrl = () => {
     router.replace({
@@ -24,6 +27,8 @@ const useDataBuku = () => {
         page: currentPage || PAGE_DEFAULT,
         judul: filterBy === "judul" ? currentJudul || "" : "",
         kategori: filterBy === "kategori" ? currentKategori || "" : "",
+        featured: currentFeatured || undefined,
+        paket: currentPaket || undefined,
       },
     });
   };
@@ -45,6 +50,8 @@ const useDataBuku = () => {
       judul: filterBy === "judul" ? currentJudul || undefined : undefined,
       kategori:
         filterBy === "kategori" ? currentKategori || undefined : undefined,
+      featured: currentFeatured === "true" ? "true" : undefined,
+      paket: currentPaket === "true" ? "true" : undefined,
     };
 
     const { data } = await bookServices.searchBooks(params);
@@ -64,10 +71,17 @@ const useDataBuku = () => {
       currentSize,
       currentJudul,
       currentKategori,
+      currentFeatured,
+      currentPaket,
+      filter,
       filterBy,
     ],
     queryFn: () => {
-      const hasSearchParams = !!currentJudul || !!currentKategori;
+      const hasSearchParams =
+        !!currentJudul ||
+        !!currentKategori ||
+        !!currentFeatured ||
+        !!currentPaket;
       return hasSearchParams ? searchBooks() : getBooks();
     },
     enabled: router.isReady && !!router.query,
@@ -132,16 +146,33 @@ const useDataBuku = () => {
     });
   };
 
+  const handleFilter = (keys: SharedSelection) => {
+    const selected = Array.from(keys) as string[];
+
+    setFilter(selected);
+
+    router.push({
+      query: {
+        ...router.query,
+        featured: selected.includes("featured") ? "true" : undefined,
+        paket: selected.includes("paket") ? "true" : undefined,
+        page: PAGE_DEFAULT,
+      },
+    });
+  };
+
   return {
     currentJudul,
     currentKategori,
     currentPage,
     currentSize,
     dataBooks,
+    filter,
     filterBy,
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
+    handleFilter,
     handleFilterSearch,
     handleSearch,
     isLoadingBook,

@@ -54,24 +54,24 @@ const UpdateDataBukuModal: FC<UpdateDataBukuModalProps> = ({
       setValueUpdateBook("kategori", `${selectedId.kategori}`);
       setValueUpdateBook("penerbit", `${selectedId.penerbit}`);
       setValueUpdateBook("tahun_terbit", `${selectedId.tahun_terbit}`);
+      setValueUpdateBook("buku_paket", `${selectedId.buku_paket}`);
       setValueUpdateBook("isFeatured", `${selectedId.isFeatured}`);
       setValueUpdateBook("stok", `${selectedId.stok}`);
     }
   }, [selectedId]);
-
-  useEffect(() => {
-    if (isSuccessUpdateBook) {
-      onClose();
-      refetchBook();
-      setSelectedId(null);
-    }
-  }, [isSuccessUpdateBook]);
 
   const handleOnClose = () => {
     reset();
     onClose();
     setSelectedId(null);
   };
+
+  useEffect(() => {
+    if (isSuccessUpdateBook) {
+      handleOnClose();
+      refetchBook();
+    }
+  }, [isSuccessUpdateBook]);
 
   return (
     <Modal
@@ -187,6 +187,29 @@ const UpdateDataBukuModal: FC<UpdateDataBukuModalProps> = ({
                     isInvalid={!!errors.tahun_terbit}
                     errorMessage={errors.tahun_terbit?.message}
                   />
+                )}
+              />
+
+              <Controller
+                name="buku_paket"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    isRequired
+                    aria-hidden={false}
+                    label="Apakah Buku Paket?"
+                    variant="bordered"
+                    disallowEmptySelection
+                    defaultSelectedKeys={
+                      selectedId?.buku_paket === true ? ["true"] : ["false"]
+                    }
+                    isInvalid={!!errors.buku_paket}
+                    errorMessage={errors.buku_paket?.message}
+                  >
+                    <SelectItem key="true">Ya</SelectItem>
+                    <SelectItem key="false">Tidak</SelectItem>
+                  </Select>
                 )}
               />
 

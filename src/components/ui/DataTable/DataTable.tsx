@@ -21,7 +21,7 @@ import {
 } from "@heroui/react";
 import { useRouter } from "next/router";
 import { ChangeEvent, FC, Key, ReactNode, useMemo } from "react";
-import { CiSearch } from "react-icons/ci";
+import { CiFilter, CiSearch } from "react-icons/ci";
 import { LuTextSearch } from "react-icons/lu";
 import { TbRefresh } from "react-icons/tb";
 
@@ -30,10 +30,12 @@ interface DataTableProps {
   columns: Record<string, unknown>[];
   currentLimit?: string;
   currentPage?: number;
+  customFilters?: boolean;
   data: Record<string, unknown>[];
   emptyContent: string;
+  filter?: string | string[];
   filterBy?: string;
-  setFilterBy?: (key: string) => void;
+  filterCustomOptions?: { key: string; label: string }[];
   filterOptions?: { key: string; label: string }[];
   handleChangeLimit?: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleChangePage?: (page: number) => void;
@@ -41,14 +43,15 @@ interface DataTableProps {
   handleSearch?: (e: ChangeEvent<HTMLInputElement>) => void;
   isLoading?: boolean;
   onClickButtonTopContent?: () => void;
-  renderCell: (item: Record<string, unknown>, columnKey: Key) => ReactNode;
+  onFilterChange?: (keys: SharedSelection) => void;
+  onRefreshButton?: () => void;
+  onSelectionChange?: (keys: SharedSelection) => void;
   refreshButton?: boolean;
   refreshClassName?: string;
-  onRefreshButton?: () => void;
+  renderCell: (item: Record<string, unknown>, columnKey: Key) => ReactNode;
   showLimit?: boolean;
   showSearch?: boolean;
   totalPages: number;
-  onSelectionChange?: (keys: SharedSelection) => void;
 }
 
 const DataTable: FC<DataTableProps> = ({
@@ -56,9 +59,12 @@ const DataTable: FC<DataTableProps> = ({
   columns,
   currentLimit,
   currentPage,
+  customFilters = false,
   data,
   emptyContent,
+  filter,
   filterBy,
+  filterCustomOptions,
   filterOptions,
   handleChangeLimit,
   handleChangePage,
@@ -66,14 +72,15 @@ const DataTable: FC<DataTableProps> = ({
   handleSearch,
   isLoading,
   onClickButtonTopContent,
-  renderCell,
+  onFilterChange,
+  onRefreshButton,
+  onSelectionChange,
   refreshButton = false,
   refreshClassName,
-  onRefreshButton,
+  renderCell,
   showLimit = false,
   showSearch = false,
   totalPages,
-  onSelectionChange,
 }) => {
   const { query } = useRouter();
 
@@ -81,7 +88,7 @@ const DataTable: FC<DataTableProps> = ({
     return (
       <div className="mb-2 flex flex-col-reverse justify-between gap-y-4 lg:flex-row lg:items-center">
         {showSearch && (
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <Input
               isClearable
               variant="flat"
@@ -94,7 +101,7 @@ const DataTable: FC<DataTableProps> = ({
             />
             <Dropdown>
               <DropdownTrigger title="Filter">
-                <Button color="primary" variant="bordered" isIconOnly>
+                <Button color="primary" variant="solid" isIconOnly>
                   <LuTextSearch size={22} />
                 </Button>
               </DropdownTrigger>
@@ -112,6 +119,29 @@ const DataTable: FC<DataTableProps> = ({
                 ))}
               </DropdownMenu>
             </Dropdown>
+
+            {customFilters && (
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button isIconOnly variant="bordered" color="primary">
+                    <CiFilter size={24} />
+                  </Button>
+                </DropdownTrigger>
+
+                <DropdownMenu
+                  aria-label="Filter buku"
+                  color="primary"
+                  variant="solid"
+                  selectionMode="multiple"
+                  selectedKeys={new Set(filter)}
+                  onSelectionChange={onFilterChange}
+                >
+                  {(filterCustomOptions ?? []).map((opt) => (
+                    <DropdownItem key={opt.key}>{opt.label}</DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </Dropdown>
+            )}
           </div>
         )}
 
@@ -142,17 +172,21 @@ const DataTable: FC<DataTableProps> = ({
     );
   }, [
     buttonTopContentLabel,
-    handleSearch,
-    handleClearSearch,
-    onClickButtonTopContent,
-    showSearch,
+    customFilters,
+    filter,
     filterBy,
+    filterCustomOptions,
     filterOptions,
-    query,
-    onSelectionChange,
-    refreshButton,
+    handleClearSearch,
+    handleSearch,
+    onClickButtonTopContent,
+    onFilterChange,
     onRefreshButton,
+    onSelectionChange,
+    query,
+    refreshButton,
     refreshClassName,
+    showSearch,
   ]);
 
   const BottomContent = useMemo(() => {

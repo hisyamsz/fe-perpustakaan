@@ -172,6 +172,26 @@ const AddDataBukuModal: FC<AddDataBukuProps> = ({
               />
 
               <Controller
+                name="buku_paket"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    isRequired
+                    aria-hidden={false}
+                    label="Apakah Buku Paket?"
+                    variant="bordered"
+                    disallowEmptySelection
+                    isInvalid={!!errors.buku_paket}
+                    errorMessage={errors.buku_paket?.message}
+                  >
+                    <SelectItem key="true">Ya</SelectItem>
+                    <SelectItem key="false">Tidak</SelectItem>
+                  </Select>
+                )}
+              />
+
+              <Controller
                 name="isFeatured"
                 control={control}
                 render={({ field }) => (

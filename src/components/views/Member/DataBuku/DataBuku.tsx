@@ -13,10 +13,12 @@ const DataBuku: FC = () => {
     currentPage,
     currentSize,
     dataBooks,
+    filter,
     filterBy,
     handleChangePage,
     handleChangeSize,
     handleClearSearch,
+    handleFilter,
     handleFilterSearch,
     handleSearch,
     isLoadingBook,
@@ -94,9 +96,15 @@ const DataBuku: FC = () => {
           columns={COLUMN_LIST_DATABUKU}
           currentLimit={String(currentSize)}
           currentPage={Number(currentPage)}
+          customFilters
           data={dataBooks?.data || []}
           emptyContent="Data buku tidak ditemukan"
+          filter={filter}
           filterBy={filterBy}
+          filterCustomOptions={[
+            { key: "featured", label: "Buku unggulan" },
+            { key: "paket", label: "Buku paket" },
+          ]}
           filterOptions={[
             { key: "judul", label: "Judul Buku" },
             { key: "kategori", label: "Kategori" },
@@ -106,6 +114,7 @@ const DataBuku: FC = () => {
           handleClearSearch={handleClearSearch}
           handleSearch={handleSearch}
           isLoading={isLoadingBook || isRefetchingBook}
+          onFilterChange={handleFilter}
           onSelectionChange={handleFilterSearch}
           renderCell={renderCell}
           showLimit

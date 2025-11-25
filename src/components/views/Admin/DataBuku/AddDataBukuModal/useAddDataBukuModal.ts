@@ -28,6 +28,10 @@ const addBookSchema = yup.object().shape({
         return year <= currentYear;
       },
     ),
+  buku_paket: yup
+    .string()
+    .required("Status buku paket wajib diisi")
+    .oneOf(["true", "false"]),
   isFeatured: yup.string().required("Status unggulan wajib diisi (Ya/Tidak)"),
   stok: yup
     .string()
@@ -85,6 +89,7 @@ const useAddDataBukuModal = () => {
     const payload = {
       ...data,
       tahun_terbit: Number(data.tahun_terbit),
+      buku_paket: data.buku_paket === "true",
       isFeatured: data.isFeatured === "true",
       stok: Number(data.stok),
     };
