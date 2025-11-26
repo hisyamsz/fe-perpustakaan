@@ -47,7 +47,7 @@ const DeleteDataBukuModal: FC<DeleteDataBukuModalProps> = ({
       onOpenChange={onOpenChange}
       onClose={handleOnClose}
       onPressCancel={handleOnClose}
-      onPressDelete={() => mutateDeleteDataBuku(`${selectedId?.id}`)}
+      onPressConfirm={() => mutateDeleteDataBuku(`${selectedId?.id}`)}
       disabled={isPendingDeleteDataBuku}
     />
   );

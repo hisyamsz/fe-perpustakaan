@@ -17,7 +17,7 @@ interface ModalPopupProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
   onClose?: () => void;
-  onPressDelete: () => void;
+  onPressConfirm: () => void;
   onPressCancel: () => void;
 }
 
@@ -29,7 +29,7 @@ const ModalPopup: FC<ModalPopupProps> = ({
   isOpen,
   onOpenChange,
   onClose,
-  onPressDelete,
+  onPressConfirm,
   onPressCancel,
 }) => {
   return (
@@ -60,7 +60,7 @@ const ModalPopup: FC<ModalPopupProps> = ({
           <Button
             type="submit"
             color="primary"
-            onPress={onPressDelete}
+            onPress={onPressConfirm}
             disabled={disabled}
           >
             {disabled ? <Spinner size="sm" color="white" /> : `${title}`}

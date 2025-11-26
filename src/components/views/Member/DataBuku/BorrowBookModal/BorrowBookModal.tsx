@@ -9,7 +9,6 @@ import {
 } from "@heroui/react";
 import { Dispatch, FC, SetStateAction, useEffect, useMemo } from "react";
 import { CalendarDate } from "@internationalized/date";
-import borrowServices from "@/services/borrow.service";
 import { IBorrowItem } from "@/types/Borrow";
 import useBorrowBookModal from "./useBorrowBookModal";
 
@@ -42,20 +41,27 @@ const BorrowBookModal: FC<BorrowBookModalProps> = ({
     );
   }, []);
 
-  const dueDate = useMemo(() => today.add({ days: 3 }), [today]);
+  const dueDate = useMemo(() => {
+    if (!selectedBook) return today.add({ days: 3 });
 
-  useEffect(() => {
-    if (isSuccessBorrow) {
-      refetchBook();
-      onClose();
-      setSelectedBook(null);
+    if (selectedBook.buku_paket === true) {
+      return new CalendarDate(today.year + 1, 6, today.day);
     }
-  }, [isSuccessBorrow]);
+
+    return today.add({ days: 3 });
+  }, [today, selectedBook]);
 
   const handleOnClose = () => {
     onClose();
     setSelectedBook(null);
   };
+
+  useEffect(() => {
+    if (isSuccessBorrow) {
+      refetchBook();
+      handleOnClose();
+    }
+  }, [isSuccessBorrow]);
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="md">

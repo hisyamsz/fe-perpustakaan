@@ -43,7 +43,7 @@ const PeminjamanRejectModal: FC<PeminjamanRejectModalProps> = ({
       onOpenChange={onOpenChange}
       onClose={handleOnClose}
       onPressCancel={handleOnClose}
-      onPressDelete={() => {
+      onPressConfirm={() => {
         if (!selectedId) return;
         mutateRejectBorrow(`${selectedId?.id}`);
       }}

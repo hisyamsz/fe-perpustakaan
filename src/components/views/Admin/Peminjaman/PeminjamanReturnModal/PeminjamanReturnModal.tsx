@@ -53,7 +53,7 @@ const PeminjamanReturnModal: FC<PeminjamanReturnModalProps> = ({
       onOpenChange={onOpenChange}
       onClose={handleOnClose}
       onPressCancel={handleOnClose}
-      onPressDelete={() => {
+      onPressConfirm={() => {
         if (!selectedId) return;
         mutateReturnBorrow({
           id: `${selectedId?.id}`,
