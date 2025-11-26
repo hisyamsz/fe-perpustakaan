@@ -10,7 +10,7 @@ const getUpdateInfoSchema = (role: string) =>
       role.toLowerCase() === "user"
         ? yup
             .string()
-            .matches(/^(10|11|12)[A-Z]{3}[0-9]{1,2}$/, {
+            .matches(/^(10|11|12)(TKJ|RPL|BC)([0-9]{1,2})$/, {
               message: "Format kelas tidak valid (contoh: 11RPL1 atau 12TKJ02)",
             })
             .required("Kelas tidak boleh kosong")
